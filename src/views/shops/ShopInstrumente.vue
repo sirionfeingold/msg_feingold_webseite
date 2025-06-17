@@ -23,21 +23,21 @@
 <script setup>
 const instruments = [
   {
-    title: 'Blockflöte barock',
-    price: 'CHF 95.–',
-    image: '/images/shop/blockfloete.jpg',
-    description: 'Ideal für den Einstieg – handgearbeitet, warmer Klang.'
+    title: 'Guitarre',
+    price: 'CHF 450.–',
+    image: '/FotosInstrumente/guitarre1.png',
+    description: 'Franzoesische Konzert Gitarre mit Savarez Seiten - Ideal für den Einstieg'
   },
   {
-    title: 'Schüler-Violine 3/4',
-    price: 'CHF 249.–',
-    image: '/images/shop/violine.jpg',
-    description: 'Mit Bogen, Etui & Kolophonium – ideal für Musikschüler:innen.'
+    title: 'E-Piano Kurzweil RG 200',
+    price: 'CHF 850.–',
+    image: '/FotosInstrumente/E_piano_Kurzweil.png',
+    description: 'Qualitativ sehr hochwertiges E-Piano - Ideal für Zuhause & Musikschule'
   },
   {
-    title: 'Digitalpiano Roland',
-    price: 'CHF 690.–',
-    image: '/images/shop/piano.jpg',
+    title: 'Occasion E-piano 5100',
+    price: 'CHF 500.–',
+    image: '/FotosInstrumente/E_piano5100.png',
     description: '88 Tasten, Hammermechanik, ideal für Zuhause & Musikschule.'
   }
 ]
