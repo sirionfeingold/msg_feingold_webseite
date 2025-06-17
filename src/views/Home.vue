@@ -19,8 +19,8 @@
       <div class="mt-8">
         <router-link
         to="/about"
-        class="bg-orange-500 hover:bg-orange-600 text-white text-lg font-semibold px-8 py-3 rounded-full shadow-md transition-all duration-300 ease-in-out 
-         hover:shadow-xl hover:scale-110 hover:brightness-110"
+        class="bg-blue-400 hover:bg-blue-600 text-white text-lg font-semibold px-8 py-3 rounded-full shadow-md transition-all duration-300 ease-in-out 
+         hover:shadow-lg hover:scale-110 hover:brightness-110"
          >
          Mehr erfahren
         </router-link>
