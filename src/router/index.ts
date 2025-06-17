@@ -6,6 +6,9 @@ import Instrument from '../views/Instrument.vue'
 import Kontakt from '../views/Kontakt.vue'
 import Konditionen from '../views/Konditionen.vue'
 import Shop from '../views/Shop.vue'
+import ShopInstrumente from '../views/shops/ShopInstrumente.vue'
+import ShopCDs from '../views/shops/ShopCDs.vue'
+import ShopKunst from '../views/shops/ShopKunst.vue'
 
 const routes = [
     { path: "/", component: Home},
@@ -14,7 +17,9 @@ const routes = [
     { path: "/instrument/:name", component: Instrument, props: true},
     { path: "/kontakt", component: Kontakt},
     { path: "/konditionen", component: Konditionen},
-    { path: "/shop", component: Shop}
+    { path: "/shop/instrumente", component: ShopInstrumente},
+    { path: "/shop/cds", component: ShopCDs},
+    { path: "/shop/kunst", component: ShopKunst}
 ]
 
 const router = createRouter({

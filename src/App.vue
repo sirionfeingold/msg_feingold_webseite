@@ -13,7 +13,7 @@
         <nav class="flex flex-wrap justify-center sm:justify-end gap-4 text-base sm:text-lg font-medium">
           <router-link to="/" class="hover:text-blue-500 transition-colors">Home</router-link>
           <router-link to="/musikschule" class="hover:text-blue-500 transition-colors">Musikschule</router-link>
-          <router-link to="/shop" class="hover:text-blue-500 transition-colors">Shop</router-link>
+          <shop-dropdown />
           <router-link to="/kontakt" class="hover:text-blue-500">Kontakt</router-link>
           <router-link to="/konditionen" class="hover:text-blue-500">Konditionen</router-link>
           <router-link to="/about" class="hover:text-blue-500 transition-colors">About us</router-link>
@@ -35,5 +35,5 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue'
-// no logic needed for now
+import ShopDropdown from './components/ShopDropdown.vue'
 </script>
