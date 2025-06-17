@@ -18,10 +18,11 @@
       <!-- Call to Action -->
       <div class="mt-8">
         <router-link
-          to="/about"
-          class="inline-block px-6 py-3 bg-orange-600 hover:bg-orange-700 text-white font-semibold rounded-full shadow-lg transition duration-300"
-        >
-          Mehr erfahren
+        to="/about"
+        class="bg-orange-500 hover:bg-orange-600 text-white text-lg font-semibold px-8 py-3 rounded-full shadow-md transition-all duration-300 ease-in-out 
+         hover:shadow-xl hover:scale-110 hover:brightness-110"
+         >
+         Mehr erfahren
         </router-link>
       </div>
     </div>

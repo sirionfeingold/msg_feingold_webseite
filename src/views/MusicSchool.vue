@@ -3,7 +3,7 @@
     <div class="max-w-6xl mx-auto text-center space-y-16">
 
       <!-- Überschrift -->
-      <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight bg-gradient-to-r from-red-400 via-orange-400 to-purple-600 text-transparent bg-clip-text drop-shadow-lg">
+      <h1 class="leading-tight text-4xl sm:text-5xl font-extrabold tracking-tight bg-gradient-to-r from-red-400 via-orange-400 to-purple-600 text-transparent bg-clip-text drop-shadow-lg">
         Instrumentalunterricht bei MSG Feingold
       </h1>
 
