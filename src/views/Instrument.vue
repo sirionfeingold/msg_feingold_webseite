@@ -12,7 +12,7 @@
         v-if="instrument?.image"
         :src="instrument.image"
         :alt="instrument.name"
-        class="w-full max-w-2xl rounded-3xl shadow-xl transition-transform duration-300 hover:scale-[1.02]"
+        class="w-full max-w-xl max-h-[500px] object-contain rounded-3xl shadow-xl transition-transform duration-300 hover:scale-[1.02]"
       />
 
       <!-- Beschreibung -->
@@ -20,14 +20,14 @@
         {{ instrument?.description }}
       </p>
 
-      <!-- Optional: Call to Action -->
+      <!-- Call to Action -->
       <router-link
-      to="/kontakt"
-      class="mt-6 inline-block bg-orange-500 hover:bg-orange-600 text-white font-medium text-lg px-6 py-3 rounded-full shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 ease-in-out"
+        to="/kontakt"
+        class="mt-6 inline-block bg-orange-500 hover:bg-orange-600 text-white font-medium text-lg px-6 py-3 rounded-full shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 ease-in-out"
       >
-      Probestunde vereinbaren
-    </router-link>
-
+        Probestunde vereinbaren
+      </router-link>
+      
     </div>
   </div>
 </template>
