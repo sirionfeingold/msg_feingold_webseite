@@ -12,7 +12,7 @@
 
       <!-- Untertitel -->
       <p class="mt-4 text-lg sm:text-xl text-orange-800">
-        Musik. Leidenschaft. Erlebnis.
+        Musik. Begeisterung. Erlebnis.
       </p>
 
       <!-- Call to Action -->
