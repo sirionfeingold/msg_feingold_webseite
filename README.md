@@ -11,7 +11,7 @@ of artistry, pedagogy, and innovation based in Bern, Switzerland.
 ## 🌐 Deployment
 
 This site is developed as a static frontend application using modern Vue.js technologies  
-and is intended to be deployed on platforms such as **GitHub Pages**, **Netlify**, or **Vercel**.
+and is intended to be deployed on platforms such as **GitHub Pages**.
 
 ---
 
