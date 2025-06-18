@@ -78,6 +78,6 @@ export const instruments = [
       Unser Unterricht fördert Haltung, Klangbewusstsein und musikalischen Ausdruck – mit Ruhe, Struktur und Herz.
       Ideal für alle, die sich in die klangliche Tiefe verlieben wollen.
     `,
-    image: "/FotosMusikschule/Violincello.png"
+    image: "/FotosMusikschule/Violoncello.JPG"
   }
 ];

@@ -23,15 +23,15 @@
 <script setup>
 const artworks = [
   {
-    title: 'Greca Nr. 17',
+    title: 'Luna y Sol',
     price: 'CHF 380.–',
-    image: '/images/shop/greca.jpg',
+    image: '/FotosKunst/LunaSol.jpg',
     description: 'Öl auf Leinwand, 51 × 42.5 cm, Argentinien 1994.'
   },
   {
-    title: 'Galaxias y Cometa',
+    title: 'Galaxias',
     price: 'CHF 560.–',
-    image: '/images/shop/galaxias.jpg',
+    image: '/FotosKunst/Galaxias.jpg',
     description: 'Großformat, Öl, 62 × 92 cm – Energie & Bewegung.'
   }
 ]

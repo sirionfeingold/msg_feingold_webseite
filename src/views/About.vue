@@ -11,7 +11,7 @@
 
       <!-- Textblock -->
       <p class="text-lg sm:text-xl text-gray-700 leading-relaxed">
-        MSG Feingold steht für musikalische Qualität, kreative Programme und echte Leidenschaft. Seit über 30 Jahren gestalten wir musikalische Erlebnisse in Bern und darüber hinaus – mit Solisten, Ensembles und einem feinen Gespür für Stil und Atmosphäre.
+        MSG Feingold steht für musikalische Qualität, kreative Programme und echte Leidenschaft. Seit über 40 Jahren gestalten wir musikalische Erlebnisse in Bern und darüber hinaus – mit Solisten, Ensembles und einem feinen Gespür für Stil und Atmosphäre.
       </p>
 
       <!-- Zusatztext -->
