@@ -27,6 +27,14 @@ Please refer to the [`LICENSE.txt`](./LICENSE.txt) file for complete legal terms
 
 ---
 
+## 📷 Media Attribution
+
+Some images and design elements used in this project were created or modified using **Canva** and  
+are subject to Canva’s Content License Agreement. Redistribution of these assets outside this  
+repository or project context is not permitted.
+
+---
+
 ## 📬 Contact
 
 For licensing questions or collaboration requests, please contact us via:  

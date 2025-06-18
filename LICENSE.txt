@@ -12,6 +12,10 @@ You are **not permitted** to:
 - Fork this repository, even for personal or educational use  
 - Publish or host copies of this project elsewhere
 
+Some images and design elements used in this project were created or modified using Canva and  
+are subject to Canva’s Content License Agreement. Redistribution of these assets outside this  
+repository or project context is not permitted.
+
 This project is provided for informational and archival purposes only.  
 Any unauthorized use, reuse, or replication is strictly prohibited.
 
