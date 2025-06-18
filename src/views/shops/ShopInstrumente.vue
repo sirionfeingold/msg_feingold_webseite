@@ -5,7 +5,7 @@
       <p class="text-gray-700">Unsere hochwertigen Instrumente für Schüler:innen und Profis – direkt bei uns erhältlich.</p>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
-        <div v-for="item in instruments" :key="item.title" class="bg-white rounded-xl shadow-lg p-6">
+        <div v-for="item in instruments" :key="item.title" class="bg-white rounded-xl shadow-lg p-6 transform transition-transform duration-300 hover:scale-105">
           <img :src="item.image" :alt="item.title" class="h-48 w-full object-cover rounded-md mb-4" />
           <h2 class="text-xl font-semibold text-blue-700">{{ item.title }}</h2>
           <p class="text-sm text-gray-600">{{ item.description }}</p>

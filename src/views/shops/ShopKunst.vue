@@ -5,7 +5,7 @@
       <p class="text-gray-700">Originale Werke von Magdalena Postigo – Öl, Acryl & Mischtechnik.</p>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
-        <div v-for="art in artworks" :key="art.title" class="bg-white rounded-xl shadow-lg p-6">
+        <div v-for="art in artworks" :key="art.title" class="bg-white rounded-xl shadow-lg p-6 transform transition-transform duration-300 hover:scale-105">
           <img :src="art.image" :alt="art.title" class="h-48 w-full object-cover rounded-md mb-4" />
           <h2 class="text-xl font-semibold text-orange-700">{{ art.title }}</h2>
           <p class="text-sm text-gray-600">{{ art.description }}</p>
