@@ -21,11 +21,11 @@
   
 <template>
   <div class="min-h-screen w-full flex items-center justify-center bg-gradient-to-br from-red-200 via-amber-100 to-blue-300 text-gray-900">
-    <div class="max-w-3xl text-center space-y-10">
+    <div class="max-w-5xl text-center space-y-10 px-4 sm:px-6">
 
       <!-- Überschrift mit Farbverlauf -->
       <h1
-        class="text-4xl sm:text-5xl font-extrabold tracking-tight bg-gradient-to-r from-red-400 via-orange-300 to-fuchsia-600 text-transparent bg-clip-text drop-shadow-md"
+        class="text-4xl sm:text-5xl font-extrabold tracking-tight bg-gradient-to-r from-red-400 via-orange-300 to-fuchsia-600 text-transparent bg-clip-text drop-shadow-md space-y-12 px-6 sm:px-10 pt-32"
       >
         About Us
       </h1>
@@ -40,6 +40,68 @@
         Unsere Projekte verbinden Klassik mit Moderne, Tiefe mit Leichtigkeit und Herz mit Professionalität.
         Ob Konzerte, Gospel, Kammermusik oder Musikverlag – bei uns steht die Musik im Mittelpunkt.
       </p>
+
+      <!-- Gründer:innen -->
+      <section class="mt-20 sm:mt-28 bg-gradient-to-br from-orange-50 via-pink-50 to-rose-100 rounded-3xl shadow-xl px-8 py-12 mb-20">
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-orange-500 via-pink-500 to-red-500 drop-shadow text-center mb-8">
+          Unsere Gründer:innen
+        </h2>
+
+        <div class="flex flex-col sm:flex-row justify-center items-center gap-10 text-left max-w-4xl mx-auto">
+          <!-- Esther -->
+          <div class="flex-1 space-y-3 text-center">
+            <img
+              src="/FotosMusikschule/Gesang.png"
+              alt="Esther Feingold"
+              class="w-32 h-32 mx-auto rounded-full object-cover shadow-md hover:scale-105 transition-transform duration-300"
+            />
+            <h3 class="text-xl font-semibold text-pink-700">Esther Feingold</h3>
+            <p class="text-gray-600 text-sm">
+              Sängerin, Gesangspädagogin, Komponistin und kreative Unternehmerin – 
+              Esther Feingold vereint künstlerische Tiefe mit stilistischer Vielfalt. 
+              Als gefragte Solistin bewegt sie sich mühelos zwischen Klassik, Jazz und zeitgenössischem Repertoire.
+              Mit ihrer ausdrucksstarken Stimme, ihrem Gespür für musikalische Nuancen 
+              und ihrer visionären Kraft prägt sie Konzerte, Bildungsprojekte und Produktionen gleichermaßen. 
+              Mit feinsinnigem Gespür für Interpretation 
+              fördert sie ihre Schüler:innen ganzheitlich – technisch, musikalisch und persönlich – 
+              und gestaltet Visionen mit Herz und künstlerischem Tiefgang.
+            </p>
+            <a
+              href="https://esther-feingold.ch/"
+              target="_blank"
+              class="inline-block mt-2 text-sm font-medium text-orange-600 hover:text-orange-800 underline transition"
+            >
+              🔗 estherfeingold.ch
+            </a>
+          </div>
+
+          <!-- Osvaldo -->
+          <div class="flex-1 space-y-3 text-center">
+            <img
+              src="/FotosMusikschule/Violoncello.JPG"
+              alt="Osvaldo Ovejero"
+              class="w-32 h-32 mx-auto rounded-full object-cover shadow-md hover:scale-105 transition-transform duration-300"
+            />
+            <h3 class="text-xl font-semibold text-pink-700">Osvaldo Ovejero</h3>
+            <p class="text-gray-600 text-sm">
+              Osvaldo Antonio Ovejero ist ein renommierter Dirigent, Komponist und Cellist.  
+              Er studierte Violoncello, Klarinette, Klavier sowie Komposition und Dirigieren in Graz und Wien, bevor er 1990 in die Schweiz kam,  
+              wo er heute das MSG Kammerorchester Bern leitet.  
+              Seine Werke, u.a. für Chor, Orchester und Kammermusik, zeichnen sich durch einen eigenständigen, neunten-ton-basierten Stil mit  
+              lateinamerikanischen und europäischen Einflüssen aus und wurden in Österreich, der Schweiz, Israel und Argentinien uraufgeführt.  
+            </p>
+            <a
+              href="https://osvaldo-ovejero.ch/"
+              target="_blank"
+              class="inline-block mt-2 text-sm font-medium text-orange-600 hover:text-orange-800 underline transition"
+            >
+              🔗 osvaldo-ovejero.com
+            </a>
+          </div>
+        </div>
+      </section>
+
+
 
     </div>
   </div>

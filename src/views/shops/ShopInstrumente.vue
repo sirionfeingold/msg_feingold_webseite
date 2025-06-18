@@ -47,7 +47,7 @@
 <script setup>
 const instruments = [
   {
-    title: 'Guitarre',
+    title: 'Gitarre',
     price: 'CHF 450.–',
     image: '/FotosInstrumente/guitarre1.png',
     description: 'Franzoesische Konzert Gitarre mit Savarez Seiten - Ideal für den Einstieg'
