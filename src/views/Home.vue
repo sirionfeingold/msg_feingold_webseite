@@ -27,7 +27,7 @@ import Aktuelles from '../components/Aktuelles.vue';
     <div class="text-center px-6 sm:px-10">
       <!-- Bunte Überschrift -->
       <h1
-  class="leading-tight text-4xl sm:text-6xl font-extrabold tracking-tight bg-gradient-to-r from-red-500 via-orange-400 to-fuchsia-600 text-transparent bg-clip-text
+      class="leading-tight text-4xl sm:text-6xl font-extrabold tracking-tight bg-gradient-to-r from-red-500 via-orange-400 to-fuchsia-600 text-transparent bg-clip-text
          drop-shadow-[0_0_6px_rgba(255,255,255,0.8)]"
          >
          Willkommen bei MSG Feingold
