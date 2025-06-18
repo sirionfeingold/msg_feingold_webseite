@@ -1,0 +1,24 @@
+MSG FEINGOLD WEBSITE LICENSE  
+Copyright (c) 2025 MSG Feingold & Co
+
+All rights reserved.
+
+This repository and its contents are the intellectual property of MSG Feingold & Co.  
+You are **not permitted** to:
+
+- Use this code or its parts in any form, public or private  
+- Modify, adapt, or build upon this project  
+- Reproduce or distribute this code  
+- Fork this repository, even for personal or educational use  
+- Publish or host copies of this project elsewhere
+
+This project is provided for informational and archival purposes only.  
+Any unauthorized use, reuse, or replication is strictly prohibited.
+
+If you wish to reference or collaborate officially, you must request and receive **explicit written permission** from MSG Feingold & Co.
+
+Violation of these terms may result in legal action.
+
+---
+
+For inquiries: [email@msgfeingold.ch](mailto:email@msgfeingold.ch)
