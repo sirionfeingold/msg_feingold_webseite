@@ -1,3 +1,27 @@
+<!--
+  Musikinstrumente – Shop-Ansicht
+
+  Beschreibung:
+  Diese Komponente zeigt eine Übersicht über verfügbare Musikinstrumente im Verkauf.
+  Jede Karte enthält:
+    - Ein Bild des Instruments
+    - Titel, Beschreibung und Preis
+    - Einen Button, der eine E-Mail-Anfrage für eine Bestellung auslöst
+
+  Features:
+  - Responsive Grid-Layout mit schöner Animation bei Hover (hover:scale-105)
+  - Bilder und Daten werden aus einem einfachen Array geladen
+  - Mailto-Link leitet direkt zur Anfrage per E-Mail weiter
+
+  Erweiterungsideen:
+  - Integration eines echten Warenkorbsystems oder Zahlungsanbieters (Stripe, PayPal)
+  - Verfügbarkeit oder Lagerstatus anzeigen
+  - Dynamische Daten aus einer Datenbank (z. B. Firebase, Supabase)
+
+  Hinweis:
+  Bilder müssen im korrekten Pfad /FotosInstrumente/ liegen. Achte auf Dateinamen und Dateiformate.
+  -->
+  
 <template>
   <div class="min-h-screen px-6 py-20 bg-gradient-to-b from-white via-blue-50 to-blue-100">
     <div class="max-w-6xl mx-auto space-y-12 text-center">

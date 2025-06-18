@@ -1,3 +1,25 @@
+<!--
+  App.vue – Hauptlayout der MSG Feingold Webanwendung
+
+  Beschreibung:
+  Diese Datei definiert die grundlegende Struktur und das Layout der gesamten Webseite.
+  Sie enthält:
+  – Header mit Navigation
+  – Dynamischen Hauptbereich via <router-view>
+  – Footer mit Jahreszahl
+
+  Details:
+  – Der Header ist transparent mit leichtem Blur und einem flexiblen Navigationsbereich.
+  – Die Navigation enthält Router-Links zu allen Hauptseiten und ein Dropdown-Menü für den Shop.
+  – Der Hauptinhalt wird über das Vue Router-System geladen.
+  – Der Footer zeigt dynamisch das aktuelle Jahr an.
+
+  Komponenten:
+  – ShopDropdown.vue (eingebunden als <shop-dropdown />)
+
+  Ziel:
+  Einheitliches und responsives Layout für alle Seiten der MSG Feingold Plattform.
+-->
 <template>
   <div class="min-h-screen w-full bg-gradient-to-br from-violet-50 to-orange-100 text-gray-800 flex flex-col">
     <!-- HEADER -->

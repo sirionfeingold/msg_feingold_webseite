@@ -1,3 +1,24 @@
+<!--
+  CDs & Musikaufnahmen – Produktübersicht
+
+  Beschreibung:
+  Dieser Abschnitt zeigt eine Sammlung von Musik-CDs, die im Shop angeboten werden.
+  Jede Karte enthält:
+    - Ein Bild des CD-Covers
+    - Titel, Beschreibung und Preis
+    - Einen "Jetzt bestellen"-Button, der per Mail-Link eine Anfrage an die Musikschule sendet
+
+  Funktionen:
+  - Beim Hover wird die jeweilige Karte leicht vergrößert (hover:scale-105)
+  - Die CD-Daten sind in einem Array definiert und können einfach erweitert oder angepasst werden
+  - Ideal für kleinere Shops ohne komplexes Backend
+
+  Erweiterungsideen:
+  - Sortierung oder Filter nach Genre
+  - Integration mit echtem Shopsystem (z. B. Stripe, Snipcart)
+  - Download-Option für digitale Musikdateien
+  -->
+  
 <template>
   <div class="min-h-screen px-6 py-20 bg-gradient-to-b from-white via-pink-50 to-pink-100">
     <div class="max-w-6xl mx-auto space-y-12 text-center">

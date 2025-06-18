@@ -1,4 +1,22 @@
 <template>
+  <!--
+    Shop Dropdown Menü
+
+    Beschreibung:
+    Dieses Dropdown zeigt beim Klick auf den "Shop"-Button eine Liste von Unterkategorien:
+    - Musikinstrumente
+    - CDs
+    - Kunstmalerei
+
+    Funktion:
+    Das Menü öffnet sich bei Klick und schließt sich automatisch beim Auswählen eines Links.
+    Die Darstellung funktioniert auch auf Mobilgeräten.
+
+    Anpassung:
+    - Neue Kategorien können im Dropdown einfach ergänzt werden.
+    - Die Emojis sind optional und können bei Bedarf entfernt werden.
+  -->
+    
   <div class="relative">
     <!-- Button -->
     <button

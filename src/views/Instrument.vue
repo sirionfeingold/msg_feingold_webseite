@@ -1,3 +1,29 @@
+<!--
+  Instrument.vue – Detailansicht für ein einzelnes Instrument
+
+  Beschreibung:
+  Diese View-Komponente zeigt die Detailseite eines bestimmten Instruments aus dem Unterrichtsangebot
+  der Musikschule MSG Feingold.
+
+  Funktionen:
+  - Dynamisches Routing via Slug (z. B. /instrumente/gesang)
+  - Anzeige von:
+    - Instrumentenname (mit Farbverlauf)
+    - Bild des Instruments (mit Größenlimit & Hover-Animation)
+    - Beschreibungstext
+    - Call-to-Action Button zur Kontaktseite (für Probestunde)
+
+  Quelle der Daten:
+  - Die Instrumenteninfos stammen aus der Datei: /data/instrumentData.ts
+
+  Ziel:
+  Nutzer:innen erhalten motivierende Informationen zu jedem Instrument
+  und können direkt eine Probestunde anfragen.
+
+  Hinweis:
+  Bilder werden responsiv begrenzt (max-h-[500px]) und visuell hervorgehoben.
+  -->
+  
 <template>
   <div class="min-h-screen px-4 sm:px-6 py-20 bg-gradient-to-b from-white via-orange-50 to-yellow-100 text-gray-800">
     <div class="max-w-4xl mx-auto flex flex-col items-center space-y-10 text-center">

@@ -1,3 +1,24 @@
+<!--
+  About Us – Über-uns-Seite von MSG Feingold
+
+  Beschreibung:
+  Diese Seite stellt die Werte, Geschichte und Vision der Musik Seminar Gesellschaft Feingold (MSG) vor.
+  Sie soll Besucher:innen ein Gefühl für die Leidenschaft und Qualität der musikalischen Arbeit vermitteln.
+
+  Inhalt:
+  - Überschrift mit Farbverlauf und moderner Typografie
+  - Zwei informativ und emotional formulierte Textabschnitte
+  - Sanfter Hintergrundverlauf in warmen Farben für eine einladende Atmosphäre
+
+  Ziel:
+  Vertrauen aufbauen, Persönlichkeit zeigen, künstlerisches Profil stärken.
+
+  Erweiterungsideen:
+  - Teamfoto oder Künstler:innen vorstellen
+  - Zeitstrahl mit Highlights aus der MSG-Geschichte
+  - Video- oder Audio-Einbindung für Einblicke in Konzerte oder Proben
+  -->
+  
 <template>
   <div class="min-h-screen w-full flex items-center justify-center bg-gradient-to-br from-red-200 via-amber-100 to-blue-300 text-gray-900">
     <div class="max-w-3xl text-center space-y-10">

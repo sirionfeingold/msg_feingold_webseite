@@ -1,3 +1,21 @@
+<!--
+  Konditionen.vue – Übersicht der Unterrichtsbedingungen
+
+  Beschreibung:
+  Diese View zeigt die Vertrags- und Teilnahmebedingungen der Musikschule MSG Feingold.
+  Sie informiert transparent über Regelungen zur Anmeldung, Bezahlung, Absenz und Kündigung.
+
+  Funktionen:
+  - Überschrift und Einleitung mit stilvollem Farbverlauf und Responsive Layout
+  - Klar strukturierte Aufzählung der Konditionen als Liste (ol)
+  - Visuell hervorgehobener Hintergrund mit Farbverläufen und Schatten
+  - Kontaktmöglichkeiten per E-Mail und Telefon im Footer
+
+  Ziel:
+  Besucher:innen sollen sich einfach und freundlich über den Ablauf des Unterrichts informieren können –
+  inklusive verbindlicher Bedingungen zur Planung und Fairness auf beiden Seiten.
+  -->
+  
 <template>
   <div class="min-h-screen px-6 py-20 bg-gradient-to-b from-white via-orange-50 to-rose-100 text-gray-800">
     <div class="max-w-3xl mx-auto space-y-12">

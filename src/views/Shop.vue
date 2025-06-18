@@ -1,3 +1,23 @@
+  <!--
+  Shop.vue – Übersicht über ausgewählte Produkte der MSG Feingold
+
+  Beschreibung:
+  Diese Seite präsentiert ausgewählte CDs, Notenhefte und weitere Artikel,
+  die von der MSG Feingold produziert oder herausgegeben wurden. 
+  Die Produkte sind übersichtlich in einem ansprechenden Grid gelistet
+  und können direkt via Mailanfrage bestellt werden.
+
+  Inhalte:
+  – Titel und Einleitung
+  – Dynamisch generierte Produktliste aus einem JavaScript-Array
+  – Jede Box enthält Bild, Beschreibung, Preis und Mail-Link zur Bestellung
+  – Responsive Design mit Hovereffekten
+
+  Ziel:
+  Nutzer:innen sollen sich schnell einen Überblick über das Sortiment verschaffen
+  und auf einfache Weise ihre Wunschprodukte bestellen können.
+  -->
+  
 <template>
   <div class="min-h-screen px-6 py-20 bg-gradient-to-b from-white via-orange-50 to-yellow-100">
     <div class="max-w-6xl mx-auto space-y-16 text-center">

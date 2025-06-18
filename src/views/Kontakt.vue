@@ -1,3 +1,20 @@
+<!--
+  Kontakt.vue – Probestunde & Kontaktformular
+
+  Beschreibung:
+  Diese View ermöglicht es Nutzer:innen, eine Probestunde bei MSG Feingold anzufragen.
+  Das Formular generiert eine E-Mail über den lokalen Mail-Client (mailto).
+
+  Inhalte:
+  - Name, E-Mail, Wunschinstrument und Nachricht als Formularfelder
+  - Stilvolles, responsives Design mit Farbverläufen
+  - Optionale Direktkontakte per E-Mail und Telefon
+
+  Ziel:
+  Eine einfache und motivierende Möglichkeit zur Kontaktaufnahme –
+  ohne technisches Vorwissen oder Login – ideal für Erstkontakte und Anfragen.
+  -->
+  
 <template>
   <div class="min-h-screen px-6 py-20 bg-gradient-to-b from-white via-orange-50 to-yellow-100">
     <div class="max-w-2xl mx-auto space-y-12 text-center">

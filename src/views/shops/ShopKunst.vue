@@ -1,3 +1,29 @@
+<!--
+  Kunstmalerei – Galerie- & Shop-Komponente
+
+  Beschreibung:
+  Diese Komponente stellt eine Auswahl an Kunstwerken von Magdalena Postigo dar.
+  Besucher:innen können Informationen zu Technik, Format und Preis erhalten und per Mail eine Anfrage senden.
+
+  Inhalt:
+  - Bild des Werks
+  - Titel, Beschreibung, Maße, Preis
+  - "Werk anfragen"-Button mit vorausgefülltem Betreff per mailto-Link
+
+  Features:
+  - Responsive Grid für verschiedene Bildschirmgrößen
+  - Hover-Effekt auf den Karten (Vergrößerung, Schatten)
+  - Klar strukturierter Aufbau im eleganten Farbverlauf-Hintergrund
+
+  Erweiterungsideen:
+  - Lightbox zum Vergrößern der Bilder
+  - Detailansicht bei Klick auf ein Bild (eigene Route pro Werk)
+  - Daten dynamisch über CMS oder Datenbank laden
+
+  Hinweis:
+  Stelle sicher, dass die Bilddateien unter /public/FotosKunst/ verfügbar und korrekt benannt sind.
+  -->
+  
 <template>
   <div class="min-h-screen px-6 py-20 bg-gradient-to-b from-white via-yellow-50 to-orange-100">
     <div class="max-w-6xl mx-auto space-y-12 text-center">

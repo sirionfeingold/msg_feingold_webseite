@@ -1,3 +1,22 @@
+<!--
+  Musikschule.vue – Übersicht über alle angebotenen Instrumentalfächer
+
+  Beschreibung:
+  Diese View zeigt eine ansprechend gestaltete Übersicht aller Instrumente,
+  die an der MSG Feingold unterrichtet werden. Jedes Instrument wird als
+  farbige, klickbare Box dargestellt und führt auf eine eigene Detailseite.
+
+  Inhalte:
+  – Überschrift & Beschreibung
+  – Dynamisch generierte Liste mit Instrumenten und Slug-basierter Navigation
+  – Farbverläufe für visuelle Differenzierung
+  – Responsive Grid-Layout mit eleganten Hover-Effekten
+
+  Ziel:
+  Nutzer:innen erhalten einen schnellen, ästhetischen Überblick über das Angebot
+  und können sich intuitiv zum gewünschten Fach weiterleiten lassen.
+  -->
+
 <template>
   <div class="min-h-screen w-full bg-gradient-to-br from-white via-rose-50 to-orange-100 px-6 py-20">
     <div class="max-w-6xl mx-auto text-center space-y-16">

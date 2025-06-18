@@ -1,4 +1,23 @@
 // src/data/instrumentData.ts
+/**
+ * instrumentData.ts – Daten für die Instrumentenseiten der Musikschule
+ *
+ * Beschreibung:
+ * Dieses Array enthält strukturierte Informationen zu allen angebotenen Instrumenten.
+ * Jede Eintragung repräsentiert ein Instrument mit:
+ * – `slug`: URL-tauglicher Name für Routing (z. B. /instrument/klavier)
+ * – `name`: Anzeigename des Instruments
+ * – `description`: Mehrzeilige Beschreibung für die Detailseite
+ * – `image`: Pfad zum Bild in /public oder Assets-Ordner
+ *
+ * Verwendung:
+ * Diese Datenquelle wird in den Instrumentenseiten dynamisch genutzt, um Inhalte
+ * anhand der Route (`route.params.name`) zu laden.
+ *
+ * Vorteil:
+ * Einfache zentrale Pflege der Inhalte – neue Instrumente lassen sich leicht hinzufügen.
+ */
+
 
 export const instruments = [
   {
