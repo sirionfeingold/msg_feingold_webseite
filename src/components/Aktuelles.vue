@@ -11,7 +11,7 @@
     - Jedes Event benötigt: title, date, description.
     - Optional könnte man später Bilder oder Buttons ergänzen.
   -->
-    
+
   <section class="py-24 px-6 bg-gradient-to-b from-white via-orange-50 to-yellow-100">
     <div class="max-w-6xl mx-auto text-center space-y-14">
       <!-- Überschrift -->
@@ -49,8 +49,8 @@ const events = [
     description: 'Ein festliches Programm mit Sopran Solistin Esther Feingold und Dirigent Osvaldo Ovejero.'
   },
   {
-    title: 'Offene Probestunden für Gesang & Klavier',
-    date: '1. Juli 2025',
+    title: 'Offene Probestunden',
+    date: 'Jederzeit',
     description: 'Lerne unsere Lehrpersonen kennen und buche eine kostenlose Probestunde.'
   },
   {
