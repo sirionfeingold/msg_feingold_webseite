@@ -54,7 +54,7 @@ const instruments = [
   },
   {
     title: 'E-Piano Kurzweil RG 200',
-    price: 'CHF 850.–',
+    price: 'CHF 450.–',
     image: '/FotosInstrumente/E_piano_Kurzweil.png',
     description: 'Qualitativ sehr hochwertiges E-Piano - Ideal für Zuhause & Musikschule'
   },

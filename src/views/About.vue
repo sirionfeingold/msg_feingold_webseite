@@ -78,7 +78,7 @@
           <!-- Osvaldo -->
           <div class="flex-1 space-y-3 text-center">
             <img
-              src="/FotosMusikschule/Violoncello.JPG"
+              src="/FotosMusikschule/Osvaldo.png"
               alt="Osvaldo Ovejero"
               class="w-32 h-32 mx-auto rounded-full object-cover shadow-md hover:scale-105 transition-transform duration-300"
             />
