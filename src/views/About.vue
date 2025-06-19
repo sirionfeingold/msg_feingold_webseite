@@ -44,7 +44,7 @@
       <!-- Gründer:innen -->
       <section class="mt-20 sm:mt-28 bg-gradient-to-br from-orange-50 via-pink-50 to-rose-100 rounded-3xl shadow-xl px-8 py-12 mb-20">
         <h2 class="text-3xl sm:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-orange-500 via-pink-500 to-red-500 drop-shadow text-center mb-8">
-          Unsere Gründer:innen
+          Unsere Lehrpersonen
         </h2>
 
         <div class="flex flex-col sm:flex-row justify-center items-center gap-10 text-left max-w-4xl mx-auto">

@@ -1,0 +1,15 @@
+<svg width="64" height="64" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#4A90E2" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+  <!-- Außenkreis -->
+  <circle cx="12" cy="12" r="10" />
+
+  <!-- Äquator -->
+  <path d="M2 12h20" />
+
+  <!-- Längsachsen -->
+  <path d="M12 2a15.3 15.3 0 0 1 0 20" />
+  <path d="M12 2a15.3 15.3 0 0 0 0 20" />
+
+  <!-- Breitengrade -->
+  <path d="M4 6c2.5 1.5 5.5 2 8 2s5.5-.5 8-2" />
+  <path d="M4 18c2.5-1.5 5.5-2 8-2s5.5.5 8 2" />
+</svg>

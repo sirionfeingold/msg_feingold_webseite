@@ -9,6 +9,7 @@ import Shop from '../views/Shop.vue'
 import ShopInstrumente from '../views/shops/ShopInstrumente.vue'
 import ShopCDs from '../views/shops/ShopCDs.vue'
 import ShopKunst from '../views/shops/ShopKunst.vue'
+import Media from '../views/Media.vue'
 
 const routes = [
     { path: "/", component: Home},
@@ -19,7 +20,8 @@ const routes = [
     { path: "/konditionen", component: Konditionen},
     { path: "/shop/instrumente", component: ShopInstrumente},
     { path: "/shop/cds", component: ShopCDs},
-    { path: "/shop/kunst", component: ShopKunst}
+    { path: "/shop/kunst", component: ShopKunst},
+    { path: "/media", component: Media}
 ]
 
 const router = createRouter({
