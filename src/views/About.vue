@@ -84,11 +84,9 @@
             />
             <h3 class="text-xl font-semibold text-pink-700">Osvaldo Ovejero</h3>
             <p class="text-gray-600 text-sm">
-              Osvaldo Antonio Ovejero ist ein renommierter Dirigent, Komponist und Cellist.  
-              Er studierte Violoncello, Klarinette, Klavier sowie Komposition und Dirigieren in Graz und Wien, bevor er 1990 in die Schweiz kam,  
-              wo er heute das MSG Kammerorchester Bern leitet.  
-              Seine Werke, u.a. für Chor, Orchester und Kammermusik, zeichnen sich durch einen eigenständigen, neunten-ton-basierten Stil mit  
-              lateinamerikanischen und europäischen Einflüssen aus und wurden in Österreich, der Schweiz, Israel und Argentinien uraufgeführt.  
+              Osvaldo Antonio Ovejero ist ein Dirigent, Komponist und Cellist, der mit seiner tiefen musikalischen Intuition und seinem feinen Gespür für Menschen inspiriert.
+              Mit Wärme, Humor und klarer künstlerischer Vision fördert er seine Schüler auf Augenhöhe, fordert sie heraus und öffnet Räume für Kreativität und Persönlichkeit. Seine Proben sind geprägt von Energie, Klarheit und echter Neugier – stets getragen von Respekt vor dem Menschen und der Musik.
+              Ovejeros Werke – kraftvoll, farbenreich und geprägt von einem eigenständigen neunten-ton-basierten Stil – spiegeln eine tiefe Verbindung zwischen Emotion, Form und kultureller Vielfalt. 
             </p>
             <a
               href="https://osvaldo-ovejero.ch/"

@@ -15,6 +15,7 @@
         spotifyLink="https://open.spotify.com/embed/artist/1URqrDzZd80ggPhaU5Ir8B"
         facebook="https://www.facebook.com/esther.feingold.90/"
         instagram="https://www.instagram.com/feingoldesther/?hl=de"
+        youtube="https://www.youtube.com/channel/UCEirmu7s33q_m2sK1IzYvPg"
         website="https://www.esther-feingold.ch"
       />
 
