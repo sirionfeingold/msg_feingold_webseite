@@ -77,7 +77,7 @@
             href="tel:+41313113251"
             class="text-orange-600 hover:text-orange-700 underline font-medium"
           >
-            031 311 32 51
+            (+41) 031 311 32 51
           </a>
         </p>
       </div>

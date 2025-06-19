@@ -12,7 +12,7 @@
   -->
     
 <template>
-  <section class="py-24 px-6 min-h-screen w-full flex items-center justify-center bg-gradient-to-bl from-blue-600 via-orange-300 to-red-100 text-gray-900">
+  <section class="py-24 px-6 min-h-screen w-full flex items-center justify-center bg-gradient-to-bl from-blue-400 via-orange-200 to-white text-gray-900">
     <div class="max-w-6xl mx-auto text-center space-y-14">
       <!-- Überschrift -->
       <h2 class="leading-tight text-4xl sm:text-5xl font-extrabold tracking-tight bg-gradient-to-r from-orange-500 via-red-500 to-blue-500 text-transparent bg-clip-text drop-shadow-lg">

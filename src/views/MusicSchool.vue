@@ -45,6 +45,33 @@
         </router-link>
       </div>
     </div>
+   <section class="mt-20 text-center">
+    <h2 class="text-2xl font-bold text-orange-600 mb-4">Standort & Anfahrt</h2>
+    <p class="text-gray-700 mb-4">
+      MSG Feingold<br>
+      Zibelgässli 18, 3011 Bern<br>
+      (direkt bei der Zytglogge / dem historischen Uhrturm)
+    </p>
+    <div class="max-w-3xl mx-auto aspect-video rounded-xl overflow-hidden shadow">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2761.192005075683!2d7.44765181558627!3d46.94804207914704!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x478e3913c30ca1b3%3A0xedaf8ab3ed5a5e81!2sZibelg%C3%A4ssli%2018%2C%203011%20Bern!5e0!3m2!1sde!2sch!4v1718828000000!5m2!1sde!2sch"
+        class="w-full h-full"
+        style="border:0;"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+      ></iframe>
+    </div>
+    <a
+      href="https://www.google.com/maps/dir/?api=1&destination=Zibelg%C3%A4ssli+18,+3011+Bern"
+      target="_blank"
+      class="inline-block mt-4 text-orange-600 hover:text-orange-800 underline font-medium"
+    >
+      Route planen
+    </a>
+  </section>
+
+
   </div>
 </template>
 
