@@ -57,6 +57,6 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
+// import { ref } from 'vue'
 import ShopDropdown from './components/ShopDropdown.vue'
 </script>

@@ -4,6 +4,7 @@ import vue from '@vitejs/plugin-vue'
 
 // https://vite.dev/config/
 export default defineConfig({
+  base: "msg_feingold_webseite",
   plugins: [
     vue(), 
     tailwindcss()
