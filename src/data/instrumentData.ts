@@ -34,9 +34,11 @@ export const instruments = [
     slug: "gesang",
     name: "Gesang",
     description: `
-      Die eigene Stimme ist das persönlichste Instrument überhaupt – sie ist Ausdruck deiner Seele.
-      Unser Gesangsunterricht fördert Klang, Atmung, Interpretation und Selbstvertrauen.
-      Klassik, Musical oder Pop – wir helfen dir, deine Stimme zu entdecken und sie frei und gesund einzusetzen.
+      Die eigene Stimme ist das persönlichste Instrument überhaupt.
+      Unser Gesangsunterricht stärkt Klangbewusstsein, Atemtechnik, Ausdruckskraft und Selbstvertrauen.
+      Ob Klassik, Musical oder Pop – wir begleiten dich dabei, 
+      deine Stimme zu entdecken, sie gesund zu entfalten und deinen 
+      ganz persönlichen Klang zu finden.
     `,
     image: "/FotosMusikschule/Gesang.png"
   },
@@ -93,9 +95,9 @@ export const instruments = [
     slug: "violoncello",
     name: "Violoncello",
     description: `
-      Das Cello ist das Instrument der Seele: warm, tief, tragend. 
-      Unser Unterricht fördert Haltung, Klangbewusstsein und musikalischen Ausdruck – mit Ruhe, Struktur und Herz.
-      Ideal für alle, die sich in die klangliche Tiefe verlieben wollen.
+      Das Cello – vielseitig, ausdrucksstark, klangvoll.
+      Unser Unterricht legt den Fokus auf eine gesunde Spielhaltung, präzises Hören und musikalischen Ausdruck.
+      Ob Anfänger:in oder Fortgeschrittene:r – wir vermitteln Technik mit System und musikalischem Verständnis.
     `,
     image: "/FotosMusikschule/Violoncello.JPG"
   }
