@@ -35,11 +35,4 @@ repository or project context is not permitted.
 
 ---
 
-## 📬 Contact
-
-For licensing questions or collaboration requests, please contact us via:  
-📧 **email@msgfeingold.ch**
-
----
-
 © MSG Feingold & Co – All rights reserved.
