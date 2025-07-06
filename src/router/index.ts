@@ -11,7 +11,7 @@ import ShopKunst from '../views/shops/ShopKunst.vue'
 import Media from '../views/Media.vue'
 
 const routes = [
-    { path: "/msg_feingold_webseite", component: Home},
+    { path: "/", component: Home},
     { path: "/about", component: About},
     { path: "/musikschule", component: MusicSchool},
     { path: "/instrument/:name", component: Instrument, props: true},

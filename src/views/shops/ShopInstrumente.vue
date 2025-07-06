@@ -49,19 +49,19 @@ const instruments = [
   {
     title: 'Gitarre',
     price: 'CHF 450.–',
-    image: '/msg_feingold_webseite/FotosInstrumente/guitarre1.png',
+    image: '/FotosInstrumente/guitarre1.png',
     description: 'Franzoesische Konzert Gitarre mit Savarez Seiten - Ideal für den Einstieg'
   },
   {
     title: 'E-Piano Kurzweil RG 200',
     price: 'CHF 450.–',
-    image: '/msg_feingold_webseite/FotosInstrumente/E_piano_Kurzweil.png',
+    image: '/FotosInstrumente/E_piano_Kurzweil.png',
     description: 'Qualitativ sehr hochwertiges E-Piano - Ideal für Zuhause & Musikschule'
   },
   {
     title: 'Occasion E-piano 5100',
     price: 'CHF 500.–',
-    image: '/msg_feingold_webseite/FotosInstrumente/E_piano5100.png',
+    image: '/FotosInstrumente/E_piano5100.png',
     description: '88 Tasten, Hammermechanik, ideal für Zuhause & Musikschule.'
   }
 ]
