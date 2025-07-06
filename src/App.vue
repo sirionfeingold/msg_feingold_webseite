@@ -33,7 +33,7 @@
 
         <!-- Navigation -->
         <nav class="flex flex-wrap justify-center sm:justify-end gap-4 text-base sm:text-lg font-medium">
-          <router-link to="/" class="hover:text-blue-500 transition-colors">Home</router-link>
+          <router-link to="/msg_feingold_webseite" class="hover:text-blue-500 transition-colors">Home</router-link>
           <router-link to="/musikschule" class="hover:text-blue-500 transition-colors">Musikschule</router-link>
           <shop-dropdown />
           <router-link to="/media" class="hover:text-blue-500 transition-colors">Media</router-link>

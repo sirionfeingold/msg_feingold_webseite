@@ -5,14 +5,13 @@ import MusicSchool from '../views/MusicSchool.vue'
 import Instrument from '../views/Instrument.vue'
 import Kontakt from '../views/Kontakt.vue'
 import Konditionen from '../views/Konditionen.vue'
-// import Shop from '../views/Shop.vue'
 import ShopInstrumente from '../views/shops/ShopInstrumente.vue'
 import ShopCDs from '../views/shops/ShopCDs.vue'
 import ShopKunst from '../views/shops/ShopKunst.vue'
 import Media from '../views/Media.vue'
 
 const routes = [
-    { path: "/", component: Home},
+    { path: "/msg_feingold_webseite", component: Home},
     { path: "/about", component: About},
     { path: "/musikschule", component: MusicSchool},
     { path: "/instrument/:name", component: Instrument, props: true},
