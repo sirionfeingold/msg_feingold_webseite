@@ -51,13 +51,13 @@ const artworks = [
   {
     title: 'Luna y Sol',
     price: 'CHF 380.–',
-    image: '/FotosKunst/LunaSol.jpg',
+    image: '/msg_feingold_webseite/FotosKunst/LunaSol.jpg',
     description: 'Öl auf Leinwand, 51 × 42.5 cm, Argentinien 1994.'
   },
   {
     title: 'Galaxias',
     price: 'CHF 560.–',
-    image: '/FotosKunst/Galaxias.jpg',
+    image: '/msg_feingold_webseite/FotosKunst/Galaxias.jpg',
     description: 'Großformat, Öl, 62 × 92 cm – Energie & Bewegung.'
   }
 ]

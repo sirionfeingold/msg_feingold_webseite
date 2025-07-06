@@ -46,31 +46,31 @@ const cds = [
   {
     title: 'International Jazz Trio',
     price: 'CHF 30.–',
-    image: '/FotosCDs/International_Jazz_Trio.png',
+    image: '/msg_feingold_webseite/FotosCDs/International_Jazz_Trio.png',
     description: 'Saxophon – Gesang E.Feingold, Gitarre F.Coletta, Bass R.Johnson Inhalt: Blauer Mönch, Körper und Seele, Wind des Mekong, Samba mit einer Note, Welle, Was können Sie für diese Welt tun, Spanischer Sommer, Mein lustiger Valentinstag, Diese dummen Dinge, Gegen Mitternacht und Sommerzeit'
   },
   {
     title: 'Lieder und Arien',
     price: 'CHF 25.–',
-    image: '/FotosCDs/LiederUndArien.png',
+    image: '/msg_feingold_webseite/FotosCDs/LiederUndArien.png',
     description: 'Kassette Seite A: Liederzyklus Frauenliebe und Leben von Robert Schumann Seite B: Opernarien Aida Rittorna vincitor(G.Verdi), Madame Butterfly Un bel di vedremo, Tosca Vissi d’arte(G.Puccini), Carmen Habanera und Seguidilla (G.Bizet) Esther Feingold, Gesang Ruth Feingold Heim, Klavier.'
   },
   {
     title: 'Melodienreigen',
     price: 'CHF 30.–',
-    image: '/FotosCDs/Melodienreigen.png',
+    image: '/msg_feingold_webseite/FotosCDs/Melodienreigen.png',
     description: 'Stereo CD 2781 Melodienreigen Frühlinsstimmen Walzer für Sopran und Orchester von J. Strauuss, Summertime für Sopran und Orchester von G, Gershwin Il Bacio Walzer für Sopran und Orchester von L. Arditi . – Cascada Verlag '
   },
   {
     title: 'Mozart Verdi Ovejero',
     price: 'CHF 30.–',
-    image: '/FotosCDs/Mozart_Verdi_Ovejero.png',
+    image: '/msg_feingold_webseite/FotosCDs/Mozart_Verdi_Ovejero.png',
     description: 'Stereo CD 9292 Mozart Verdi Ovejero W.A.Mozart Konzert Arien G.Verdi Gilda Arie O.A.Ovejero Lied op. 24 “ Frühlings-explosion“  O.A.Ovejero Symphonie Nr. 2 Thaidonesia'
   },
   {
     title: 'Serenade',
     price: 'CHF 30.–',
-    image: '/FotosCDs/Serenade.png',
+    image: '/msg_feingold_webseite/FotosCDs/Serenade.png',
     description: 'Stereo CD 1820 Serenade Romantische Stücke für: Cello und Klavier Gesang und Klavier von: Hector Villa Lobos, Gabriel Faure, Jeules Massenet, Osvaldo Ovejero,'
   }
 ]
