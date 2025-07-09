@@ -52,7 +52,7 @@
             Die Abmeldung einer Lektion muss mindestens 24 Stunden vor dem Termin erfolgen, sonst gilt sie als erteilt.
           </li>
           <li>
-            Bei frühzeitigem Studienabbruch (z. B. Krankheit, Pause, Auslandaufenthalt) erfolgt keine Rückerstattung.
+            Bei frühzeitigem Studienabbruch (z.B. Krankheit, Pause, Auslandaufenthalt) erfolgt keine Rückerstattung.
           </li>
           <li>
             Nicht bezogene Lektionen bleiben maximal ein Jahr ab dem aktuellen Quartal oder Semester gültig. Danach erlischt der Anspruch.
