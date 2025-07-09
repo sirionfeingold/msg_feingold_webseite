@@ -40,7 +40,7 @@
             <button @click="selectedEvent = null" class="absolute top-4 right-4 text-gray-500 hover:text-red-500 text-xl">&times;</button>
             <p class="text-sm text-orange-600 mb-2">{{ selectedEvent.date }}</p>
             <h3 class="text-2xl font-bold text-pink-700 mb-4">{{ selectedEvent.title }}</h3>
-            <p class="text-gray-800 text-left whitespace-pre-line">{{ selectedEvent.description }}</p>
+            <p class="text-gray-800 text-left whitespace-pre-line" v-html="selectedEvent.description"></p>
           </div>
         </div>
       </transition>
@@ -53,16 +53,16 @@ import { ref } from 'vue'
 
 const events = [
   {
-    title: 'Sommerkonzert mit dem MSG Kammerorchester',
+    title: 'Serenadenkonzert mit dem MSG Kammerorchester',
     date: '6. / 7. September 2025',
     description: `Ein festliches Programm mit Sopran Solistin Esther Feingold und Dirigent Osvaldo Ovejero.
-    Ort: Bern
-    Beginn: jeweils 19:30 Uhr
-    Eintritt frei, Kollekte`
+    Datum / Ort: am 6. September um 19:30 Heiliggeistkirche Bern, am 7. September um 17:00 Kirche Oberwangen bei Bern.
+    Eintritt frei, Kollekte
+    <a href="https://osvaldo-ovejero.ch/musik-symphonie-global-msg-kammerorchester-bern/" target="_blank" class="text-blue-600 underline hover:text-blue-800">Weitere Informationen</a>`
   },
   {
-    title: 'Offene Probestunden',
-    date: 'Jederzeit',
+    title: 'Schnupperstunden',
+    date: 'Jederzeit möglich',
     description: `Lerne unsere Lehrpersonen kennen und buche eine kostenlose Probestunde.
     Einfach Kontaktformular ausfüllen oder direkt anrufen.`
   },
