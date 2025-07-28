@@ -26,12 +26,13 @@ import Aktuelles from '../components/Aktuelles.vue';
   <div class="min-h-screen w-full flex items-center justify-center bg-gradient-to-br from-red-400 via-amber-200 to-blue-600 text-gray-900">
     <div class="text-center px-6 sm:px-10">
       <!-- Bunte Überschrift -->
-      <h1
-      class="leading-tight text-4xl sm:text-6xl font-extrabold tracking-tight bg-gradient-to-r from-red-500 via-orange-400 to-fuchsia-600 text-transparent bg-clip-text
-         drop-shadow-[0_0_6px_rgba(255,255,255,0.8)]"
-         >
-         Willkommen bei MSG Feingold
-        </h1>
+      <h1 class="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight leading-snug text-center bg-gradient-to-r from-red-500 via-orange-400 to-fuchsia-600 text-transparent bg-clip-text drop-shadow-md px-4">
+        Musikschule in Bern<br />
+        <span class="text-white drop-shadow-lg">Willkommen bei MSG Feingold
+
+        </span>
+      </h1>
+
 
 
       <!-- Untertitel -->

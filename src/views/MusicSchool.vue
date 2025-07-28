@@ -22,9 +22,12 @@
     <div class="max-w-6xl mx-auto text-center space-y-16">
 
       <!-- Überschrift -->
-      <h1 class="leading-tight text-4xl sm:text-5xl font-extrabold tracking-tight bg-gradient-to-r from-red-400 via-orange-400 to-purple-600 text-transparent bg-clip-text drop-shadow-lg">
-        Instrumentalunterricht bei MSG Feingold
-      </h1>
+      <h1 class="text-2xl sm:text-4xl md:text-5xl font-extrabold tracking-tight leading-snug 
+         bg-gradient-to-r from-red-400 via-orange-400 to-purple-600 text-transparent bg-clip-text 
+         drop-shadow-lg text-center px-4 break-words whitespace-normal overflow-visible">
+         Instrumentalunterricht bei MSG Feingold
+        </h1>
+
 
       <!-- Beschreibung -->
       <p class="text-lg sm:text-xl text-gray-700 max-w-3xl mx-auto">
