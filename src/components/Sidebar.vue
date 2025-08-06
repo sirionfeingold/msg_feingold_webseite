@@ -1,15 +1,16 @@
 <template>
-  <Transition
-    enter-active-class="transition transform duration-300"
-    enter-from-class="-translate-x-full"
-    enter-to-class="translate-x-0"
-    leave-active-class="transition transform duration-300"
-    leave-from-class="translate-x-0"
-    leave-to-class="-translate-x-full"
-  >
+<Transition
+  enter-active-class="transition-transform duration-300 ease-out"
+  enter-from-class="translate-x-full"
+  enter-to-class="translate-x-0"
+  leave-active-class="transition-transform duration-300 ease-in"
+  leave-from-class="translate-x-0"
+  leave-to-class="translate-x-full"
+>
+
     <aside
       v-if="isOpen"
-      class="fixed inset-y-0 left-0 w-64 bg-white shadow-lg z-50 flex flex-col p-6"
+      class="fixed inset-y-0 right-0 w-64 bg-white shadow-lg z-50 flex flex-col p-6"
     >
       <button class="self-end mb-4 text-gray-500 hover:text-blue-500" @click="toggle">
         ✕

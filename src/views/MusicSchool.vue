@@ -70,7 +70,11 @@
       target="_blank"
       class="inline-block mt-4 text-orange-600 hover:text-orange-800 underline font-medium"
     >
+    <button type="submit"
+            class="bg-orange-500 hover:bg-orange-600 text-white text-lg font-semibold px-8 py-3 rounded-full shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 ease-in-out"
+          >
       Route planen
+    </button>
     </a>
   </section>
 

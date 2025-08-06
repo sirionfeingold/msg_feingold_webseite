@@ -19,51 +19,55 @@
   -->
   
 <script setup>
-import Aktuelles from '../components/Aktuelles.vue';
+import { ref } from 'vue'
+import Aktuelles from '../components/Aktuelles.vue'
+
+const showAktuelles = ref(false)
 </script>
 
 <template>
-  <div class="min-h-screen w-full flex items-center justify-center bg-gradient-to-br from-red-400 via-amber-200 to-blue-600 text-gray-900">
-    <div class="text-center px-6 sm:px-10">
-      <!-- Bunte Überschrift -->
+  <div class="w-full bg-gradient-to-br from-red-400 via-amber-200 to-blue-600 text-gray-900 py-20">
+    <!-- HERO -->
+    <div class="text-center px-6 sm:px-10 py-16">
       <h1 class="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight leading-snug text-center bg-gradient-to-r from-red-500 via-orange-400 to-fuchsia-600 text-transparent bg-clip-text drop-shadow-md px-4">
         Musikschule in Bern<br />
-        <span class="text-white drop-shadow-lg">Willkommen bei MSG Feingold
-
-        </span>
+        <span class="text-white drop-shadow-lg">Willkommen bei MSG Feingold</span>
       </h1>
 
-
-
-      <!-- Untertitel -->
       <p class="mt-4 text-lg sm:text-xl text-orange-800">
         Musik. Begeisterung. Erlebnis.
       </p>
 
-      <!-- Call to Action -->
       <div class="mt-8">
-        <router-link
-        to="/about"
-        
-         >
-         <div class="text-center">
+        <router-link to="/about">
           <button
-            type="submit"
+            type="button"
             class="bg-blue-500 hover:bg-blue-600 text-white text-lg font-semibold px-8 py-3 rounded-full shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 ease-in-out"
           >
             Mehr erfahren
-          </button> </div>
+          </button>
         </router-link>
       </div>
     </div>
-  </div>
 
-  <!-- Aktuelles Abschnitt -->
-  <Aktuelles />
+    <!-- Aktuelles -->
+    <Aktuelles />
+  </div>
 </template>
+
 
 <style scoped>
 body {
   font-family: 'Inter', 'Poppins', sans-serif;
+}
+
+.fade-slide-enter-active,
+.fade-slide-leave-active {
+  transition: all 0.4s ease;
+}
+.fade-slide-enter-from,
+.fade-slide-leave-to {
+  opacity: 0;
+  transform: translateY(10px);
 }
 </style>
