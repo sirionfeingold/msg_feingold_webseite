@@ -32,7 +32,7 @@
 
       <!-- Konditionen-Liste -->
       <div class="space-y-8">
-        <ol class="list-decimal list-inside text-gray-800 dark:text-blue-200 space-y-4 text-base leading-relaxed bg-white/60 dark:bg-blue-950 rounded-xl p-6 shadow-md backdrop-blur-md">
+        <ol class="list-decimal list-inside text-gray-800 dark:text-blue-200 space-y-4 text-base leading-relaxed bg-white/60 dark:bg-blue-800 rounded-xl p-6 shadow-md backdrop-blur-md">
           <li>
             Der Unterricht beginnt mit dem Eintrittsdatum und erfolgt mindestens 10 Lektionen pro Quartal oder 20 Lektionen pro Semester.
           </li>

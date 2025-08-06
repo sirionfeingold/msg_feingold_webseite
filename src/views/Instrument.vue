@@ -42,14 +42,14 @@
       />
 
       <!-- Beschreibung -->
-      <p class="text-lg sm:text-xl leading-relaxed text-gray-700 max-w-3xl">
+      <p class="text-lg sm:text-xl leading-relaxed text-gray-700 dark:text-blue-300 max-w-3xl">
         {{ instrument?.description }}
       </p>
 
       <!-- Call to Action -->
       <router-link
         to="/kontakt"
-        class="mt-6 inline-block bg-orange-500 hover:bg-orange-600 text-white font-medium text-lg px-6 py-3 rounded-full shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 ease-in-out"
+        class="mt-6 inline-block bg-orange-500 hover:bg-orange-600 dark:bg-blue-500 dark:hover:bg-blue-600 text-white font-medium text-lg px-6 py-3 rounded-full shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 ease-in-out"
       >
         Probestunde vereinbaren
       </router-link>

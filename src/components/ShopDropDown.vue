@@ -39,25 +39,25 @@
     <!-- Dropdown -->
     <div
       v-if="isOpen"
-      class="absolute left-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-50"
+      class="absolute left-0 mt-2 w-48 bg-white dark:bg-gray-60 border border-gray-200 rounded-lg shadow-lg z-50"
     >
       <router-link
         to="/shop/instrumente"
-        class="block px-4 py-2 text-gray-700 hover:bg-orange-100"
+        class="block px-4 py-2 text-gray-700 hover:bg-orange-100 dark:hover:bg-blue-200"
         @click="isOpen = false"
       >
         🎹 Musikinstrumente
       </router-link>
       <router-link
         to="/shop/cds"
-        class="block px-4 py-2 text-gray-700 hover:bg-orange-100"
+        class="block px-4 py-2 text-gray-700 hover:bg-orange-100 dark:hover:bg-blue-200"
         @click="isOpen = false"
       >
         💿 CDs
       </router-link>
       <router-link
         to="/shop/kunst"
-        class="block px-4 py-2 text-gray-700 hover:bg-orange-100"
+        class="block px-4 py-2 text-gray-700 hover:bg-orange-100 dark:hover:bg-blue-200"
         @click="isOpen = false"
       >
         🎨 Kunstmalerei

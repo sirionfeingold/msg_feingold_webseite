@@ -40,21 +40,21 @@
         <div>
           <label class="block text-sm font-medium text-gray-700 dark:text-blue-300 mb-1">Name</label>
           <input name="Name" type="text" placeholder="Vor- und Nachname"
-            class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-400 dark:text-blue-300" />
+            class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-400 dark:focus:ring-blue-500 dark:text-blue-300" />
         </div>
 
         <!-- E-Mail -->
         <div>
           <label class="block text-sm font-medium text-gray-700 dark:text-blue-300 mb-1">E-Mail</label>
           <input name="Email" type="email" placeholder="dein@email.ch"
-            class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-400 dark:text-blue-300" />
+            class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-400 dark:focus:ring-blue-500 dark:text-blue-300" />
         </div>
 
         <!-- Instrument -->
         <div>
           <label class="block text-sm font-medium text-gray-700 dark:text-blue-300 mb-1">Instrument</label>
           <select name="Instrument"
-            class="dark:bg-blue-900 w-full px-4 py-2 rounded-lg border border-gray-300 bg-white focus:outline-none focus:ring-2 focus:ring-orange-400 dark:text-blue-300">
+            class="dark:bg-blue-900 w-full px-4 py-2 rounded-lg border border-gray-300 bg-white focus:outline-none focus:ring-2 focus:ring-orange-400 dark:focus:ring-blue-500 dark:text-blue-300">
             <option>– bitte wählen –</option>
             <option>Gesang</option>
             <option>Klavier</option>
@@ -71,7 +71,7 @@
         <div>
           <label class="block text-sm font-medium text-gray-700 dark:text-blue-300 mb-1">Nachricht</label>
           <textarea name="Nachricht" rows="4" placeholder="Fragen, Wünsche, Terminvorschläge..."
-            class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-400 dark:text-blue-300"></textarea>
+            class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-400 dark:focus:ring-blue-500 dark:text-blue-300"></textarea>
         </div>
 
         <!-- Button -->

@@ -24,7 +24,7 @@
         <div
           v-for="item in events"
           :key="item.title"
-          class="bg-white/80 backdrop-blur rounded-3xl p-5 transition-all hover:scale-[1.02] cursor-pointer shadow-md hover:shadow-xl hover:scale-105 duration-300 ease-in-out"
+          class="bg-white/80 dark:bg-white/70 backdrop-blur rounded-3xl p-5 transition-all hover:scale-[1.02] cursor-pointer shadow-md hover:shadow-xl hover:scale-105 duration-300 ease-in-out"
           @click="openModal(item)"
         >
           <p class="text-sm font-medium text-orange-600 uppercase mb-1">{{ item.date }}</p>
@@ -39,7 +39,7 @@
           v-if="selectedEvent"
           class="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 px-4"
         >
-          <div class="bg-white rounded-2xl shadow-2xl p-8 max-w-xl w-full relative">
+          <div class="bg-white dark:bg-gray-300 rounded-2xl shadow-2xl p-8 max-w-xl w-full relative">
             <button
               @click="selectedEvent = null"
               class="absolute top-4 right-4 text-gray-400 hover:text-red-500 text-2xl"

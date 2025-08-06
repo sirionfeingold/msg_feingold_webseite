@@ -5,15 +5,15 @@
       <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 py-4 flex items-center justify-between">
         <!-- Logo und Titel -->
         <div class="flex flex-col sm:flex-row sm:items-center gap-1">
-          <h1 class="text-2xl font-extrabold text-blue-600">MSG Feingold</h1>
-          <h2 class="text-sm sm:text-base text-blue-500 font-medium">Musik Seminar Gesellschaft Bern</h2>
+          <h1 class="text-2xl font-extrabold text-blue-600 dark:text-white/80">MSG Feingold</h1>
+          <h2 class="text-sm sm:text-base text-blue-500 dark:text-white/80 font-medium">Musik Seminar Gesellschaft Bern</h2>
         </div>
 
         <!-- Burger-Button für Sidebar -->
         <button class="lg:hidden text-2xl text-blue-600" @click="sidebarOpen = true">☰</button>
 
         <!-- Desktop-Navigation (optional anzeigen) -->
-        <nav class="hidden lg:flex gap-4 text-base lg:text-lg font-medium dark:text-white">
+        <nav class="hidden lg:flex gap-4 text-base lg:text-lg font-medium dark:text-white/80">
 
           <router-link to="/" class="hover:text-blue-500">Home</router-link>
           <router-link to="/musikschule" class="hover:text-blue-500">Unterricht</router-link>

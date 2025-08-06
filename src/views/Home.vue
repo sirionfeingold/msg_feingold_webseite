@@ -21,6 +21,7 @@
 <script setup>
 import { ref } from 'vue'
 import Aktuelles from '../components/Aktuelles.vue'
+import Bewertungen from '../components/Bewertungen.vue'
 
 const showAktuelles = ref(false)
 </script>
@@ -52,6 +53,7 @@ const showAktuelles = ref(false)
 
     <!-- Aktuelles -->
     <Aktuelles />
+    <Bewertungen />
   </div>
 </template>
 

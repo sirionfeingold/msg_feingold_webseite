@@ -10,12 +10,12 @@
 
     <aside
       v-if="isOpen"
-      class="fixed inset-y-0 right-0 w-64 bg-white shadow-lg z-50 flex flex-col p-6"
+      class="fixed inset-y-0 right-0 w-64 bg-white dark:bg-blue-950 shadow-lg z-50 flex flex-col p-6"
     >
-      <button class="self-end mb-4 text-gray-500 hover:text-blue-500" @click="toggle">
+      <button class="self-end mb-4 text-gray-500 dark:text-gray-100 hover:text-blue-500" @click="toggle">
         ✕
       </button>
-      <nav class="flex flex-col gap-4 text-lg font-medium">
+      <nav class="flex flex-col gap-4 text-lg font-medium dark:text-gray-100">
         <router-link to="/" @click="toggle">Home</router-link>
         <router-link to="/musikschule" @click="toggle">Musikschule</router-link>
         <shop-dropdown />
