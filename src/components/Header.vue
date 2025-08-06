@@ -1,7 +1,7 @@
 <template>
     <!-- SIDEBAR -->
     <Sidebar :isOpen="sidebarOpen" @toggle="sidebarOpen = false" />
-    <header class="bg-white/30 backdrop-blur-md shadow-md border-b border-white/40 z-20">
+    <header class="bg-white/30 dark:bg-blue-950 backdrop-blur-md shadow-md border-b border-white/40 dark:border-blue-950 z-20">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 py-4 flex items-center justify-between">
         <!-- Logo und Titel -->
         <div class="flex flex-col sm:flex-row sm:items-center gap-1">
@@ -13,7 +13,7 @@
         <button class="lg:hidden text-2xl text-blue-600" @click="sidebarOpen = true">☰</button>
 
         <!-- Desktop-Navigation (optional anzeigen) -->
-        <nav class="hidden lg:flex gap-4 text-base lg:text-lg font-medium">
+        <nav class="hidden lg:flex gap-4 text-base lg:text-lg font-medium dark:text-white">
 
           <router-link to="/" class="hover:text-blue-500">Home</router-link>
           <router-link to="/musikschule" class="hover:text-blue-500">Unterricht</router-link>

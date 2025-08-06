@@ -23,7 +23,7 @@
   -->
   
 <template>
-  <div class="min-h-screen px-6 py-20 bg-gradient-to-b from-white via-blue-50 to-blue-100">
+  <div class="min-h-screen px-6 py-20 bg-gradient-to-b from-white via-blue-50 to-blue-100 dark:from-violet-900 dark:via-indigo-950 dark:to-purple-900">
     <div class="max-w-6xl mx-auto space-y-12 text-center">
       <h1 class="text-4xl font-bold text-blue-600">Musikinstrumente</h1>
       <p class="text-gray-700">Unsere hochwertigen Instrumente für Schüler:innen und Profis – direkt bei uns erhältlich.</p>

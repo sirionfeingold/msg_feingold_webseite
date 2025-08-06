@@ -17,7 +17,7 @@
   -->
   
 <template>
-  <div class="min-h-screen px-6 py-20 bg-gradient-to-b from-white via-orange-50 to-rose-100 text-gray-800">
+  <div class="min-h-screen px-6 py-20 bg-gradient-to-b from-white via-orange-50 to-rose-100 dark:from-violet-900 dark:via-indigo-950 dark:to-purple-900 text-gray-800">
     <div class="max-w-3xl mx-auto space-y-12">
 
       <!-- Überschrift -->
@@ -26,13 +26,13 @@
       </h1>
 
       <!-- Einführung -->
-      <p class="text-lg text-center text-gray-700">
+      <p class="text-lg text-center text-gray-700 dark:text-blue-400">
         Unsere Bedingungen schaffen Klarheit für beide Seiten. Hier findest du alle zentralen Infos zu Vertragsdauer, Zahlung und Unterrichtsausfall.
       </p>
 
       <!-- Konditionen-Liste -->
       <div class="space-y-8">
-        <ol class="list-decimal list-inside text-gray-800 space-y-4 text-base leading-relaxed bg-white/60 rounded-xl p-6 shadow-md backdrop-blur-md">
+        <ol class="list-decimal list-inside text-gray-800 dark:text-blue-200 space-y-4 text-base leading-relaxed bg-white/60 dark:bg-blue-950 rounded-xl p-6 shadow-md backdrop-blur-md">
           <li>
             Der Unterricht beginnt mit dem Eintrittsdatum und erfolgt mindestens 10 Lektionen pro Quartal oder 20 Lektionen pro Semester.
           </li>
@@ -61,21 +61,21 @@
       </div>
 
       <!-- Kontaktinfo -->
-      <div class="text-sm text-gray-600 mt-8 text-center space-y-2">
+      <div class="text-sm text-gray-600 dark:text-blue-300 mt-8 text-center space-y-2">
         <p>
           Bei Fragen kontaktiere uns gerne:
         </p>
         <p>
           <a
             href="mailto:email@msgfeingold.ch"
-            class="text-orange-600 hover:text-orange-700 underline font-medium"
+            class="text-orange-600 hover:text-orange-700 dark:text-blue-300 dark:hover:text-blue-400 underline font-medium"
           >
             email@msgfeingold.ch
           </a>
           <br />
           <a
             href="tel:+41313113251"
-            class="text-orange-600 hover:text-orange-700 underline font-medium"
+            class="text-orange-600 hover:text-orange-700 dark:text-blue-300 dark:hover:text-blue-400 underline font-medium"
           >
             (+41) 031 311 32 51
           </a>

@@ -18,7 +18,7 @@
   -->
 
 <template>
-  <div class="min-h-screen w-full bg-gradient-to-br from-white via-rose-50 to-orange-100 px-6 py-20">
+  <div class="min-h-screen w-full bg-gradient-to-br from-white via-rose-50 to-orange-100 dark:from-violet-900 dark:via-indigo-950 dark:to-purple-900 px-6 py-20">
     <div class="max-w-6xl mx-auto text-center space-y-16">
 
       <!-- Überschrift -->
@@ -30,7 +30,7 @@
 
 
       <!-- Beschreibung -->
-      <p class="text-lg sm:text-xl text-gray-700 max-w-3xl mx-auto">
+      <p class="text-lg sm:text-xl text-gray-700 max-w-3xl mx-auto dark:text-blue-500">
         Wir bieten individuellen Musikunterricht auf höchstem Niveau – für Anfänger:innen, Fortgeschrittene und Profis.
       </p>
 
@@ -49,8 +49,8 @@
       </div>
     </div>
    <section class="mt-20 text-center">
-    <h2 class="text-2xl font-bold text-orange-600 mb-4">Standort & Anfahrt</h2>
-    <p class="text-gray-700 mb-4">
+    <h2 class="text-2xl font-bold text-orange-600 dark:text-blue-500 mb-4">Standort & Anfahrt</h2>
+    <p class="text-gray-700 dark:text-blue-300 mb-4">
       MSG Feingold<br>
       Zibelgässli 18, 3011 Bern<br>
       (direkt bei der Zytglogge / dem historischen Uhrturm)
@@ -71,7 +71,7 @@
       class="inline-block mt-4 text-orange-600 hover:text-orange-800 underline font-medium"
     >
     <button type="submit"
-            class="bg-orange-500 hover:bg-orange-600 text-white text-lg font-semibold px-8 py-3 rounded-full shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 ease-in-out"
+            class="bg-orange-500 hover:bg-orange-600 dark:bg-blue-500 dark:hover:bg-blue-600 text-white text-lg font-semibold px-8 py-3 rounded-full shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 ease-in-out"
           >
       Route planen
     </button>

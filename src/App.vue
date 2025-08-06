@@ -15,7 +15,6 @@
 
 
 <script lang="ts" setup>
-import { ref } from 'vue'
 import Footer from './components/Footer.vue'
 import Header from './components/Header.vue'
 

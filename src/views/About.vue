@@ -20,7 +20,7 @@
   -->
   
 <template>
-  <div class="min-h-screen w-full flex items-center justify-center bg-gradient-to-br from-red-200 via-amber-100 to-blue-300 text-gray-900">
+  <div class="min-h-screen w-full flex items-center justify-center bg-gradient-to-br from-red-200 via-amber-100 to-blue-300 dark:from-violet-900 dark:via-indigo-950 dark:to-purple-900 text-gray-900">
     <div class="max-w-5xl text-center space-y-10 px-4 sm:px-6">
 
       <!-- Überschrift mit Farbverlauf -->
@@ -31,18 +31,18 @@
       </h1>
 
       <!-- Textblock -->
-      <p class="text-lg sm:text-xl text-gray-700 leading-relaxed">
+      <p class="text-lg sm:text-xl text-gray-700 dark:text-blue-400 leading-relaxed">
         MSG Feingold steht für musikalische Qualität, kreative Programme und echte Begeisterung. Seit über 40 Jahren gestalten wir musikalische Erlebnisse in Bern und darüber hinaus – mit Solisten, Ensembles und einem feinen Gespür für Stil und Atmosphäre.
       </p>
 
       <!-- Zusatztext -->
-      <p class="text-base sm:text-lg text-gray-600">
+      <p class="text-base sm:text-lg text-gray-600 dark:text-blue-300">
         Unsere Projekte verbinden Klassik mit Moderne, Tiefe mit Leichtigkeit und Herz mit Professionalität.
         Ob Konzerte, Gospel, Kammermusik oder Musikverlag – bei uns steht die Musik im Mittelpunkt.
       </p>
 
       <!-- Gründer:innen -->
-      <section class="mt-20 sm:mt-28 bg-gradient-to-br from-orange-50 via-pink-50 to-rose-100 rounded-3xl shadow-xl px-8 py-12 mb-20">
+      <section class="mt-20 sm:mt-28 bg-gradient-to-br from-orange-50 via-pink-50 to-rose-100 dark:from-blue-900 dark:via-indigo-900 dark:to-violet-900 rounded-3xl shadow-xl px-8 py-12 mb-20">
         <h2 class="text-3xl sm:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-orange-500 via-pink-500 to-red-500 drop-shadow text-center mb-8">
           Unsere Lehrpersonen
         </h2>
@@ -55,8 +55,8 @@
               alt="Esther Feingold"
               class="w-32 h-32 mx-auto rounded-full object-cover shadow-md hover:scale-105 transition-transform duration-300"
             />
-            <h3 class="text-xl font-semibold text-pink-700">Esther Feingold</h3>
-            <p class="text-gray-600 text-sm">
+            <h3 class="text-xl font-semibold text-pink-700 dark:text-blue-400">Esther Feingold</h3>
+            <p class="text-gray-600 dark:text-blue-300 text-sm">
               Sängerin, Gesangspädagogin, Komponistin und kreative Unternehmerin – 
               Esther Feingold vereint künstlerische Tiefe mit stilistischer Vielfalt. 
               Als gefragte Solistin bewegt sie sich mühelos zwischen Klassik, Jazz und zeitgenössischem Repertoire.
@@ -69,7 +69,7 @@
             <a
               href="https://esther-feingold.ch/"
               target="_blank"
-              class="inline-block mt-2 text-sm font-medium text-orange-600 hover:text-orange-800 underline transition"
+              class="inline-block mt-2 text-sm font-medium text-orange-600 hover:text-orange-800 dark:text-blue-300 dark:hover:text-blue-400 underline transition"
             >
               🔗 estherfeingold.ch
             </a>
@@ -82,8 +82,8 @@
               alt="Osvaldo Ovejero"
               class="w-32 h-32 mx-auto rounded-full object-cover shadow-md hover:scale-105 transition-transform duration-300"
             />
-            <h3 class="text-xl font-semibold text-pink-700">Osvaldo Ovejero</h3>
-            <p class="text-gray-600 text-sm">
+            <h3 class="text-xl font-semibold text-pink-700 dark:text-blue-400">Osvaldo Ovejero</h3>
+            <p class="text-gray-600 dark:text-blue-300 text-sm">
               Osvaldo Antonio Ovejero ist ein Dirigent, Komponist und Cellist, der mit seiner tiefen musikalischen Intuition und seinem feinen Gespür für Menschen inspiriert.
               Mit Wärme, Humor und klarer künstlerischer Vision fördert er seine Schüler auf Augenhöhe, fordert sie heraus und öffnet Räume für Kreativität und Persönlichkeit. Seine Proben sind geprägt von Energie, Klarheit und echter Neugier – stets getragen von Respekt vor dem Menschen und der Musik.
               Ovejeros Werke – kraftvoll, farbenreich und geprägt von einem eigenständigen neunten-ton-basierten Stil – spiegeln eine tiefe Verbindung zwischen Emotion, Form und kultureller Vielfalt. 
@@ -91,7 +91,7 @@
             <a
               href="https://osvaldo-ovejero.ch/"
               target="_blank"
-              class="inline-block mt-2 text-sm font-medium text-orange-600 hover:text-orange-800 underline transition"
+              class="inline-block mt-2 text-sm font-medium text-orange-600 hover:text-orange-800 dark:text-blue-300 dark:hover:text-blue-400 underline transition"
             >
               🔗 osvaldo-ovejero.com
             </a>

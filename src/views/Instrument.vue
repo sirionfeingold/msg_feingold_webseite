@@ -25,7 +25,7 @@
   -->
   
 <template>
-  <div class="min-h-screen px-4 sm:px-6 py-20 bg-gradient-to-b from-white via-orange-50 to-yellow-100 text-gray-800">
+  <div class="min-h-screen px-4 sm:px-6 py-20 bg-gradient-to-b from-white via-orange-50 to-yellow-100 dark:from-violet-900 dark:via-indigo-950 dark:to-purple-900 text-gray-800">
     <div class="max-w-4xl mx-auto flex flex-col items-center space-y-10 text-center">
 
       <!-- Titel -->

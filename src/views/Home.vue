@@ -26,7 +26,7 @@ const showAktuelles = ref(false)
 </script>
 
 <template>
-  <div class="w-full bg-gradient-to-br from-red-400 via-amber-200 to-blue-600 text-gray-900 py-20">
+  <div class="w-full bg-gradient-to-br from-red-400 via-amber-200 to-blue-600 dark:from-violet-900 dark:via-indigo-950 dark:to-purple-900 text-gray-900 py-20">
     <!-- HERO -->
     <div class="text-center px-6 sm:px-10 py-16">
       <h1 class="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight leading-snug text-center bg-gradient-to-r from-red-500 via-orange-400 to-fuchsia-600 text-transparent bg-clip-text drop-shadow-md px-4">
@@ -34,7 +34,7 @@ const showAktuelles = ref(false)
         <span class="text-white drop-shadow-lg">Willkommen bei MSG Feingold</span>
       </h1>
 
-      <p class="mt-4 text-lg sm:text-xl text-orange-800">
+      <p class="mt-4 text-lg sm:text-xl text-orange-800 dark:text-orange-500">
         Musik. Begeisterung. Erlebnis.
       </p>
 
