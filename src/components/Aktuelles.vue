@@ -77,7 +77,7 @@ Eintritt frei, Kollekte.
   {
     title: 'Schnupperstunden',
     date: 'Jederzeit möglich',
-    description: `Lerne unsere Lehrpersonen kennen und buche eine kostenlose Probestunde.
+    description: `Lerne unsere Lehrpersonen kennen und buche eine Probestunde.
 Einfach Kontaktformular ausfüllen oder direkt anrufen.`
   },
   {

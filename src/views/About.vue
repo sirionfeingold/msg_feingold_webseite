@@ -27,7 +27,7 @@
       <h1
         class="text-4xl sm:text-5xl font-extrabold tracking-tight bg-gradient-to-r from-red-400 via-orange-300 to-fuchsia-600 text-transparent bg-clip-text drop-shadow-md space-y-12 px-6 sm:px-10 pt-32"
       >
-        About Us
+        Über uns
       </h1>
 
       <!-- Textblock -->
