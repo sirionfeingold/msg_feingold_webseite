@@ -27,7 +27,7 @@
           class="bg-white/80 dark:bg-white/70 backdrop-blur rounded-3xl p-5 transition-all hover:scale-[1.02] cursor-pointer shadow-md hover:shadow-xl hover:scale-105 duration-300 ease-in-out"
           @click="openModal(item)"
         >
-          <p class="text-sm font-medium text-orange-600 uppercase mb-1">{{ item.date }}</p>
+          <p class="text-sm font-medium text-orange-600 dark:text-blue-900 uppercase mb-1">{{ item.date }}</p>
           <h3 class="text-lg font-bold text-pink-700">{{ item.title }}</h3>
           <p class="text-gray-700 mt-2 line-clamp-3">{{ item.description }}</p>
         </div>
@@ -47,7 +47,7 @@
               &times;
             </button>
 
-            <p class="text-sm text-orange-600 mb-2">{{ selectedEvent.date }}</p>
+            <p class="text-sm text-orange-600 dark:text-blue-900 mb-2">{{ selectedEvent.date }}</p>
             <h3 class="text-2xl font-bold text-pink-700 mb-4">{{ selectedEvent.title }}</h3>
             <p class="text-gray-800 text-left whitespace-pre-line" v-html="selectedEvent.description" />
           </div>
