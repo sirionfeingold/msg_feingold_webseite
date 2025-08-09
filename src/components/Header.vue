@@ -16,9 +16,9 @@
         <nav class="hidden lg:flex gap-4 text-base lg:text-lg font-medium dark:text-white/80">
 
           <router-link to="/" class="hover:text-blue-500">Home</router-link>
-          <router-link to="/musikschule" class="hover:text-blue-500">Unterricht</router-link>
+          <router-link to="/unterricht" class="hover:text-blue-500">Unterricht</router-link>
           <ShopDropDown />
-          <router-link to="/media" class="hover:text-blue-500">Medien</router-link>
+          <router-link to="/medien" class="hover:text-blue-500">Medien</router-link>
           <router-link to="/kontakt" class="hover:text-blue-500">Kontakt</router-link>
           <router-link to="/konditionen" class="hover:text-blue-500">Konditionen</router-link>
           <router-link to="/about" class="hover:text-blue-500">Über uns</router-link>

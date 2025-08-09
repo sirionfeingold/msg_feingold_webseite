@@ -17,12 +17,12 @@
       </button>
       <nav class="flex flex-col gap-4 text-lg font-medium dark:text-gray-100">
         <router-link to="/" @click="toggle">Home</router-link>
-        <router-link to="/musikschule" @click="toggle">Musikschule</router-link>
+        <router-link to="/unterricht" @click="toggle">Unterricht</router-link>
         <shop-dropdown />
-        <router-link to="/media" @click="toggle">Media</router-link>
+        <router-link to="/medien" @click="toggle">Medien</router-link>
         <router-link to="/kontakt" @click="toggle">Kontakt</router-link>
         <router-link to="/konditionen" @click="toggle">Konditionen</router-link>
-        <router-link to="/about" @click="toggle">About us</router-link>
+        <router-link to="/about" @click="toggle">Über uns</router-link>
       </nav>
     </aside>
   </Transition>

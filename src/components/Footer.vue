@@ -23,8 +23,8 @@
         <h4 class="text-xl font-bold text-blue-600 dark:text-gray-300">🎵 Navigation</h4>
         <ul class="space-y-1 text-sm">
           <li><router-link to="/" class="hover:underline">Home</router-link></li>
-          <li><router-link to="/musikschule" class="hover:underline">Unterricht</router-link></li>
-          <li><router-link to="/media" class="hover:underline">Medien</router-link></li>
+          <li><router-link to="/unterricht" class="hover:underline">Unterricht</router-link></li>
+          <li><router-link to="/medien" class="hover:underline">Medien</router-link></li>
           <li><router-link to="/kontakt" class="hover:underline">Kontakt</router-link></li>
         </ul>
       </div>

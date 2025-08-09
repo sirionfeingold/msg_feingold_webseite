@@ -13,14 +13,14 @@ import Media from '../views/Media.vue'
 const routes = [
     { path: "/", component: Home},
     { path: "/about", component: About},
-    { path: "/musikschule", component: MusicSchool},
+    { path: "/unterricht", component: MusicSchool},
     { path: "/instrument/:name", component: Instrument, props: true},
     { path: "/kontakt", component: Kontakt},
     { path: "/konditionen", component: Konditionen},
     { path: "/shop/instrumente", component: ShopInstrumente},
     { path: "/shop/cds", component: ShopCDs},
     { path: "/shop/kunst", component: ShopKunst},
-    { path: "/media", component: Media}
+    { path: "/medien", component: Media}
 ]
 
 const router = createRouter({
