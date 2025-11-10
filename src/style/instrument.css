@@ -1,0 +1,49 @@
+/* =========================================================
+   Instrument Styles – MSG Feingold
+   ---------------------------------------------------------
+   Styling für die Detailseite einzelner Instrumente
+   ========================================================= */
+
+@reference "tailwindcss";
+
+/* === Haupt-Wrapper === */
+.instrument-wrapper {
+  @apply min-h-screen px-4 sm:px-6 py-20 
+         bg-gradient-to-b from-white via-orange-50 to-yellow-100 
+         dark:from-violet-900 dark:via-indigo-950 dark:to-purple-900 
+         text-gray-800;
+}
+
+/* === Innerer Container === */
+.instrument-container {
+  @apply max-w-4xl mx-auto flex flex-col items-center 
+         space-y-10 text-center;
+}
+
+/* === Titel === */
+.instrument-title {
+  @apply leading-tight text-4xl sm:text-5xl font-extrabold tracking-tight 
+         bg-gradient-to-r from-orange-500 via-rose-500 to-pink-600 
+         text-transparent bg-clip-text drop-shadow-lg;
+}
+
+/* === Bild === */
+.instrument-image {
+  @apply w-full max-w-xl max-h-[500px] object-contain rounded-3xl 
+         shadow-xl transition-transform duration-300 hover:scale-[1.02];
+}
+
+/* === Beschreibung === */
+.instrument-description {
+  @apply text-lg sm:text-xl leading-relaxed text-gray-700 
+         dark:text-blue-300 max-w-3xl;
+}
+
+/* === Call to Action Button === */
+.instrument-button {
+  @apply mt-6 inline-block bg-orange-500 hover:bg-orange-600 
+         dark:bg-blue-500 dark:hover:bg-blue-600 text-white 
+         font-medium text-lg px-6 py-3 rounded-full shadow-md 
+         hover:shadow-lg hover:scale-105 transition-all 
+         duration-300 ease-in-out;
+}

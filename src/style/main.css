@@ -9,4 +9,5 @@ body {
 
 /* eigene Styles oder View-spezifische Imports */
 @import "./home.css";
-@import "./about.css"
+@import "./about.css";
+@import "./instrument.css";

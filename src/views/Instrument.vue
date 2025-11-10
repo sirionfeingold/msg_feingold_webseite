@@ -25,11 +25,11 @@
   -->
   
 <template>
-  <div class="min-h-screen px-4 sm:px-6 py-20 bg-gradient-to-b from-white via-orange-50 to-yellow-100 dark:from-violet-900 dark:via-indigo-950 dark:to-purple-900 text-gray-800">
-    <div class="max-w-4xl mx-auto flex flex-col items-center space-y-10 text-center">
+  <div class="instrument-wrapper">
+    <div class="instrument-container">
 
       <!-- Titel -->
-      <h1 class="leading-tight text-4xl sm:text-5xl font-extrabold tracking-tight bg-gradient-to-r from-orange-500 via-rose-500 to-pink-600 text-transparent bg-clip-text drop-shadow-lg">
+      <h1 class="instrument-title">
         {{ instrument?.name }}
       </h1>
 
@@ -42,14 +42,14 @@
       />
 
       <!-- Beschreibung -->
-      <p class="text-lg sm:text-xl leading-relaxed text-gray-700 dark:text-blue-300 max-w-3xl">
+      <p class="instrument-description">
         {{ instrument?.description }}
       </p>
 
       <!-- Call to Action -->
       <router-link
         to="/kontakt"
-        class="mt-6 inline-block bg-orange-500 hover:bg-orange-600 dark:bg-blue-500 dark:hover:bg-blue-600 text-white font-medium text-lg px-6 py-3 rounded-full shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 ease-in-out"
+        class="instrument-button"
       >
         Probestunde vereinbaren
       </router-link>
@@ -66,8 +66,4 @@ const route = useRoute()
 const instrument = instruments.find(i => i.slug === route.params.name)
 </script>
 
-<style scoped>
-body {
-  font-family: 'Inter', 'Poppins', sans-serif;
-}
-</style>
+

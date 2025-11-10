@@ -102,12 +102,3 @@
   </div>
 </template>
 
-<script setup>
-// Clean, modern About page with soft red gradient and gradient headline
-</script>
-
-<style scoped>
-body {
-  font-family: 'Inter', 'Poppins', sans-serif;
-}
-</style>
