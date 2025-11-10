@@ -1,0 +1,76 @@
+/* =========================================================
+   Musikschule Styles – MSG Feingold
+   ---------------------------------------------------------
+   Übersicht der angebotenen Instrumentalfächer
+   ========================================================= */
+
+@reference "tailwindcss";
+
+/* === Seitenlayout === */
+.musikschule-wrapper {
+  @apply min-h-screen w-full px-6 py-20 
+         bg-gradient-to-br from-white via-rose-50 to-orange-100 
+         dark:from-violet-900 dark:via-indigo-950 dark:to-purple-900;
+}
+
+.musikschule-inner {
+  @apply max-w-6xl mx-auto text-center space-y-16;
+}
+
+/* === Überschrift === */
+.musikschule-title {
+  @apply text-2xl sm:text-4xl md:text-5xl font-extrabold tracking-tight leading-snug 
+         bg-gradient-to-r from-red-400 via-orange-400 to-purple-600 
+         text-transparent bg-clip-text drop-shadow-lg 
+         text-center px-4 break-words whitespace-normal overflow-visible;
+}
+
+/* === Beschreibung === */
+.musikschule-desc {
+  @apply text-lg sm:text-xl text-gray-700 max-w-3xl mx-auto dark:text-blue-500;
+}
+
+/* === Instrumentenliste === */
+.instrument-grid {
+  @apply grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10;
+}
+
+.instrument-card {
+  @apply block p-6 rounded-2xl shadow-xl transition-transform duration-300 
+         hover:-translate-y-1 text-left text-white no-underline;
+}
+
+.instrument-name {
+  @apply text-2xl font-semibold mb-2;
+}
+
+.instrument-link {
+  @apply text-white/90 text-sm;
+}
+
+/* === Standort / Anfahrt === */
+.standort-section {
+  @apply mt-20 text-center;
+}
+
+.standort-title {
+  @apply text-2xl font-bold text-orange-600 dark:text-blue-500 mb-4;
+}
+
+.standort-text {
+  @apply text-gray-700 dark:text-blue-300 mb-4;
+}
+
+.standort-map {
+  @apply max-w-3xl mx-auto aspect-video rounded-xl overflow-hidden shadow;
+}
+
+.standort-button {
+  @apply bg-orange-500 hover:bg-orange-600 dark:bg-blue-500 dark:hover:bg-blue-600 
+         text-white text-lg font-semibold px-8 py-3 rounded-full shadow-md 
+         hover:shadow-lg hover:scale-105 transition-all duration-300 ease-in-out;
+}
+
+.standort-link {
+  @apply inline-block mt-4 text-orange-600 hover:text-orange-800 underline font-medium;
+}

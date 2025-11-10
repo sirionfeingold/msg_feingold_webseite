@@ -18,44 +18,42 @@
   -->
 
 <template>
-  <div class="min-h-screen w-full bg-gradient-to-br from-white via-rose-50 to-orange-100 dark:from-violet-900 dark:via-indigo-950 dark:to-purple-900 px-6 py-20">
-    <div class="max-w-6xl mx-auto text-center space-y-16">
+  <div class="musikschule-wrapper">
+    <div class="musikschule-inner">
 
       <!-- Überschrift -->
-      <h1 class="text-2xl sm:text-4xl md:text-5xl font-extrabold tracking-tight leading-snug 
-         bg-gradient-to-r from-red-400 via-orange-400 to-purple-600 text-transparent bg-clip-text 
-         drop-shadow-lg text-center px-4 break-words whitespace-normal overflow-visible">
+      <h1 class="musikschule-title">
          Instrumentalunterricht bei MSG Feingold
         </h1>
 
 
       <!-- Beschreibung -->
-      <p class="text-lg sm:text-xl text-gray-700 max-w-3xl mx-auto dark:text-blue-500">
+      <p class="musikschule-desc">
         Wir bieten individuellen Musikunterricht auf höchstem Niveau – für Anfänger:innen, Fortgeschrittene und Profis.
       </p>
 
       <!-- Instrumentenliste mit Links -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
+      <div class="instrument-grid">
         <router-link
           v-for="(instrument, index) in instruments"
           :key="index"
           :to="`/instrument/${instrument.slug}`"
-          class="block p-6 rounded-2xl shadow-xl transition-transform duration-300 hover:-translate-y-1 text-left text-white no-underline"
+          class="instrument-card"
           :class="instrument.gradient"
         >
-          <h2 class="text-2xl font-semibold mb-2">{{ instrument.name }}</h2>
-          <p class="text-white/90 text-sm">Mehr erfahren</p>
+          <h2 class="instrument-name">{{ instrument.name }}</h2>
+          <p class="instrument-link">Mehr erfahren</p>
         </router-link>
       </div>
     </div>
-   <section class="mt-20 text-center">
-    <h2 class="text-2xl font-bold text-orange-600 dark:text-blue-500 mb-4">Standort & Anfahrt</h2>
-    <p class="text-gray-700 dark:text-blue-300 mb-4">
+   <section class="standort-section">
+    <h2 class="standort-title">Standort & Anfahrt</h2>
+    <p class="standort-text">
       MSG Feingold<br>
       Zibelgässli 18, 3011 Bern<br>
       (direkt bei der Zytglogge / dem historischen Uhrturm)
     </p>
-    <div class="max-w-3xl mx-auto aspect-video rounded-xl overflow-hidden shadow">
+    <div class="standort-map">
       <iframe
         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2761.192005075683!2d7.44765181558627!3d46.94804207914704!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x478e3913c30ca1b3%3A0xedaf8ab3ed5a5e81!2sZibelg%C3%A4ssli%2018%2C%203011%20Bern!5e0!3m2!1sde!2sch!4v1718828000000!5m2!1sde!2sch"
         class="w-full h-full"
@@ -68,17 +66,15 @@
     <a
       href="https://www.google.com/maps/dir/?api=1&destination=Zibelg%C3%A4ssli+18,+3011+Bern"
       target="_blank"
-      class="inline-block mt-4 text-orange-600 hover:text-orange-800 underline font-medium"
+      class="standort-link"
     >
     <button type="submit"
-            class="bg-orange-500 hover:bg-orange-600 dark:bg-blue-500 dark:hover:bg-blue-600 text-white text-lg font-semibold px-8 py-3 rounded-full shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 ease-in-out"
+            class="standort-button"
           >
       Route planen
     </button>
     </a>
   </section>
-
-
   </div>
 </template>
 
@@ -95,9 +91,3 @@ const instruments = [
   { name: "Violoncello", slug: "violoncello", gradient: "bg-gradient-to-br from-red-400 to-orange-600" }
 ];
 </script>
-
-<style scoped>
-body {
-  font-family: 'Inter', 'Poppins', sans-serif;
-}
-</style>
