@@ -1,0 +1,45 @@
+/* =========================================================
+   Medien Styles – MSG Feingold
+   ---------------------------------------------------------
+   Einblicke & Künstler:innen-Medien
+   ========================================================= */
+
+@reference "tailwindcss";
+
+/* === Seitenlayout === */
+.medien-wrapper {
+  @apply min-h-screen px-6 py-20 
+         bg-gradient-to-b from-white via-rose-50 to-yellow-100 
+         dark:from-violet-900 dark:via-indigo-950 dark:to-purple-900;
+}
+
+.medien-inner {
+  @apply max-w-6xl mx-auto space-y-16 text-center;
+}
+
+/* === Überschrift === */
+.medien-title {
+  @apply text-4xl sm:text-5xl font-extrabold tracking-tight 
+         bg-gradient-to-r from-orange-500 via-pink-400 to-blue-600 
+         text-transparent bg-clip-text drop-shadow;
+}
+
+/* === Auswahl Dropdown === */
+.medien-select-block {
+  @apply mb-8;
+}
+
+.medien-label {
+  @apply block mb-2 text-lg font-semibold text-gray-700 dark:text-blue-300;
+}
+
+.medien-select {
+  @apply px-4 py-2 rounded-xl border border-gray-300 shadow-sm 
+         focus:ring focus:ring-orange-200 dark:text-blue-100 
+         dark:bg-blue-900 bg-white;
+}
+
+/* === Medienblock-Komponente === */
+.medien-person {
+  @apply mt-10;
+}

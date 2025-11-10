@@ -1,19 +1,19 @@
 <template>
-  <div class="min-h-screen px-6 py-20 bg-gradient-to-b from-white via-rose-50 to-yellow-100 dark:from-black dark:from-violet-900 dark:via-indigo-950 dark:to-purple-900">
-    <div class="max-w-6xl mx-auto space-y-16 text-center">
+  <div class="medien-wrapper">
+    <div class="medien-inner">
 
       <!-- Überschrift -->
-      <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight bg-gradient-to-r from-orange-500 via-pink-400 to-blue-600 text-transparent bg-clip-text drop-shadow">
+      <h1 class="medien-title">
         Einblicke & Medien
       </h1>
 
       <!-- Auswahl Dropdown -->
-      <div class="mb-8">
-        <label for="person" class="block mb-2 text-lg font-semibold text-gray-700 dark:text-blue-300">Wähle Künstler:in</label>
+      <div class="mb-medien-select-block">
+        <label for="person" class="medien-label">Wähle Künstler:in</label>
         <select
           id="person"
           v-model="selected"
-          class="px-4 py-2 rounded-xl border border-gray-300 shadow-sm focus:ring focus:ring-orange-200 dark:text-blue-100"
+          class="medien-select"
         >
           <option value="esther">Esther Feingold</option>
           <option value="osvaldo">Osvaldo Ovejero</option>
@@ -21,7 +21,9 @@
       </div>
 
       <!-- Medienblock -->
-      <PersonMedia v-bind="currentPerson" />
+       <div class="medien-person">
+        <PersonMedia v-bind="currentPerson" />
+       </div>
 
     </div>
   </div>
@@ -57,9 +59,3 @@ const persons = {
 
 const currentPerson = computed(() => persons[selected.value])
 </script>
-
-<style scoped>
-body {
-  font-family: 'Inter', 'Poppins', sans-serif;
-}
-</style>
