@@ -1,5 +1,12 @@
 @import "tailwindcss/preflight";
 @import "tailwindcss/utilities";
 
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  font-weight: 400;
+}
+
 /* eigene Styles oder View-spezifische Imports */
 @import "./home.css";
+@import "./about.css"

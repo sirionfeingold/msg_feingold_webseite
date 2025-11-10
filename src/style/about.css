@@ -1,0 +1,69 @@
+/* =========================================================
+   About Page Styles – MSG Feingold
+   ========================================================= */
+
+@reference "tailwindcss";
+
+/* === Grundlayout === */
+.about-wrapper {
+  @apply min-h-screen w-full flex items-center justify-center 
+         bg-gradient-to-br from-red-200 via-amber-100 to-blue-300 
+         dark:from-violet-900 dark:via-indigo-950 dark:to-purple-900 
+         text-gray-900;
+}
+
+.about-inner {
+  @apply max-w-5xl text-center space-y-10 px-4 sm:px-6;
+}
+
+/* === Überschrift === */
+.about-title {
+  @apply text-4xl sm:text-5xl font-extrabold tracking-tight 
+         bg-gradient-to-r from-red-400 via-orange-300 to-fuchsia-600 
+         text-transparent bg-clip-text drop-shadow-md 
+         space-y-12 px-6 sm:px-10 pt-32;
+}
+
+/* === Texte === */
+.about-text-main {
+  @apply text-lg sm:text-xl text-gray-700 dark:text-blue-400 leading-relaxed;
+}
+
+.about-text-sub {
+  @apply text-base sm:text-lg text-gray-600 dark:text-blue-300;
+}
+
+/* === Lehrpersonen Abschnitt === */
+.about-teachers {
+  @apply mt-20 sm:mt-28 bg-gradient-to-br from-orange-50 via-pink-50 to-rose-100 
+         dark:from-blue-900 dark:via-indigo-900 dark:to-violet-900 
+         rounded-3xl shadow-xl px-8 py-12 mb-20;
+}
+
+.about-teachers-title {
+  @apply text-3xl sm:text-4xl font-extrabold text-transparent bg-clip-text 
+         bg-gradient-to-r from-orange-500 via-pink-500 to-red-500 
+         drop-shadow text-center mb-8;
+}
+
+.teacher-card {
+  @apply flex-1 space-y-3 text-center;
+}
+
+.teacher-img {
+  @apply w-32 h-32 mx-auto rounded-full object-cover shadow-md 
+         hover:scale-105 transition-transform duration-300;
+}
+
+.teacher-name {
+  @apply text-xl font-semibold text-pink-700 dark:text-blue-400;
+}
+
+.teacher-bio {
+  @apply text-gray-600 dark:text-blue-300 text-sm;
+}
+
+.teacher-link {
+  @apply inline-block mt-2 text-sm font-medium text-orange-600 hover:text-orange-800 
+         dark:text-blue-300 dark:hover:text-blue-400 underline transition;
+}
