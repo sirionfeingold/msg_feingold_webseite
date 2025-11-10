@@ -16,16 +16,16 @@
   -->
   
 <template>
-  <div class="min-h-screen px-6 py-20 bg-gradient-to-b from-white via-orange-50 to-yellow-100 dark:from-violet-900 dark:via-indigo-950 dark:to-purple-900">
-    <div class="max-w-2xl mx-auto space-y-12 text-center">
+  <div class="kontakt-wrapper">
+    <div class="kontakt-inner">
 
       <!-- Überschrift -->
-      <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight bg-gradient-to-r from-orange-500 via-pink-400 to-blue-600 text-transparent bg-clip-text drop-shadow-lg">
+      <h1 class="kontakt-title">
         Probestunde reservieren
       </h1>
 
       <!-- Einleitung -->
-      <p class="text-gray-700 dark:text-blue-300 text-lg">
+      <p class="kontakt-intro">
         Nutze das Formular, um uns zu kontaktieren. Dein Mailprogramm wird geöffnet und deine Nachricht an uns vorbereitet.
       </p>
 
@@ -34,27 +34,27 @@
         :action="mailtoLink"
         method="POST"
         enctype="text/plain"
-        class="space-y-6 text-left"
+        class="kontakt-form"
       >
         <!-- Name -->
         <div>
-          <label class="block text-sm font-medium text-gray-700 dark:text-blue-300 mb-1">Name</label>
+          <label class="kontakt-label">Name</label>
           <input name="Name" type="text" placeholder="Vor- und Nachname"
-            class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-400 dark:focus:ring-blue-500 dark:text-blue-300" />
+            class="kontakt-input" />
         </div>
 
         <!-- E-Mail -->
         <div>
-          <label class="block text-sm font-medium text-gray-700 dark:text-blue-300 mb-1">E-Mail</label>
+          <label class="kontakt-label">E-Mail</label>
           <input name="Email" type="email" placeholder="dein@email.ch"
-            class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-400 dark:focus:ring-blue-500 dark:text-blue-300" />
+            class="kontakt-input" />
         </div>
 
         <!-- Instrument -->
         <div>
-          <label class="block text-sm font-medium text-gray-700 dark:text-blue-300 mb-1">Instrument</label>
+          <label class="kontakt-label">Instrument</label>
           <select name="Instrument"
-            class="dark:bg-blue-900 w-full px-4 py-2 rounded-lg border border-gray-300 bg-white focus:outline-none focus:ring-2 focus:ring-orange-400 dark:focus:ring-blue-500 dark:text-blue-300">
+            class="kontakt-select">
             <option>– bitte wählen –</option>
             <option>Gesang</option>
             <option>Klavier</option>
@@ -69,9 +69,9 @@
 
         <!-- Nachricht -->
         <div>
-          <label class="block text-sm font-medium text-gray-700 dark:text-blue-300 mb-1">Nachricht</label>
+          <label class="kontakt-label">Nachricht</label>
           <textarea name="Nachricht" rows="4" placeholder="Fragen, Wünsche, Terminvorschläge..."
-            class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-400 dark:focus:ring-blue-500 dark:text-blue-300"></textarea>
+            class="kontakt-textarea"></textarea>
         </div>
 
         <!-- Button -->
@@ -86,12 +86,12 @@
       </form>
 
       <!-- Direktkontakt -->
-      <div class="text-sm text-gray-600 dark:text-blue-300 mt-8 space-y-2">
+      <div class="kontakt-direct">
         <p>
           Oder kontaktiere uns direkt per E-Mail:
           <a
             href="mailto:email@msgfeingold.ch"
-            class="text-orange-600 hover:text-orange-700 dark:text-blue-400 dark:hover:text-blue-500 underline font-medium ml-1"
+            class="kontakt-link"
           >
             email@msgfeingold.ch
           </a>
@@ -100,7 +100,7 @@
           Telefonisch erreichst du uns unter:
           <a
             href="tel:+41313113251"
-            class="text-orange-600 hover:text-orange-700 dark:text-blue-400 dark:hover:text-blue-500 underline font-medium ml-1"
+            class="kontakt-link"
           >
             (+41) 031 311 32 51
           </a>
@@ -114,9 +114,3 @@
 <script setup>
 const mailtoLink = "mailto:email@msgfeingold.ch"
 </script>
-
-<style scoped>
-body {
-  font-family: 'Inter', 'Poppins', sans-serif;
-}
-</style>

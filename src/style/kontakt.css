@@ -1,0 +1,71 @@
+/* =========================================================
+   Kontakt Styles – MSG Feingold
+   ---------------------------------------------------------
+   Formular & Direktkontakte für Probestundenanfragen
+   ========================================================= */
+
+@reference "tailwindcss";
+
+/* === Seitenlayout === */
+.kontakt-wrapper {
+  @apply min-h-screen px-6 py-20 
+         bg-gradient-to-b from-white via-orange-50 to-yellow-100 
+         dark:from-violet-900 dark:via-indigo-950 dark:to-purple-900;
+}
+
+.kontakt-inner {
+  @apply max-w-2xl mx-auto space-y-12 text-center;
+}
+
+/* === Überschrift === */
+.kontakt-title {
+  @apply text-4xl sm:text-5xl font-extrabold tracking-tight 
+         bg-gradient-to-r from-orange-500 via-pink-400 to-blue-600 
+         text-transparent bg-clip-text drop-shadow-lg;
+}
+
+/* === Einleitung === */
+.kontakt-intro {
+  @apply text-gray-700 dark:text-blue-300 text-lg;
+}
+
+/* === Formular === */
+.kontakt-form {
+  @apply space-y-6 text-left;
+}
+
+.kontakt-label {
+  @apply block text-sm font-medium text-gray-700 dark:text-blue-300 mb-1;
+}
+
+.kontakt-input,
+.kontakt-select,
+.kontakt-textarea {
+  @apply w-full px-4 py-2 rounded-lg border border-gray-300 
+         focus:outline-none focus:ring-2 focus:ring-orange-400 
+         dark:focus:ring-blue-500 dark:text-blue-300;
+}
+
+.kontakt-select {
+  @apply dark:bg-blue-900 bg-white;
+}
+
+/* === Button === */
+.kontakt-button {
+  @apply bg-orange-500 hover:bg-orange-600 
+         dark:bg-blue-500 dark:hover:bg-blue-600 
+         text-white text-lg font-semibold px-8 py-3 rounded-full 
+         shadow-md hover:shadow-lg hover:scale-105 
+         transition-all duration-300 ease-in-out;
+}
+
+/* === Direktkontakt === */
+.kontakt-direct {
+  @apply text-sm text-gray-600 dark:text-blue-300 mt-8 space-y-2;
+}
+
+.kontakt-link {
+  @apply text-orange-600 hover:text-orange-700 
+         dark:text-blue-400 dark:hover:text-blue-500 
+         underline font-medium ml-1;
+}
