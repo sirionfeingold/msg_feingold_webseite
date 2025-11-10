@@ -17,22 +17,22 @@
   -->
   
 <template>
-  <div class="min-h-screen px-6 py-20 bg-gradient-to-b from-white via-orange-50 to-rose-100 dark:from-violet-900 dark:via-indigo-950 dark:to-purple-900 text-gray-800">
-    <div class="max-w-3xl mx-auto space-y-12">
+  <div class="konditionen-wrapper">
+    <div class="konditionen-inner">
 
       <!-- Überschrift -->
-      <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight text-center bg-gradient-to-r from-orange-500 via-pink-500 to-purple-600 text-transparent bg-clip-text drop-shadow">
+      <h1 class="konditionen-title">
         Unterricht & Konditionen
       </h1>
 
       <!-- Einführung -->
-      <p class="text-lg text-center text-gray-700 dark:text-blue-400">
+      <p class="konditionen-intro">
         Unsere Bedingungen schaffen Klarheit für beide Seiten. Hier findest du alle zentralen Infos zu Vertragsdauer, Zahlung und Unterrichtsausfall.
       </p>
 
       <!-- Konditionen-Liste -->
-      <div class="space-y-8">
-        <ol class="list-decimal list-inside text-gray-800 dark:text-blue-200 space-y-4 text-base leading-relaxed bg-white/60 dark:bg-blue-900 rounded-xl p-6 shadow-md backdrop-blur-md">
+      <div class="konditionen-list-wrapper">
+        <ol class="konditionen-list">
           <li>
             Der Unterricht beginnt mit dem Eintrittsdatum und erfolgt mindestens 10 Lektionen pro Quartal oder 20 Lektionen pro Semester.
           </li>
@@ -55,27 +55,27 @@
             Bei frühzeitigem Studienabbruch (z.B. Krankheit, Pause, Auslandaufenthalt) erfolgt keine Rückerstattung.
           </li>
           <li>
-            Nicht bezogene Lektionen bleiben maximal ein Jahr ab dem aktuellen Quartal oder Semester gültig. Danach erlischt der Anspruch.
+            Nicht bezogene Lektionen bleiben maximal ein halbes Jahr ab dem aktuellen Quartal oder Semester gültig. Danach erlischt der Anspruch.
           </li>
         </ol>
       </div>
 
       <!-- Kontaktinfo -->
-      <div class="text-sm text-gray-600 dark:text-blue-300 mt-8 text-center space-y-2">
+      <div class="konditionen-contact">
         <p>
           Bei Fragen kontaktiere uns gerne:
         </p>
         <p>
           <a
             href="mailto:email@msgfeingold.ch"
-            class="text-orange-600 hover:text-orange-700 dark:text-blue-300 dark:hover:text-blue-400 underline font-medium"
+            class="konditionen-link"
           >
             email@msgfeingold.ch
           </a>
           <br />
           <a
             href="tel:+41313113251"
-            class="text-orange-600 hover:text-orange-700 dark:text-blue-300 dark:hover:text-blue-400 underline font-medium"
+            class="konditionen-link"
           >
             (+41) 031 311 32 51
           </a>
@@ -85,13 +85,3 @@
     </div>
   </div>
 </template>
-
-<script setup>
-// keine Logik nötig
-</script>
-
-<style scoped>
-body {
-  font-family: 'Inter', 'Poppins', sans-serif;
-}
-</style>

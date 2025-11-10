@@ -1,0 +1,54 @@
+/* =========================================================
+   Konditionen Styles – MSG Feingold
+   ---------------------------------------------------------
+   Übersicht der Unterrichts- und Vertragsbedingungen
+   ========================================================= */
+
+@reference "tailwindcss";
+
+/* === Seite & Grundlayout === */
+.konditionen-wrapper {
+  @apply min-h-screen px-6 py-20 
+         bg-gradient-to-b from-white via-orange-50 to-rose-100 
+         dark:from-violet-900 dark:via-indigo-950 dark:to-purple-900 
+         text-gray-800;
+}
+
+.konditionen-inner {
+  @apply max-w-3xl mx-auto space-y-12;
+}
+
+/* === Titel === */
+.konditionen-title {
+  @apply text-4xl sm:text-5xl font-extrabold tracking-tight text-center 
+         bg-gradient-to-r from-orange-500 via-pink-500 to-purple-600 
+         text-transparent bg-clip-text drop-shadow;
+}
+
+/* === Einführungstext === */
+.konditionen-intro {
+  @apply text-lg text-center text-gray-700 dark:text-blue-400;
+}
+
+/* === Liste der Konditionen === */
+.konditionen-list-wrapper {
+  @apply space-y-8;
+}
+
+.konditionen-list {
+  @apply list-decimal list-inside text-gray-800 dark:text-blue-200 
+         space-y-4 text-base leading-relaxed 
+         bg-white/60 dark:bg-blue-900 rounded-xl p-6 
+         shadow-md backdrop-blur-md;
+}
+
+/* === Kontaktbereich === */
+.konditionen-contact {
+  @apply text-sm text-gray-600 dark:text-blue-300 mt-8 text-center space-y-2;
+}
+
+.konditionen-link {
+  @apply text-orange-600 hover:text-orange-700 
+         dark:text-blue-300 dark:hover:text-blue-400 
+         underline font-medium;
+}
