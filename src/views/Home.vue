@@ -27,15 +27,15 @@ const showAktuelles = ref(false)
 </script>
 
 <template>
-  <div class="w-full bg-gradient-to-br from-red-300 via-amber-200 to-blue-200 dark:from-violet-900 dark:via-indigo-950 dark:to-purple-900 text-gray-900 py-20">
+  <div class="home-hero">
     <!-- HERO -->
-    <div class="text-center px-6 sm:px-10 py-16">
-      <h1 class="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight leading-snug text-center bg-gradient-to-r from-red-500 via-orange-400 to-fuchsia-600 text-transparent bg-clip-text drop-shadow-md px-4">
+    <div class="home-hero-inner">
+      <h1 class="home-title">
         Musikschule in Bern<br />
         <span class="text-white drop-shadow-lg">Willkommen bei MSG Feingold</span>
       </h1>
 
-      <p class="mt-4 text-lg sm:text-xl text-orange-800 dark:text-orange-500">
+      <p class="home-subtitle">
         Musik. Begeisterung. Erlebnis.
       </p>
 
@@ -43,7 +43,7 @@ const showAktuelles = ref(false)
         <router-link to="/about">
           <button
             type="button"
-            class="bg-blue-500 hover:bg-blue-600 text-white text-lg font-semibold px-8 py-3 rounded-full shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 ease-in-out"
+            class="btn-primary"
           >
             Mehr erfahren
           </button>
@@ -58,18 +58,4 @@ const showAktuelles = ref(false)
 </template>
 
 
-<style scoped>
-body {
-  font-family: 'Inter', 'Poppins', sans-serif;
-}
-
-.fade-slide-enter-active,
-.fade-slide-leave-active {
-  transition: all 0.4s ease;
-}
-.fade-slide-enter-from,
-.fade-slide-leave-to {
-  opacity: 0;
-  transform: translateY(10px);
-}
-</style>
+<style src="../style/home.css"></style>

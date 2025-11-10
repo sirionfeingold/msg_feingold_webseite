@@ -1,1 +1,5 @@
-@import "tailwindcss";
+@import "tailwindcss/preflight";
+@import "tailwindcss/utilities";
+
+/* eigene Styles oder View-spezifische Imports */
+@import "./home.css";
