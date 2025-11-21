@@ -1,0 +1,45 @@
+/* =========================================================
+   Header / Navigation – MSG Feingold
+   ---------------------------------------------------------
+   Hauptnavigation mit Logo, Titel und Sidebar-Button
+   ========================================================= */
+
+@reference "tailwindcss";
+
+/* === Wrapper === */
+.header-wrapper {
+  @apply bg-white/30 dark:bg-blue-950 backdrop-blur-md shadow-md
+         border-b border-white/40 dark:border-blue-950 z-20;
+}
+
+.header-inner {
+  @apply max-w-7xl mx-auto px-4 sm:px-6 md:px-8 py-4
+         flex items-center justify-between;
+}
+
+/* === Logo + Titel === */
+.header-brand {
+  @apply flex flex-col sm:flex-row sm:items-center gap-1;
+}
+
+.header-logo {
+  @apply text-2xl font-extrabold text-blue-600 dark:text-white/80;
+}
+
+.header-subtitle {
+  @apply text-sm sm:text-base text-blue-500 dark:text-white/80 font-medium;
+}
+
+/* === Burger Button === */
+.header-burger {
+  @apply lg:hidden text-2xl text-blue-600;
+}
+
+/* === Desktop Navigation === */
+.header-nav {
+  @apply hidden lg:flex gap-4 text-base lg:text-lg font-medium dark:text-white/80;
+}
+
+.header-nav-link {
+  @apply hover:text-blue-500;
+}
