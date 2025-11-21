@@ -1,0 +1,50 @@
+/* =========================================================
+   Bewertungen – MSG Feingold
+   ========================================================= */
+
+@reference "tailwindcss";
+
+/* === Abschnitt === */
+.bewertungen-section {
+  @apply py-24 px-4 sm:px-8 bg-gradient-to-br dark:text-gray-100;
+}
+
+.bewertungen-inner {
+  @apply max-w-5xl mx-auto space-y-16 text-center;
+}
+
+/* === Überschrift === */
+.bewertungen-title {
+  @apply leading-tight text-4xl sm:text-5xl font-extrabold 
+         bg-gradient-to-r from-pink-300 via-orange-500 to-blue-600 
+         text-transparent bg-clip-text drop-shadow-lg;
+}
+
+/* === Bewertungs-Box === */
+.bewertung-card {
+  @apply bg-white/70 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-900 
+         rounded-3xl p-8 sm:p-10 shadow-xl border border-white/30 
+         dark:border-gray-700 max-w-4xl mx-auto text-left 
+         hover:shadow-lg hover:scale-105 
+         transition-all duration-300 ease-in-out;
+}
+
+.bewertung-text {
+  @apply text-lg sm:text-xl text-gray-700 dark:text-gray-200 
+         italic leading-relaxed mb-6;
+}
+
+/* === Sterne + Name === */
+.bewertung-footer {
+  @apply flex flex-col sm:flex-row sm:items-center 
+         justify-between gap-2;
+}
+
+.bewertung-stars {
+  @apply flex space-x-1 text-yellow-400 text-xl;
+}
+
+.bewertung-name {
+  @apply text-right font-semibold text-blue-600 dark:text-blue-400 
+         text-sm sm:text-base;
+}
