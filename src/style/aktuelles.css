@@ -1,0 +1,82 @@
+/* =========================================================
+   Aktuelles & Veranstaltungen – MSG Feingold
+   ---------------------------------------------------------
+   Zeigt aktuelle Konzerte, News & Events in Grid-Ansicht
+   ========================================================= */
+
+@reference "tailwindcss";
+
+/* === Abschnitt === */
+.aktuelles-section {
+  @apply py-20 px-4 w-full bg-gradient-to-bl text-gray-900;
+}
+
+.aktuelles-inner {
+  @apply max-w-6xl mx-auto text-center space-y-12;
+}
+
+/* === Überschrift === */
+.aktuelles-title {
+  @apply text-3xl sm:text-4xl font-extrabold tracking-tight 
+         bg-gradient-to-r from-white via-blue-500 to-green-400 
+         text-transparent bg-clip-text drop-shadow-md;
+}
+
+/* === Event-Kacheln === */
+.aktuelles-grid {
+  @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8;
+}
+
+.event-card {
+  @apply bg-white/80 dark:bg-white/70 backdrop-blur rounded-3xl p-5 
+         transition-all duration-300 ease-in-out 
+         hover:scale-105 cursor-pointer shadow-md hover:shadow-xl;
+}
+
+.event-date {
+  @apply text-sm font-medium text-orange-600 dark:text-blue-900 uppercase mb-1;
+}
+
+.event-title {
+  @apply text-lg font-bold text-pink-700;
+}
+
+.event-desc {
+  @apply text-gray-700 mt-2 line-clamp-3;
+}
+
+/* === Modal === */
+.modal-overlay {
+  @apply fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center 
+         justify-center z-50 px-4;
+}
+
+.modal-box {
+  @apply bg-white dark:bg-gray-300 rounded-2xl shadow-2xl p-8 max-w-xl w-full relative;
+}
+
+.modal-close {
+  @apply absolute top-4 right-4 text-gray-400 hover:text-red-500 text-2xl;
+}
+
+.modal-date {
+  @apply text-sm text-orange-600 dark:text-blue-900 mb-2;
+}
+
+.modal-title {
+  @apply text-2xl font-bold text-pink-700 mb-4;
+}
+
+.modal-desc {
+  @apply text-gray-800 text-left whitespace-pre-line;
+}
+
+/* === Animation === */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}

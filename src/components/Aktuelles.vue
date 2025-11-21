@@ -12,24 +12,24 @@
   -->
     
 <template>
-  <section class="py-20 px-4 w-full bg-gradient-to-bl text-gray-900">
-    <div class="max-w-6xl mx-auto text-center space-y-12">
+  <section class="aktuelles-section">
+    <div class="aktuelles-inner">
       <!-- Überschrift -->
-      <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight bg-gradient-to-r from-white via-blue-500 to-green-400 text-transparent bg-clip-text drop-shadow-md">
+      <h2 class="aktuelles-title">
         Aktuelles & Veranstaltungen
       </h2>
 
       <!-- Event-Vorschau -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div class="aktuelles-grid">
         <div
           v-for="item in events"
           :key="item.title"
-          class="bg-white/80 dark:bg-white/70 backdrop-blur rounded-3xl p-5 transition-all hover:scale-[1.02] cursor-pointer shadow-md hover:shadow-xl hover:scale-105 duration-300 ease-in-out"
+          class="event-card"
           @click="openModal(item)"
         >
-          <p class="text-sm font-medium text-orange-600 dark:text-blue-900 uppercase mb-1">{{ item.date }}</p>
-          <h3 class="text-lg font-bold text-pink-700">{{ item.title }}</h3>
-          <p class="text-gray-700 mt-2 line-clamp-3">{{ item.description }}</p>
+          <p class="event-date">{{ item.date }}</p>
+          <h3 class="event-title">{{ item.title }}</h3>
+          <p class="event-desc">{{ item.description }}</p>
         </div>
       </div>
 
@@ -37,19 +37,19 @@
       <transition name="fade">
         <div
           v-if="selectedEvent"
-          class="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 px-4"
+          class="modal-overlay"
         >
-          <div class="bg-white dark:bg-gray-300 rounded-2xl shadow-2xl p-8 max-w-xl w-full relative">
+          <div class="modal-box">
             <button
               @click="selectedEvent = null"
-              class="absolute top-4 right-4 text-gray-400 hover:text-red-500 text-2xl"
+              class="modal-close"
             >
               &times;
             </button>
 
-            <p class="text-sm text-orange-600 dark:text-blue-900 mb-2">{{ selectedEvent.date }}</p>
-            <h3 class="text-2xl font-bold text-pink-700 mb-4">{{ selectedEvent.title }}</h3>
-            <p class="text-gray-800 text-left whitespace-pre-line" v-html="selectedEvent.description" />
+            <p class="modal-date">{{ selectedEvent.date }}</p>
+            <h3 class="modal-title">{{ selectedEvent.title }}</h3>
+            <p class="modal-desc" v-html="selectedEvent.description" />
           </div>
         </div>
       </transition>
@@ -64,7 +64,12 @@ const selectedEvent = ref(null)
 const openModal = (event) => {
   selectedEvent.value = event
 }
-
+/**
+ * Hier kann man neue events hinzufügen
+ * Anleitung:
+ * nach der letzten } muss zuerst ein komma sein --> d.h. ,
+ * danach kann ein neues event erstellt werden
+ */
 const events = [
   {
     title: 'Serenadenkonzert mit dem MSG Kammerorchester',
@@ -89,13 +94,3 @@ Erhältlich im Shop oder bei unseren Konzerten.`
 ]
 </script>
 
-<style scoped>
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.3s ease;
-}
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
-</style>
