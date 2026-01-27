@@ -1,87 +1,86 @@
-<!--
-  Konditionen.vue – Übersicht der Unterrichtsbedingungen
+<!--Konditionen.vue – Übersicht der Unterrichtsbedingungen-->
 
-  Beschreibung:
-  Diese View zeigt die Vertrags- und Teilnahmebedingungen der Musikschule MSG Feingold.
-  Sie informiert transparent über Regelungen zur Anmeldung, Bezahlung, Absenz und Kündigung.
+<script setup lang="ts">
+  import { ref, onMounted, computed } from 'vue'
+  import { loadPage } from '../api/wp'
 
-  Funktionen:
-  - Überschrift und Einleitung mit stilvollem Farbverlauf und Responsive Layout
-  - Klar strukturierte Aufzählung der Konditionen als Liste (ol)
-  - Visuell hervorgehobener Hintergrund mit Farbverläufen und Schatten
-  - Kontaktmöglichkeiten per E-Mail und Telefon im Footer
+  const page = ref<any>(null)
+  const loading = ref(true)
+  const error = ref<string | null>(null)
 
-  Ziel:
-  Besucher:innen sollen sich einfach und freundlich über den Ablauf des Unterrichts informieren können –
-  inklusive verbindlicher Bedingungen zur Planung und Fairness auf beiden Seiten.
-  -->
+  onMounted(async () => {
+    try {
+      page.value = await loadPage('konditionen')
+    } catch (e: any) {
+      error.value = e?.message ?? 'Fehler'
+    } finally {
+      loading.value = false
+    }
+  })
+
+  const conditions = computed(() => {
+    const text = page.value?.acf?.conditions_text
+    return text
+      ? text.split('\n').filter(l => l.trim() !== '')
+      : []
+  })
   
+</script>
+
 <template>
-  <div class="konditionen-wrapper">
+
+  <div v-if="loading">Lädt…</div>
+
+  <div v-else-if="error">
+    Fehler: {{ error }}
+  </div>
+
+  <div v-else-if="page" class="konditionen-wrapper">
     <div class="konditionen-inner">
 
       <!-- Überschrift -->
       <h1 class="konditionen-title">
-        Unterricht & Konditionen
+        {{ page.title.rendered }}
       </h1>
 
       <!-- Einführung -->
       <p class="konditionen-intro">
-        Unsere Bedingungen schaffen Klarheit für beide Seiten. Hier findest du alle zentralen Infos zu Vertragsdauer, Zahlung und Unterrichtsausfall.
+        {{ page.acf?.intro_text }}      
       </p>
 
       <!-- Konditionen-Liste -->
       <div class="konditionen-list-wrapper">
         <ol class="konditionen-list">
-          <li>
-            Der Unterricht beginnt mit dem Eintrittsdatum und erfolgt mindestens 10 Lektionen pro Quartal oder 20 Lektionen pro Semester.
-          </li>
-          <li>
-            Die Kündigung des Vertrages muss 1 Monat vor Ablauf der 10 oder 20 Lektionen schriftlich erfolgen, andernfalls verlängert sich der Vertrag automatisch.
-          </li>
-          <li>
-            Die Zahlung (für 10 oder 20 Lektionen) erfolgt vor dem ersten Unterrichtstermin im Voraus.
-          </li>
-          <li>
-            Die Lektionen werden in der Regel wöchentlich erteilt.
-          </li>
-          <li>
-            Sollte der Unterricht seitens der Lehrperson abgesagt werden, verpflichtet sie sich, die Lektion nachzuholen.
-          </li>
-          <li>
-            Die Abmeldung einer Lektion muss mindestens 24 Stunden vor dem Termin erfolgen, sonst gilt sie als erteilt.
-          </li>
-          <li>
-            Bei frühzeitigem Studienabbruch (z.B. Krankheit, Pause, Auslandaufenthalt) erfolgt keine Rückerstattung.
-          </li>
-          <li>
-            Nicht bezogene Lektionen bleiben maximal ein halbes Jahr ab dem aktuellen Quartal oder Semester gültig. Danach erlischt der Anspruch.
-          </li>
+          <li
+          v-for="(item, index) in conditions"
+          :key="index"
+          >
+          {{ item }}
+        </li>
         </ol>
       </div>
 
       <!-- Kontaktinfo -->
       <div class="konditionen-contact">
         <p>
-          Bei Fragen kontaktiere uns gerne:
+          {{ page.acf?.contact_text }}
         </p>
         <p>
           <a
-            href="mailto:email@msgfeingold.ch"
+            href="`mailto:${page.acf?.contact_email}`"
             class="konditionen-link"
           >
-            email@msgfeingold.ch
+            {{ page.acf?.contact_email }}
           </a>
           <br />
           <a
-            href="tel:+41313113251"
+            href="`tel:${page.acf?.contact_phone}`"
             class="konditionen-link"
           >
-            (+41) 031 311 32 51
+            {{ page.acf?.contact_phone }}
           </a>
         </p>
       </div>
-
     </div>
   </div>
 </template>
