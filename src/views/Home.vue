@@ -1,42 +1,52 @@
-<!--
-  Home.vue – Startseite von MSG Feingold
-
-  Beschreibung:
-  Diese Datei definiert die Startseite der Website. Sie empfängt die Besucher:innen mit einem lebendigen Farbverlauf,
-  einer auffälligen Überschrift und einem einladenden Call-to-Action.
-
-  Inhalt:
-  - Begrüßung mit markantem Gradient-Text im Apple-inspirierten Stil
-  - Slogan, der die Werte der Organisation betont
-  - "Mehr erfahren"-Button zur Weiterleitung auf die About-Seite
-  - Integration der Komponente <Aktuelles /> für Neuigkeiten und Events
-
-  Ziel:
-  Nutzer:innen visuell begeistern, zentrale Identität kommunizieren und direkt zu weiteren Inhalten führen.
-
-  Hinweis:
-  Die Komponente <Aktuelles /> muss im Komponentenordner `components/` liegen und wichtige Veranstaltungen enthalten.
-  -->
+<!--Home.vue – Startseite von MSG Feingold-->
   
-<script setup>
-import { ref } from 'vue'
+
+<script setup lang="ts">
+import { ref, onMounted } from 'vue'
 import Aktuelles from '../components/Aktuelles.vue'
 import Bewertungen from '../components/Bewertungen.vue'
+import { loadPage } from '../api/wp'
 
-const showAktuelles = ref(false)
+const page = ref<any>(null)
+const aktuellesTitle = ref<string>('') // ← wird an Aktuelles gegeben
+const loading = ref(true)
+const error = ref<string | null>(null)
+
+onMounted(async () => {
+  try {
+    page.value = await loadPage('home') // oder 'startseite', je nach WP-Slug
+    aktuellesTitle.value = page?.acf?.aktuelles_titel ?? 'Aktuelles'
+  } catch (e: any) {
+    error.value = e?.message ?? 'Fehler beim Laden der Startseite'
+  } finally {
+    loading.value = false
+  }
+})
 </script>
 
+
 <template>
-  <div class="home-hero">
+
+  <!-- Loading -->
+   <div v-if="loading" class="about-wrapper">
+    <div class="about-inner">Lädt…</div>
+  </div>
+
+  <!-- Error -->
+   <div v-else-if="error" class="about-wrapper">
+    <div class="about-inner">Fehler: {{ error }}</div>
+  </div>
+
+  <div v-else-if="page" class="home-hero">
     <!-- HERO -->
     <div class="home-hero-inner">
       <h1 class="home-title">
-        Musikschule in Bern<br />
-        <span class="text-white drop-shadow-lg">Willkommen bei MSG Feingold</span>
+        {{ page.acf.home_title }}<br />
+        <span class="text-white drop-shadow-lg">{{ page.acf.home_second_title }}</span>
       </h1>
 
       <p class="home-subtitle">
-        Musik. Begeisterung. Erlebnis.
+        {{ page.acf.home_subtitle}}
       </p>
 
       <div class="mt-8">
@@ -45,14 +55,14 @@ const showAktuelles = ref(false)
             type="button"
             class="btn-primary"
           >
-            Mehr erfahren
+            {{ page.acf.more_button }}
           </button>
         </router-link>
       </div>
     </div>
 
     <!-- Aktuelles -->
-    <Aktuelles />
+    <Aktuelles :title="aktuellesTitle"/>
     <Bewertungen />
   </div>
 </template>
