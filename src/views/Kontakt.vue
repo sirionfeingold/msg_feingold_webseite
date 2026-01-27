@@ -1,32 +1,48 @@
-<!--
-  Kontakt.vue – Probestunde & Kontaktformular
+<!-- Kontakt.vue – Probestunde & Kontaktformular -->
 
-  Beschreibung:
-  Diese View ermöglicht es Nutzer:innen, eine Probestunde bei MSG Feingold anzufragen.
-  Das Formular generiert eine E-Mail über den lokalen Mail-Client (mailto).
+<script setup lang="ts">
+  import { ref, onMounted, computed } from 'vue'
+  import { loadPage } from '../api/wp'
 
-  Inhalte:
-  - Name, E-Mail, Wunschinstrument und Nachricht als Formularfelder
-  - Stilvolles, responsives Design mit Farbverläufen
-  - Optionale Direktkontakte per E-Mail und Telefon
+  const page = ref<any>(null)
+  const loading = ref(true)
+  const error = ref<string | null>(null)
 
-  Ziel:
-  Eine einfache und motivierende Möglichkeit zur Kontaktaufnahme –
-  ohne technisches Vorwissen oder Login – ideal für Erstkontakte und Anfragen.
-  -->
+  onMounted(async () => {
+    try {
+      page.value = await loadPage('kontakt')
+    } catch (e: any) {
+      error.value = e?.message ?? 'Fehler'
+    } finally {
+      loading.value = false
+    }
+  })
+
+  const instruments = computed(() =>
+    page.value?.acf?.instruments
+      ? page.value.acf.instruments.split('\n').filter(Boolean)
+      : []
+  )
+</script>
   
 <template>
-  <div class="kontakt-wrapper">
+  <div v-if="loading">Lädt…</div>
+
+  <div v-else-if="error">
+    Fehler: {{ error }}
+  </div>
+
+  <div v-else-if="page" class="kontakt-wrapper">
     <div class="kontakt-inner">
 
       <!-- Überschrift -->
       <h1 class="kontakt-title">
-        Probestunde reservieren
+        {{ page.title.rendered }}
       </h1>
 
       <!-- Einleitung -->
       <p class="kontakt-intro">
-        Nutze das Formular, um uns zu kontaktieren. Dein Mailprogramm wird geöffnet und deine Nachricht an uns vorbereitet.
+        {{ page.acf.intro_text }}
       </p>
 
       <!-- Formular als mailto-Link -->
@@ -55,15 +71,13 @@
           <label class="kontakt-label">Instrument</label>
           <select name="Instrument"
             class="kontakt-select">
-            <option>– bitte wählen –</option>
-            <option>Gesang</option>
-            <option>Klavier</option>
-            <option>Gitarre</option>
-            <option>Violine</option>
-            <option>Cello</option>
-            <option>Klarinette</option>
-            <option>Saxophon</option>
-            <option>Blockflöte</option>
+            <option disabled selected>– bitte wählen –</option>
+            <option
+            v-for="(instrument, i) in instruments"
+            :key="i"
+            >
+            {{ instrument }}
+          </option>
           </select>
         </div>
 
@@ -88,29 +102,26 @@
       <!-- Direktkontakt -->
       <div class="kontakt-direct">
         <p>
-          Oder kontaktiere uns direkt per E-Mail:
+          {{ page.acf.email_text }}
           <a
-            href="mailto:email@msgfeingold.ch"
+            href="`mailto:${page.acf.contact_email}`"
             class="kontakt-link"
           >
-            email@msgfeingold.ch
+            {{ page.acf.contact_email }}
           </a>
         </p>
         <p>
-          Telefonisch erreichst du uns unter:
+          {{ page.acf.telefon_text }}
           <a
-            href="tel:+41313113251"
+            href="`tel:${page.acf.contact_phone}`"
             class="kontakt-link"
           >
-            (+41) 031 311 32 51
+            {{ page.acf.contact_phone }}
           </a>
         </p>
       </div>
-
     </div>
   </div>
 </template>
 
-<script setup>
-const mailtoLink = "mailto:email@msgfeingold.ch"
-</script>
+
