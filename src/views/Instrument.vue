@@ -1,34 +1,47 @@
-<!--
-  Instrument.vue – Detailansicht für ein einzelnes Instrument
-
-  Beschreibung:
-  Diese View-Komponente zeigt die Detailseite eines bestimmten Instruments aus dem Unterrichtsangebot
-  der Musikschule MSG Feingold.
-
-  Funktionen:
-  - Dynamisches Routing via Slug (z. B. /instrumente/gesang)
-  - Anzeige von:
-    - Instrumentenname (mit Farbverlauf)
-    - Bild des Instruments (mit Größenlimit & Hover-Animation)
-    - Beschreibungstext
-    - Call-to-Action Button zur Kontaktseite (für Probestunde)
-
-  Quelle der Daten:
-  - Die Instrumenteninfos stammen aus der Datei: /data/instrumentData.ts
-
-  Ziel:
-  Nutzer:innen erhalten motivierende Informationen zu jedem Instrument
-  und können direkt eine Probestunde anfragen.
-
-  Hinweis:
-  Bilder werden responsiv begrenzt (max-h-[500px]) und visuell hervorgehoben.
-  -->
+<!--Instrument.vue – Detailansicht für ein einzelnes Instrument-->
   
+
+<script setup lang="ts">
+import { ref, onMounted, watch } from 'vue'
+import { useRoute } from 'vue-router'
+import { loadInstrument } from '../api/wp'
+import type { Instrument } from '../types/instrument'
+
+const route = useRoute()
+const instrument = ref<Instrument | null>(null)
+const loading = ref(true)
+const error = ref<string | null>(null)
+
+async function fetchInstrument() {
+  loading.value = true
+  error.value = null
+
+  try {
+    const slug = String(route.params.name)
+    instrument.value = await loadInstrument(slug)
+    if (!instrument.value) error.value = 'Instrument nicht gefunden'
+  } catch (e: any) {
+    error.value = e?.message ?? 'Fehler beim Laden'
+  } finally {
+    loading.value = false
+  }
+}
+
+onMounted(fetchInstrument)
+
+// if one navigates between instruments without loading the view again
+watch(() => route.params.name, fetchInstrument)
+</script>
+
+
 <template>
   <div class="instrument-wrapper">
     <div class="instrument-container">
+      <div v-if="loading">Lädt…</div>
+      <div v-else-if="error">Fehler: {{ error }}</div>
 
-      <!-- Titel -->
+      <template v-else>
+        <!-- Titel -->
       <h1 class="instrument-title">
         {{ instrument?.name }}
       </h1>
@@ -53,17 +66,8 @@
       >
         Probestunde vereinbaren
       </router-link>
-      
+
+      </template>
     </div>
   </div>
 </template>
-
-<script setup>
-import { useRoute } from 'vue-router'
-import { instruments } from '../data/instrumentData'
-
-const route = useRoute()
-const instrument = instruments.find(i => i.slug === route.params.name)
-</script>
-
-
