@@ -46,7 +46,8 @@ export async function loadAktuelles(): Promise<AktuellesEvent[]> {
   return data.map(item => ({
     title: item.title.rendered,
     date: item.acf.date,
-    description: item.acf.description
+    description: item.acf.description,
+    link: item.acf.link
   }))
 }
 

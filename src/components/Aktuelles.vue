@@ -19,6 +19,17 @@
           <p class="event-date">{{ item.date }}</p>
           <h3 class="event-title">{{ item.title }}</h3>
           <p class="event-desc">{{ item.description }}</p>
+          <a
+            v-if="item.link"
+            :href="item.link"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="event-link"
+            @click.stop
+            >
+            Mehr Infos
+          </a>
+
         </div>
       </div>
 
@@ -39,6 +50,15 @@
             <p class="modal-date">{{ selectedEvent.date }}</p>
             <h3 class="modal-title">{{ selectedEvent.title }}</h3>
             <p class="modal-desc" v-html="selectedEvent.description" />
+            <a
+              v-if="selectedEvent?.link"
+              :href="selectedEvent.link"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="event-link"
+              >
+              Mehr Infos
+            </a>
           </div>
         </div>
       </transition>

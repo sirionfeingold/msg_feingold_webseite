@@ -80,3 +80,8 @@
 .fade-leave-to {
   opacity: 0;
 }
+
+.event-link {
+  @apply inline-block mt-2 text-sm font-medium text-orange-600 hover:text-orange-800 
+         dark:text-blue-300 dark:hover:text-blue-400 underline transition;
+}
