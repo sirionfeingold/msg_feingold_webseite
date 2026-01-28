@@ -15,7 +15,7 @@ const error = ref<string | null>(null)
 onMounted(async () => {
   try {
     page.value = await loadPage('home') // oder 'startseite', je nach WP-Slug
-    aktuellesTitle.value = page?.acf?.aktuelles_titel ?? 'Aktuelles'
+    aktuellesTitle.value = page.value?.acf?.aktuelles_titel ?? 'Aktuelles'
   } catch (e: any) {
     error.value = e?.message ?? 'Fehler beim Laden der Startseite'
   } finally {
