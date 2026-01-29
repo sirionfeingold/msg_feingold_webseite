@@ -99,3 +99,25 @@ export async function loadInstrument(slug: string): Promise<Instrument | null> {
     image: getFeaturedImage(item)
   }
 }
+
+// functions for Person --> Künstler (Media.vue)
+import type { Person, WpPersonItem } from '../types/person'
+
+export async function loadPersons(): Promise<Person[]> {
+  const res = await fetch(`${BASE_URL}/person?per_page=50`)
+  if (!res.ok) throw new Error(`WP API error: ${res.status}`)
+
+  const data: WpPersonItem[] = await res.json()
+
+  return data.map(item => ({
+    slug: item.slug,
+    name: item.title.rendered,
+    title: item.acf.title,
+    videoId: item.acf.video_id,
+    spotifyLink: item.acf.spotify_embed,
+    facebook: item.acf.facebook_link,
+    instagram: item.acf.instagram_link,
+    youtube: item.acf.youtube_link,
+    website: item.acf.website_link
+  }))
+}
