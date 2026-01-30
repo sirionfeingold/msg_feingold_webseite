@@ -23,6 +23,14 @@
       ? page.value.acf.instruments.split('\n').filter(Boolean)
       : []
   )
+
+  // mailto function
+  const mailtoLink = computed(() =>
+  page.value?.acf?.contact_email
+    ? `mailto:${page.value.acf.contact_email}`
+    : ''
+)
+
 </script>
   
 <template>
@@ -54,24 +62,32 @@
       >
         <!-- Name -->
         <div>
-          <label class="kontakt-label">Name</label>
+          <label class="kontakt-label">
+            {{ page?.acf?.formular_name }}
+          </label>
           <input name="Name" type="text" placeholder="Vor- und Nachname"
             class="kontakt-input" />
         </div>
 
         <!-- E-Mail -->
         <div>
-          <label class="kontakt-label">E-Mail</label>
+          <label class="kontakt-label">
+            {{ page?.acf?.formular_email }}
+          </label>
           <input name="Email" type="email" placeholder="dein@email.ch"
             class="kontakt-input" />
         </div>
 
         <!-- Instrument -->
         <div>
-          <label class="kontakt-label">Instrument</label>
+          <label class="kontakt-label">
+            {{ page?.acf?.formular_instrument }}
+          </label>
           <select name="Instrument"
             class="kontakt-select">
-            <option disabled selected>– bitte wählen –</option>
+            <option disabled selected>
+              {{ page?.acf?.formular_auswahl }}
+            </option>
             <option
             v-for="(instrument, i) in instruments"
             :key="i"
@@ -83,7 +99,9 @@
 
         <!-- Nachricht -->
         <div>
-          <label class="kontakt-label">Nachricht</label>
+          <label class="kontakt-label">
+            {{ page?.acf?.formular_auswahl }}
+          </label>
           <textarea name="Nachricht" rows="4" placeholder="Fragen, Wünsche, Terminvorschläge..."
             class="kontakt-textarea"></textarea>
         </div>
@@ -94,7 +112,7 @@
             type="submit"
             class="bg-orange-500 hover:bg-orange-600 dark:bg-blue-500 dark:hover:bg-blue-600 text-white text-lg font-semibold px-8 py-3 rounded-full shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 ease-in-out"
           >
-            Nachricht senden
+            {{ page?.acf?.button_senden }}
           </button>
         </div>
       </form>
@@ -102,21 +120,21 @@
       <!-- Direktkontakt -->
       <div class="kontakt-direct">
         <p>
-          {{ page.acf.email_text }}
+          {{ page?.acf?.email_text }}
           <a
-            href="`mailto:${page.acf.contact_email}`"
+            :href="`mailto:${page?.acf?.email}`"
             class="kontakt-link"
           >
-            {{ page.acf.contact_email }}
+            {{ page?.acf?.email }}
           </a>
         </p>
         <p>
-          {{ page.acf.telefon_text }}
+          {{ page?.acf?.telefon_text }}
           <a
-            href="`tel:${page.acf.contact_phone}`"
+            :href="`tel:${page.acf.contact_phone}`"
             class="kontakt-link"
           >
-            {{ page.acf.contact_phone }}
+            {{ page?.acf?.contact_phone }}
           </a>
         </p>
       </div>
