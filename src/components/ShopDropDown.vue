@@ -1,20 +1,7 @@
 <template>
-  <!--
-    Shop Dropdown Menü
-
-    Beschreibung:
-    Dieses Dropdown zeigt beim Klick auf den "Shop"-Button eine Liste von Unterkategorien:
-    - Musikinstrumente
-    - CDs
-    - Kunstmalerei
-
-    Funktion:
-    Das Menü öffnet sich bei Klick und schließt sich automatisch beim Auswählen eines Links.
-    Die Darstellung funktioniert auch auf Mobilgeräten.
-
-    Anpassung:
-    - Neue Kategorien können im Dropdown einfach ergänzt werden.
-    - Die Emojis sind optional und können bei Bedarf entfernt werden.
+  <!--Shop Dropdown Menü
+  
+  Does not work at the moment
   -->
     
   <div class="relative">
@@ -42,35 +29,36 @@
       class="absolute left-0 mt-2 w-48 bg-white dark:bg-gray-60 border border-gray-200 rounded-lg shadow-lg z-50"
     >
       <router-link
-        to="/shop/instrumente"
-        class="block px-4 py-2 text-gray-700 hover:bg-orange-100 dark:hover:bg-blue-200"
-        @click="isOpen = false"
-      >
-        🎹 Musikinstrumente
-      </router-link>
-      <router-link
-        to="/shop/cds"
-        class="block px-4 py-2 text-gray-700 hover:bg-orange-100 dark:hover:bg-blue-200"
-        @click="isOpen = false"
-      >
-        💿 CDs
-      </router-link>
-      <router-link
-        to="/shop/kunst"
-        class="block px-4 py-2 text-gray-700 hover:bg-orange-100 dark:hover:bg-blue-200"
-        @click="isOpen = false"
-      >
-        🎨 Kunstmalerei
-      </router-link>
+      v-for="item in menuItems"
+      :key="item.path"
+      :to="item.path"
+      class="block px-4 py-2 hover:bg-orange-100"
+      @click="isOpen = false"
+    >
+    {{ item.title }}
+    </router-link>
     </div>
   </div>
 </template>
 
-<script setup>
-import { ref } from 'vue'
+<script setup lang="ts">
+import { ref, onMounted } from 'vue'
+import { loadShopMenu } from '../api/wp'
 
 const isOpen = ref(false)
+const menuItems = ref<any[]>([])
+
+onMounted(async () => {
+  try {
+    menuItems.value = await loadShopMenu()
+  } catch (err) {
+    console.error('ShopDropDown error:', err)
+  }
+})
+
+
 const toggleDropdown = () => {
   isOpen.value = !isOpen.value
 }
+
 </script>

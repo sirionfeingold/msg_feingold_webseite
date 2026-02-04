@@ -121,3 +121,67 @@ export async function loadPersons(): Promise<Person[]> {
     website: item.acf.website_link
   }))
 }
+
+// function for loading shop menu
+export async function loadShopMenu() {
+  const slugs = ['cds', 'instrumente', 'kunst']
+
+  const requests = slugs.map(slug =>
+    fetch(`${BASE_URL}/pages?slug=${slug}`)
+      .then(res => res.json())
+      .then(pages => pages[0])
+  )
+
+  const pages = await Promise.all(requests)
+
+  return pages.map(p => ({
+  title: p.acf.dropdown_text ?? p.acf.title,
+  path: `/shop/${p.slug}`,
+  intro: p.acf.intro_text
+}))
+
+}
+
+// function for loading products
+
+// helper function which gets the ID of the corresponding category
+async function getCategoryIdBySlug(slug: string) {
+  const res = await fetch(
+    `${BASE_URL}/product_category?slug=${slug}`
+  )
+
+  const data = await res.json()
+
+  return data?.[0]?.id
+}
+
+
+// main function for loading the products via ID
+export async function loadProductsByCategory(slug: string) {
+  const categoryId = await getCategoryIdBySlug(slug)
+
+  if (!categoryId) {
+    console.warn('Kategorie nicht gefunden:', slug)
+    return []
+  }
+
+  const res = await fetch(
+    `${BASE_URL}/product?product_category=${categoryId}&_embed`
+  )
+
+  const data = await res.json()
+
+  if (!Array.isArray(data)) {
+    console.error('Unerwartete API-Antwort:', data)
+    return []
+  }
+
+  return data.map((p: any) => ({
+    title: p.title.rendered,
+    price: p.acf.price,
+    description: p.acf.description,
+    image: p._embedded?.['wp:featuredmedia']?.[0]?.source_url
+  }))
+}
+
+
