@@ -16,23 +16,55 @@
         ✕
       </button>
       <nav class="flex flex-col gap-4 text-lg font-medium dark:text-gray-100">
-        <router-link to="/" @click="toggle">Home</router-link>
-        <router-link to="/unterricht" @click="toggle">Unterricht</router-link>
-        <shop-dropdown />
-        <router-link to="/medien" @click="toggle">Medien</router-link>
-        <router-link to="/kontakt" @click="toggle">Kontakt</router-link>
-        <router-link to="/konditionen" @click="toggle">Konditionen</router-link>
-        <router-link to="/about" @click="toggle">Über uns</router-link>
+        <router-link to="/" @click="toggle">
+          {{ nav?.header_home_text }}
+        </router-link>
+
+        <router-link to="/unterricht" @click="toggle">
+          {{ nav?.header_unterricht_text }}
+        </router-link>
+
+        <ShopDropDown />
+
+        <router-link to="/medien" @click="toggle">
+          {{ nav?.header_medien_text }}
+        </router-link>
+
+        <router-link to="/kontakt" @click="toggle">
+          {{ nav?.header_kontakt_text }}
+        </router-link>
+
+        <router-link to="/konditionen" @click="toggle">
+          {{ nav?.header_konditionen_text }}
+        </router-link>
+
+        <router-link to="/about" @click="toggle">
+          {{ nav?.header_about_text }}
+        </router-link>
       </nav>
     </aside>
   </Transition>
 </template>
 
-<script lang="ts" setup>
-import ShopDropdown from './ShopDropdown.vue'
+<script setup lang="ts">
+import { watch } from 'vue'
+import { useRoute } from 'vue-router'
+import ShopDropDown from './ShopDropDown.vue'
 
-defineProps<{ isOpen: boolean }>()
+defineProps<{
+  isOpen: boolean
+  nav?: any
+}>()
+
 const emit = defineEmits(['toggle'])
-
 const toggle = () => emit('toggle')
+
+const route = useRoute()
+
+watch(
+  () => route.fullPath,
+  () => {
+    emit('toggle')
+  }
+)
 </script>

@@ -1,6 +1,11 @@
 <template>
     <!-- SIDEBAR -->
-    <Sidebar :isOpen="sidebarOpen" @toggle="sidebarOpen = false" />
+    <Sidebar 
+    :isOpen="sidebarOpen" 
+    :nav="page?.acf"
+    @toggle="sidebarOpen = false" 
+    />
+
     <header class="header-wrapper">
       <div class="header-inner">
 
