@@ -4,7 +4,7 @@
 
       <!-- Überschrift -->
       <h2 class="bewertungen-title">
-        Was unsere Schüler:innen sagen
+        {{ title }}
       </h2>
 
       <div class="space-y-12">
@@ -35,18 +35,18 @@
   </section>
 </template>
 
-<script setup>
+<script setup lang="ts">
+import { ref, onMounted } from 'vue'
+import { loadReviews } from '../api/wp'
 
-/**
- * Hier kann man eine neue Bewertung einfügen
- * nach der letzten } ein komma einfügen --> d.h. },
- */
+const bewertung = ref<any[]>([])
 
-const bewertung = [
-  {
-    name: 'Hans H.',
-    text: 'Hier macht Musik- und Gesangsunterricht Freude. Unterricht erfolgt kompetent und herzlich, ob Anfänger oder fortgeschritten. MSG liegt zentral im Herzen von Bern.',
-    stars: 5
-  }
-]
+defineProps<{
+  title?: string
+}>()
+
+onMounted(async () => {
+  bewertung.value = await loadReviews()
+})
 </script>
+

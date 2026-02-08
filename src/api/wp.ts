@@ -184,4 +184,22 @@ export async function loadProductsByCategory(slug: string) {
   }))
 }
 
+// function for loading reviews
+export async function loadReviews() {
+  const res = await fetch(
+    `${BASE_URL}/review?per_page=20`
+  )
+
+  const data = await res.json()
+
+  return data
+    .filter((t: any) => t.acf?.visible !== false)
+    .map((t: any) => ({
+      name: t.title.rendered,
+      text: t.acf.text,
+      stars: t.acf.stars
+    }))
+}
+
+
 

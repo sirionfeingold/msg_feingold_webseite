@@ -8,14 +8,16 @@ import Bewertungen from '../components/Bewertungen.vue'
 import { loadPage } from '../api/wp'
 
 const page = ref<any>(null)
-const aktuellesTitle = ref<string>('') // ← wird an Aktuelles gegeben
+const aktuellesTitle = ref<string>('') // wird an Aktuelles gegeben
 const loading = ref(true)
 const error = ref<string | null>(null)
+const reviewsTitle = ref<string>('')
 
 onMounted(async () => {
   try {
     page.value = await loadPage('home') // oder 'startseite', je nach WP-Slug
     aktuellesTitle.value = page.value?.acf?.aktuelles_titel ?? 'Aktuelles'
+    reviewsTitle.value = page.value?.acf?.review_title
   } catch (e: any) {
     error.value = e?.message ?? 'Fehler beim Laden der Startseite'
   } finally {
@@ -63,7 +65,7 @@ onMounted(async () => {
 
     <!-- Aktuelles -->
     <Aktuelles :title="aktuellesTitle"/>
-    <Bewertungen />
+    <Bewertungen :title="reviewsTitle"/>
   </div>
 </template>
 
