@@ -17,7 +17,8 @@
       </h1>
 
       <!-- Auswahl Dropdown -->
-      <div class="mb-medien-select-block">
+      <div class="medien-select-block">
+        <!-- Edit: Align the template class with the existing stylesheet selector so the block spacing applies again. -->
         <label for="person" class="medien-label">
           {{ page?.fields.medienSubtitle }}
         </label>

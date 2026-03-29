@@ -110,7 +110,7 @@
         <div class="text-center">
           <button
             type="submit"
-            class="bg-orange-500 hover:bg-orange-600 dark:bg-blue-500 dark:hover:bg-blue-600 text-white text-lg font-semibold px-8 py-3 rounded-full shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 ease-in-out"
+            class="kontakt-button"
           >
             {{ page?.fields.buttonSenden }}
           </button>

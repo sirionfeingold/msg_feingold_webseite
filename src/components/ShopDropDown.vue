@@ -9,7 +9,7 @@
     <button
       @click="toggleDropdown"
       :disabled="!menuItems.length && !loading"
-      class="cursor-pointer hover:text-blue-500 transition-colors font-medium flex items-center gap-1"
+      class="cursor-pointer hover:text-blue-500 dark:text-white/80 dark:hover:text-blue-300 transition-colors font-medium flex items-center gap-1 disabled:opacity-60"
     >
       Shop
       <svg
@@ -27,15 +27,15 @@
     <!-- Dropdown -->
     <div
       v-if="isOpen"
-      class="absolute left-0 mt-2 w-48 bg-white dark:bg-gray-60 border border-gray-200 rounded-lg shadow-lg z-50"
+      class="absolute left-0 mt-2 w-48 bg-white dark:bg-blue-950 border border-gray-200 dark:border-blue-800 rounded-lg shadow-lg z-50"
     >
-      <div v-if="loading" class="block px-4 py-2 text-sm text-gray-500">
+      <div v-if="loading" class="block px-4 py-2 text-sm text-gray-500 dark:text-blue-200">
         Lädt…
       </div>
-      <div v-else-if="error" class="block px-4 py-2 text-sm text-red-500">
+      <div v-else-if="error" class="block px-4 py-2 text-sm text-red-500 dark:text-red-300">
         {{ error }}
       </div>
-      <div v-else-if="!menuItems.length" class="block px-4 py-2 text-sm text-gray-500">
+      <div v-else-if="!menuItems.length" class="block px-4 py-2 text-sm text-gray-500 dark:text-blue-200">
         Keine Shop-Einträge verfügbar
       </div>
       <router-link
@@ -43,7 +43,7 @@
       v-for="item in menuItems"
       :key="item.path"
       :to="item.path"
-      class="block px-4 py-2 hover:bg-orange-100"
+      class="block px-4 py-2 text-gray-800 dark:text-blue-100 hover:bg-orange-100 dark:hover:bg-blue-900"
       @click="isOpen = false"
     >
     {{ item.title }}

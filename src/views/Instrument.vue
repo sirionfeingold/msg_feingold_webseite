@@ -52,7 +52,7 @@ watch(() => route.params.name, fetchInstrument)
         v-if="instrument?.image"
         :src="instrument.image"
         :alt="instrument.name"
-        class="w-full max-w-xl max-h-[500px] object-contain rounded-3xl shadow-xl transition-transform duration-300 hover:scale-[1.02]"
+        class="instrument-image"
       />
       <div v-else class="w-full max-w-xl min-h-64 rounded-3xl bg-gray-200 text-gray-500 flex items-center justify-center">
         <!-- Edit: Show a defined fallback when an instrument has no image in the public CMS. -->
