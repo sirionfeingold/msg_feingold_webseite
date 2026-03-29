@@ -1,7 +1,10 @@
 <!--CDs & Musikaufnahmen – Produktübersicht-->
   
 <template>
-  <div class="min-h-screen px-6 py-20 bg-gradient-to-b from-white via-pink-50 to-pink-100 dark:from-violet-900 dark:via-indigo-950 dark:to-purple-900">
+  <!-- Edit: Expose a defined loading and error state instead of silently rendering an empty public shop page. -->
+  <div v-if="loading" class="min-h-screen px-6 py-20">Lädt…</div>
+  <div v-else-if="error" class="min-h-screen px-6 py-20">Fehler: {{ error }}</div>
+  <div v-else class="min-h-screen px-6 py-20 bg-gradient-to-b from-white via-pink-50 to-pink-100 dark:from-violet-900 dark:via-indigo-950 dark:to-purple-900">
     <div class="max-w-6xl mx-auto space-y-12 text-center">
 
       <h1 class="text-4xl font-bold text-pink-600 dark:text-blue-600">
@@ -36,6 +39,9 @@ const cds = ref<any[]>([])
 const title = ref('')
 const intro = ref('')
 const buttonText = ref('Jetzt bestellen')
+// Edit: Track runtime status for the public shop view.
+const loading = ref(true)
+const error = ref<string | null>(null)
 
 onMounted(async () => {
   try {
@@ -49,6 +55,9 @@ onMounted(async () => {
     cds.value = await loadProductsByCategory('cds')
   } catch (err) {
     console.error('Shop CDs error:', err)
+    error.value = err instanceof Error ? err.message : 'Fehler beim Laden des Shops'
+  } finally {
+    loading.value = false
   }
 })
 

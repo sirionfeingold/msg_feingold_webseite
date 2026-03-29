@@ -21,7 +21,8 @@
   const conditions = computed(() => {
     const text = page.value?.acf?.conditions_text
     return text
-      ? text.split('\n').filter(l => l.trim() !== '')
+      // Edit: Type the split lines explicitly so the public page build passes under TypeScript.
+      ? text.split('\n').filter((l: string) => l.trim() !== '')
       : []
   })
   

@@ -49,7 +49,8 @@
 
             <p class="modal-date">{{ selectedEvent.date }}</p>
             <h3 class="modal-title">{{ selectedEvent.title }}</h3>
-            <p class="modal-desc" v-html="selectedEvent.description" />
+            <!-- Edit: Render public WP content as text here to avoid injecting unsanitized HTML. -->
+            <p class="modal-desc">{{ selectedEvent.description }}</p>
             <a
               v-if="selectedEvent?.link"
               :href="selectedEvent.link"
@@ -93,4 +94,3 @@ onMounted(async () => {
   }
 })
 </script>
-

@@ -75,9 +75,8 @@ onMounted(async () => {
     <h2 class="standort-title">
       {{ page?.acf?.standort_text }}
     </h2>
-    <p class="standort-text" v-html="page?.acf?.adresse_text">
-      
-    </p>
+    <!-- Edit: Render address copy as text until WP HTML is explicitly sanitized. -->
+    <p class="standort-text">{{ page?.acf?.adresse_text }}</p>
     <div class="standort-map">
       <iframe
         v-if="page?.acf?.embed_url"

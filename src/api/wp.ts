@@ -1,15 +1,50 @@
-const BASE_URL = import.meta.env.VITE_WP_API_BASE;
+const BASE_URL = import.meta.env.VITE_WP_API_BASE
 
-// main function which loads website
-export async function loadPage(slug: string) {
-  const res = await fetch(`${BASE_URL}/pages?slug=${slug}`);
+type WpPage = {
+  slug: string
+  title: {
+    rendered: string
+  }
+  acf: Record<string, any>
+}
 
-  if (!res.ok) {
-    throw new Error(`WP API error: ${res.status}`);
+type ShopMenuItem = {
+  title: string
+  path: string
+  intro: string | undefined
+}
+
+// Edit: Centralize public WP requests so every call validates base URL, status code and JSON parsing.
+async function fetchWpJson<T>(path: string): Promise<T> {
+  if (!BASE_URL) {
+    throw new Error('WP API base URL ist nicht konfiguriert')
   }
 
-  const data = await res.json();
-  return data.length ? data[0] : null;
+  const res = await fetch(`${BASE_URL}${path}`)
+
+  if (!res.ok) {
+    throw new Error(`WP API error: ${res.status} (${path})`)
+  }
+
+  try {
+    return (await res.json()) as T
+  } catch {
+    throw new Error(`Ungueltige WP-API-Antwort fuer ${path}`)
+  }
+}
+
+// main function which loads website
+export async function loadPage(slug: string): Promise<WpPage> {
+  // Edit: Encode the slug and fail loudly when a required public page is missing.
+  const data = await fetchWpJson<WpPage[]>(
+    `/pages?slug=${encodeURIComponent(slug)}`
+  )
+
+  if (!Array.isArray(data) || !data.length) {
+    throw new Error(`WP-Seite nicht gefunden: ${slug}`)
+  }
+
+  return data[0]
 }
 
 /**
@@ -17,10 +52,8 @@ export async function loadPage(slug: string) {
  */
 // function for loading teachers
 export async function loadTeachers() {
-  const res = await fetch(
-    `${BASE_URL}/teacher?_embed&per_page=100`
-  )
-  return await res.json()
+  // Edit: Route teacher requests through the shared fetch helper for consistent public error handling.
+  return await fetchWpJson<any[]>(`/teacher?_embed&per_page=100`)
 }
 
 // get teacher images
@@ -35,13 +68,7 @@ export function getTeacherImage(t: any): string {
 import type { AktuellesEvent, WpAktuellesItem } from '../types/aktuelles'
 
 export async function loadAktuelles(): Promise<AktuellesEvent[]> {
-  const res = await fetch(`${BASE_URL}/aktuelles?per_page=10`)
-
-  if (!res.ok) {
-    throw new Error(`WP API error: ${res.status}`)
-  }
-
-  const data: WpAktuellesItem[] = await res.json()
+  const data = await fetchWpJson<WpAktuellesItem[]>(`/aktuelles?per_page=10`)
 
   return data.map(item => ({
     title: item.title.rendered,
@@ -68,10 +95,9 @@ function getFeaturedImage(item: WpInstrumentItem): string {
 }
 
 export async function loadInstruments(): Promise<Instrument[]> {
-  const res = await fetch(`${BASE_URL}/instrument?per_page=100&_embed`)
-  if (!res.ok) throw new Error(`WP API error: ${res.status}`)
-
-  const data: WpInstrumentItem[] = await res.json()
+  const data = await fetchWpJson<WpInstrumentItem[]>(
+    `/instrument?per_page=100&_embed`
+  )
 
   return data.map(item => ({
     slug: item.slug,
@@ -82,12 +108,9 @@ export async function loadInstruments(): Promise<Instrument[]> {
 }
 
 export async function loadInstrument(slug: string): Promise<Instrument | null> {
-  const res = await fetch(
-    `${BASE_URL}/instrument?slug=${encodeURIComponent(slug)}&_embed`
+  const data = await fetchWpJson<WpInstrumentItem[]>(
+    `/instrument?slug=${encodeURIComponent(slug)}&_embed`
   )
-  if (!res.ok) throw new Error(`WP API error: ${res.status}`)
-
-  const data: WpInstrumentItem[] = await res.json()
   if (!data.length) return null
 
   const item = data[0]
@@ -104,10 +127,7 @@ export async function loadInstrument(slug: string): Promise<Instrument | null> {
 import type { Person, WpPersonItem } from '../types/person'
 
 export async function loadPersons(): Promise<Person[]> {
-  const res = await fetch(`${BASE_URL}/person?per_page=50`)
-  if (!res.ok) throw new Error(`WP API error: ${res.status}`)
-
-  const data: WpPersonItem[] = await res.json()
+  const data = await fetchWpJson<WpPersonItem[]>(`/person?per_page=50`)
 
   return data.map(item => ({
     slug: item.slug,
@@ -123,34 +143,40 @@ export async function loadPersons(): Promise<Person[]> {
 }
 
 // function for loading shop menu
-export async function loadShopMenu() {
+export async function loadShopMenu(): Promise<ShopMenuItem[]> {
   const slugs = ['cds', 'instrumente', 'kunst']
 
-  const requests = slugs.map(slug =>
-    fetch(`${BASE_URL}/pages?slug=${slug}`)
-      .then(res => res.json())
-      .then(pages => pages[0])
-  )
+  // Edit: Keep the dropdown usable even if one WP page is missing or malformed.
+  const requests = slugs.map(async slug => {
+    try {
+      const page = await loadPage(slug)
+      return {
+        title:
+          (page.acf?.dropdown_text as string | undefined) ??
+          (page.acf?.title as string | undefined) ??
+          page.title.rendered,
+        path: `/shop/${page.slug}`,
+        intro: page.acf?.intro_text as string | undefined
+      }
+    } catch (error) {
+      console.error(`Shop-Menueeintrag konnte nicht geladen werden: ${slug}`, error)
+      return null
+    }
+  })
 
   const pages = await Promise.all(requests)
 
-  return pages.map(p => ({
-  title: p.acf.dropdown_text ?? p.acf.title,
-  path: `/shop/${p.slug}`,
-  intro: p.acf.intro_text
-}))
-
+  return pages.filter((page): page is ShopMenuItem => page !== null)
 }
 
 // function for loading products
 
 // helper function which gets the ID of the corresponding category
 async function getCategoryIdBySlug(slug: string) {
-  const res = await fetch(
-    `${BASE_URL}/product_category?slug=${slug}`
+  // Edit: Encode the category slug and validate the public taxonomy response before using it.
+  const data = await fetchWpJson<Array<{ id: number }>>(
+    `/product_category?slug=${encodeURIComponent(slug)}`
   )
-
-  const data = await res.json()
 
   return data?.[0]?.id
 }
@@ -165,11 +191,9 @@ export async function loadProductsByCategory(slug: string) {
     return []
   }
 
-  const res = await fetch(
-    `${BASE_URL}/product?product_category=${categoryId}&_embed`
+  const data = await fetchWpJson<any[]>(
+    `/product?product_category=${categoryId}&_embed`
   )
-
-  const data = await res.json()
 
   if (!Array.isArray(data)) {
     console.error('Unerwartete API-Antwort:', data)
@@ -186,11 +210,8 @@ export async function loadProductsByCategory(slug: string) {
 
 // function for loading reviews
 export async function loadReviews() {
-  const res = await fetch(
-    `${BASE_URL}/review?per_page=20`
-  )
-
-  const data = await res.json()
+  // Edit: Reviews are public runtime data too, so they need the same status and JSON checks.
+  const data = await fetchWpJson<any[]>(`/review?per_page=20`)
 
   return data
     .filter((t: any) => t.acf?.visible !== false)
@@ -200,6 +221,4 @@ export async function loadReviews() {
       stars: t.acf.stars
     }))
 }
-
-
 
