@@ -151,6 +151,32 @@ export type Product = {
   image: string
 }
 
+type WpProductItem = {
+  title?: {
+    rendered?: string
+  }
+  acf?: {
+    price?: string
+    description?: string
+  }
+  _embedded?: {
+    'wp:featuredmedia'?: Array<{
+      source_url?: string
+    }>
+  }
+}
+
+type WpReviewItem = {
+  title: {
+    rendered: string
+  }
+  acf?: {
+    visible?: boolean
+    text?: string
+    stars?: number | string
+  }
+}
+
 // Edit: Centralize public WP requests so every call validates base URL, status code and JSON parsing.
 async function fetchWpJson<T>(path: string): Promise<T> {
   if (!BASE_URL) {
@@ -191,7 +217,7 @@ function mapTeacher(item: TeacherItem): Teacher {
 }
 
 // Edit: Map product entries into a stable app model so views stop depending on WP field names.
-function mapProduct(p: any): Product {
+function mapProduct(p: WpProductItem): Product {
   return {
     title: p.title?.rendered ?? 'Produkt',
     price: p.acf?.price ?? 'Preis auf Anfrage',
@@ -478,7 +504,7 @@ export async function loadProductsByCategory(slug: string): Promise<Product[]> {
     return []
   }
 
-  const data = await fetchWpJson<any[]>(
+  const data = await fetchWpJson<WpProductItem[]>(
     `/product?product_category=${categoryId}&_embed`
   )
 
@@ -491,16 +517,16 @@ export async function loadProductsByCategory(slug: string): Promise<Product[]> {
 }
 
 // function for loading reviews
-export async function loadReviews() {
+export async function loadReviews(): Promise<ReviewItem[]> {
   // Edit: Reviews are public runtime data too, so they need the same status and JSON checks.
-  const data = await fetchWpJson<any[]>(`/review?per_page=20`)
+  const data = await fetchWpJson<WpReviewItem[]>(`/review?per_page=20`)
 
   return data
-    .filter((t: any) => t.acf?.visible !== false)
+    .filter((t) => t.acf?.visible !== false)
     // Edit: Clamp public CMS star values into the supported UI range.
-    .map((t: any): ReviewItem => ({
+    .map((t): ReviewItem => ({
       name: t.title.rendered,
-      text: t.acf.text,
-      stars: Math.max(0, Math.min(5, Number(t.acf.stars) || 0))
+      text: t.acf?.text ?? '',
+      stars: Math.max(0, Math.min(5, Number(t.acf?.stars) || 0))
     }))
 }

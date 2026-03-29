@@ -20,8 +20,9 @@ async function fetchInstrument() {
     const slug = String(route.params.name)
     instrument.value = await loadInstrument(slug)
     if (!instrument.value) error.value = 'Instrument nicht gefunden'
-  } catch (e: any) {
-    error.value = e?.message ?? 'Fehler beim Laden'
+  } catch (e: unknown) {
+    // Edit: Narrow unknown errors instead of relying on `any` in the instrument detail view.
+    error.value = e instanceof Error ? e.message : 'Fehler beim Laden'
   } finally {
     loading.value = false
   }
@@ -53,10 +54,14 @@ watch(() => route.params.name, fetchInstrument)
         :alt="instrument.name"
         class="w-full max-w-xl max-h-[500px] object-contain rounded-3xl shadow-xl transition-transform duration-300 hover:scale-[1.02]"
       />
+      <div v-else class="w-full max-w-xl min-h-64 rounded-3xl bg-gray-200 text-gray-500 flex items-center justify-center">
+        <!-- Edit: Show a defined fallback when an instrument has no image in the public CMS. -->
+        Kein Bild verfügbar
+      </div>
 
       <!-- Beschreibung -->
       <p class="instrument-description">
-        {{ instrument?.description }}
+        {{ instrument?.description || 'Beschreibung folgt.' }}
       </p>
 
       <!-- Call to Action -->

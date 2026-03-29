@@ -1,4 +1,8 @@
 <template>
+    <div v-if="error" class="px-4 py-2 text-sm text-red-600 text-center">
+      <!-- Edit: Surface header loading failures so a broken public CMS page does not fail silently. -->
+      {{ error }}
+    </div>
     <!-- SIDEBAR -->
     <Sidebar 
     :isOpen="sidebarOpen" 
@@ -65,8 +69,9 @@ const error = ref<string | null>(null)
 onMounted(async () => {
     try {
       page.value = await loadHeaderPage()
-    } catch (e: any) {
-      error.value = e?.message ?? 'Fehler beim Laden'
+    } catch (e: unknown) {
+      // Edit: Narrow unknown errors instead of relying on `any` in the header fetch path.
+      error.value = e instanceof Error ? e.message : 'Fehler beim Laden'
     } finally {
       loading.value = false
     }
