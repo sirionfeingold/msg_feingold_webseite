@@ -13,13 +13,13 @@
 
       <!-- Überschrift -->
       <h1 class="medien-title">
-        {{ page?.acf?.medien_title }}
+        {{ page?.fields.medienTitle }}
       </h1>
 
       <!-- Auswahl Dropdown -->
       <div class="mb-medien-select-block">
         <label for="person" class="medien-label">
-          {{ page?.acf?.medien_subtitle }}
+          {{ page?.fields.medienSubtitle }}
         </label>
         <select
           id="person"
@@ -46,11 +46,13 @@
 
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
-import { loadPage, loadPersons } from '../api/wp'
+import { loadMediaPage, loadPersons } from '../api/wp'
+import type { MediaPageFields, PageModel } from '../api/wp'
 import type { Person } from '../types/person'
 import PersonMedia from '../components/PersonMedia.vue'
 
-const page = ref<any>(null)
+// Edit: Use a dedicated media page model instead of raw ACF access.
+const page = ref<PageModel<MediaPageFields> | null>(null)
 const persons = ref<Person[]>([])
 const selected = ref<string>('')
 
@@ -59,7 +61,7 @@ const error = ref<string | null>(null)
 
 onMounted(async () => {
   try {
-    page.value = await loadPage('medien')
+    page.value = await loadMediaPage()
     persons.value = await loadPersons()
     if (persons.value.length) {
       selected.value = persons.value[0].slug

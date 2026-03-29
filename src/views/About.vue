@@ -2,17 +2,17 @@
 
 <script setup lang="ts">
   import { ref, onMounted } from 'vue'
-  import { loadPage, loadTeachers, getTeacherImage } from '../api/wp'
-  import type { TeacherItem, WpPage } from '../api/wp'
-  // Edit: Use concrete WP-facing types so this view no longer depends on `any`.
-  const page = ref<WpPage | null>(null)
-  const teachers = ref<TeacherItem[]>([])
+  import { loadAboutPage, loadTeachers } from '../api/wp'
+  import type { AboutPageFields, PageModel, Teacher } from '../api/wp'
+  // Edit: Consume typed app models instead of raw WP page and teacher structures.
+  const page = ref<PageModel<AboutPageFields> | null>(null)
+  const teachers = ref<Teacher[]>([])
   const loading = ref(true)
   const error = ref<string | null>(null)
 
   onMounted(async () => {
     try {
-      page.value = await loadPage('about') // slug aus WP
+      page.value = await loadAboutPage()
       teachers.value = await loadTeachers()
     } catch (e: any) {
       error.value = e?.message ?? 'Fehler beim Laden'
@@ -39,26 +39,31 @@
       <h1
         class="about-title"
       >
-        {{ page.title.rendered }}
+        {{ page.title }}
       </h1>
 
       <!-- Textblock -->
       <p class="about-text-main">
-        {{ page.acf?.intro_text ?? '' }}
+        {{ page.fields.introText }}
       </p>
 
       <!-- Zusatztext -->
       <p class="about-text-sub">
-        {{ page.acf?.sub_text ?? '' }}
+        {{ page.fields.subText }}
       </p>
 
       <!-- Lehrpersonen -->
-      <section class="about-teachers" v-if="teachers.length">
+      <section class="about-teachers">
         <h2 class="about-teachers-title">
-          {{ page.acf?.teachers_title ?? 'Lehrpersonen' }}
+          {{ page.fields.teachersTitle }}
         </h2>
 
-        <div class="flex flex-col sm:flex-row justify-center items-center gap-10 text-left max-w-4xl mx-auto">
+        <p v-if="!teachers.length" class="about-text-sub">
+          <!-- Edit: Show a defined empty state when the public CMS has no teachers yet. -->
+          Lehrpersonen folgen in Kürze.
+        </p>
+
+        <div v-else class="flex flex-col sm:flex-row justify-center items-center gap-10 text-left max-w-4xl mx-auto">
           <!-- Esther -->
           <div 
           v-for="t in teachers"
@@ -66,26 +71,31 @@
           class="teacher-card">
 
             <img
-              :src="getTeacherImage(t)"
-              :alt="t.title.rendered"
+              v-if="t.image"
+              :src="t.image"
+              :alt="t.name"
               class="teacher-img"
             />
+            <div v-else class="teacher-img flex items-center justify-center bg-gray-200 text-gray-500">
+              <!-- Edit: Provide a visible fallback when no teacher image is available. -->
+              Kein Bild
+            </div>
 
             <h3 class="teacher-name">
-              {{ t.title.rendered }}
+              {{ t.name }}
             </h3>
 
             <p class="teacher-bio">
-              {{ t.acf?.bio ?? '' }}
+              {{ t.bio || 'Biografie folgt.' }}
             </p>
             <a
-              v-if="t.acf?.website"
-              :href="t.acf.website"
+              v-if="t.website"
+              :href="t.website"
               target="_blank"
               rel="noopener noreferrer"
               class="teacher-link"
             >
-              🔗 {{ t.acf.website }}
+              🔗 {{ t.website }}
             </a>
           </div>
         </div>

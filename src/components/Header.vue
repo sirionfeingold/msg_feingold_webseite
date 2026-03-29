@@ -2,7 +2,7 @@
     <!-- SIDEBAR -->
     <Sidebar 
     :isOpen="sidebarOpen" 
-    :nav="page?.acf"
+    :nav="page?.fields"
     @toggle="sidebarOpen = false" 
     />
 
@@ -12,10 +12,10 @@
         <!-- Logo und Titel -->
         <div class="header-brand">
           <h1 class="header-logo">
-            {{ page?.acf?.header_logo }}
+            {{ page?.fields.headerLogo }}
           </h1>
           <h2 class="header-subtitle">
-            {{ page?.acf?.header_subtitle }}
+            {{ page?.fields.headerSubtitle }}
           </h2>
         </div>
 
@@ -26,23 +26,23 @@
         <nav class="header-nav">
 
           <router-link to="/" class="header-nav-link">
-            {{ page?.acf?.header_home_text }}
+            {{ page?.fields.headerHomeText }}
           </router-link>
           <router-link to="/unterricht" class="header-nav-link">
-            {{ page?.acf?.header_unterricht_text }}
+            {{ page?.fields.headerUnterrichtText }}
           </router-link>
           <ShopDropDown />
           <router-link to="/medien" class="header-nav-link">
-            {{ page?.acf?.header_medien_text }}
+            {{ page?.fields.headerMedienText }}
           </router-link>
           <router-link to="/kontakt" class="header-nav-link">
-            {{ page?.acf?.header_kontakt_text }}
+            {{ page?.fields.headerKontaktText }}
           </router-link>
           <router-link to="/konditionen" class="header-nav-link">
-            {{ page?.acf?.header_konditionen_text }}
+            {{ page?.fields.headerKonditionenText }}
           </router-link>
           <router-link to="/about" class="header-nav-link">
-            {{ page?.acf?.header_about_text }}
+            {{ page?.fields.headerAboutText }}
           </router-link>
         </nav>
       </div>
@@ -51,20 +51,20 @@
 
 <script lang="ts" setup>
 import { ref, onMounted } from 'vue'
-import { loadPage } from '../api/wp'
-import type { WpPage } from '../api/wp'
+import { loadHeaderPage } from '../api/wp'
+import type { HeaderPageFields, PageModel } from '../api/wp'
 import ShopDropDown from './ShopDropDown.vue'
 import Sidebar from './Sidebar.vue'
 
 const sidebarOpen = ref(false)
-// Edit: Use the shared page type so header navigation data is typed.
-const page = ref<WpPage | null>(null)
+// Edit: Use a dedicated header page model instead of raw ACF access.
+const page = ref<PageModel<HeaderPageFields> | null>(null)
 const loading = ref(true)
 const error = ref<string | null>(null)
 
 onMounted(async () => {
     try {
-      page.value = await loadPage('header') // slug aus WP
+      page.value = await loadHeaderPage()
     } catch (e: any) {
       error.value = e?.message ?? 'Fehler beim Laden'
     } finally {

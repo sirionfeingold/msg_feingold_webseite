@@ -5,11 +5,11 @@
 import { ref, onMounted } from 'vue'
 import Aktuelles from '../components/Aktuelles.vue'
 import Bewertungen from '../components/Bewertungen.vue'
-import { loadPage } from '../api/wp'
-import type { WpPage } from '../api/wp'
+import { loadHomePage } from '../api/wp'
+import type { HomePageFields, PageModel } from '../api/wp'
 
-// Edit: Use the shared page type so the home view is not backed by `any`.
-const page = ref<WpPage | null>(null)
+// Edit: Use a dedicated home page model instead of the raw WP page shape.
+const page = ref<PageModel<HomePageFields> | null>(null)
 const aktuellesTitle = ref<string>('') // wird an Aktuelles gegeben
 const loading = ref(true)
 const error = ref<string | null>(null)
@@ -17,9 +17,9 @@ const reviewsTitle = ref<string>('Bewertungen')
 
 onMounted(async () => {
   try {
-    page.value = await loadPage('home') // oder 'startseite', je nach WP-Slug
-    aktuellesTitle.value = page.value?.acf?.aktuelles_titel ?? 'Aktuelles'
-    reviewsTitle.value = page.value?.acf?.review_title
+    page.value = await loadHomePage()
+    aktuellesTitle.value = page.value.fields.aktuellesTitle
+    reviewsTitle.value = page.value.fields.reviewTitle
   } catch (e: any) {
     error.value = e?.message ?? 'Fehler beim Laden der Startseite'
   } finally {
@@ -45,12 +45,12 @@ onMounted(async () => {
     <!-- HERO -->
     <div class="home-hero-inner">
       <h1 class="home-title">
-        {{ page.acf?.home_title ?? '' }}<br />
-        <span class="text-white drop-shadow-lg">{{ page.acf?.home_second_title ?? '' }}</span>
+        {{ page.fields.homeTitle }}<br />
+        <span class="text-white drop-shadow-lg">{{ page.fields.homeSecondTitle }}</span>
       </h1>
 
       <p class="home-subtitle">
-        {{ page.acf?.home_subtitle ?? '' }}
+        {{ page.fields.homeSubtitle }}
       </p>
 
       <div class="mt-8">
@@ -59,7 +59,7 @@ onMounted(async () => {
             type="button"
             class="btn-primary"
           >
-            {{ page.acf?.more_button ?? 'Mehr erfahren' }}
+            {{ page.fields.moreButton }}
           </button>
         </router-link>
       </div>

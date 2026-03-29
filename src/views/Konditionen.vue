@@ -2,15 +2,17 @@
 
 <script setup lang="ts">
   import { ref, onMounted, computed } from 'vue'
-  import { loadPage } from '../api/wp'
+  import { loadKonditionenPage } from '../api/wp'
+  import type { KonditionenPageFields, PageModel } from '../api/wp'
 
-  const page = ref<any>(null)
+  // Edit: Use a dedicated conditions page model instead of raw ACF access.
+  const page = ref<PageModel<KonditionenPageFields> | null>(null)
   const loading = ref(true)
   const error = ref<string | null>(null)
 
   onMounted(async () => {
     try {
-      page.value = await loadPage('konditionen')
+      page.value = await loadKonditionenPage()
     } catch (e: any) {
       error.value = e?.message ?? 'Fehler'
     } finally {
@@ -19,7 +21,7 @@
   })
 
   const conditions = computed(() => {
-    const text = page.value?.acf?.conditions_text
+    const text = page.value?.fields.conditionsText
     return text
       // Edit: Type the split lines explicitly so the public page build passes under TypeScript.
       ? text.split('\n').filter((l: string) => l.trim() !== '')
@@ -41,12 +43,12 @@
 
       <!-- Überschrift -->
       <h1 class="konditionen-title">
-        {{ page.title.rendered }}
+        {{ page.title }}
       </h1>
 
       <!-- Einführung -->
       <p class="konditionen-intro">
-        {{ page.acf?.intro_text }}      
+        {{ page.fields.introText }}      
       </p>
 
       <!-- Konditionen-Liste -->
@@ -64,22 +66,22 @@
       <!-- Kontaktinfo -->
       <div class="konditionen-contact">
         <p>
-          {{ page.acf?.contact_text }}
+          {{ page.fields.contactText }}
         </p>
         <p>
           <!-- Edit: Bind the contact links correctly so they work in the browser. -->
           <a
-            :href="`mailto:${page?.acf?.contact_email ?? ''}`"
+            :href="`mailto:${page?.fields.contactEmail ?? ''}`"
             class="konditionen-link"
           >
-            {{ page.acf?.contact_email }}
+            {{ page.fields.contactEmail }}
           </a>
           <br />
           <a
-            :href="`tel:${page?.acf?.contact_phone ?? ''}`"
+            :href="`tel:${page?.fields.contactPhone ?? ''}`"
             class="konditionen-link"
           >
-            {{ page.acf?.contact_phone }}
+            {{ page.fields.contactPhone }}
           </a>
         </p>
       </div>

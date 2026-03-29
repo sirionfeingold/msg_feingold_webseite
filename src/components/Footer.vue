@@ -14,54 +14,54 @@
       <!-- Kontakt -->
       <div class="space-y-3">
         <h4 class="footer-title">
-          {{ settings?.acf?.footer_contact_title }}
+          {{ settings?.fields.footerContactTitle }}
         </h4>
         <ul class="footer-list">
           <li>
             <span class="font-medium">
-              {{ settings?.acf?.footer_kontakt_email_text }}
+              {{ settings?.fields.footerKontaktEmailText }}
             </span>
             <a 
-            :href="`mailto:${settings?.acf?.footer_email}`" 
+            :href="`mailto:${settings?.fields.footerEmail}`" 
             class="footer-link"
             > 
-            {{ settings?.acf?.footer_email }}
+            {{ settings?.fields.footerEmail }}
           </a>
           </li>
           <li>
             <span class="font-medium">
-              {{ settings?.acf?.footer_kontakt_telefon_text }}
+              {{ settings?.fields.footerKontaktTelefonText }}
             </span>
             <a 
-            :href="`tel:${settings?.acf?.footer_phone}`" 
+            :href="`tel:${settings?.fields.footerPhone}`" 
             class="footer-link"
             > 
-            {{ settings?.acf?.footer_phone }}
+            {{ settings?.fields.footerPhone }}
           </a>
           </li>
           <li><span class="font-medium">
-            {{ settings?.acf?.footer_kontakt_ort_text }}
-          </span> {{ settings?.acf?.footer_location }}</li>
+            {{ settings?.fields.footerKontaktOrtText }}
+          </span> {{ settings?.fields.footerLocation }}</li>
         </ul>
       </div>
 
       <!-- Navigation -->
       <div class="space-y-3">
         <h4 class="footer-title">
-          {{ settings?.acf?.footer_nav_title }}
+          {{ settings?.fields.footerNavTitle }}
         </h4>
         <ul class="footer-list">
           <li><router-link to="/" class="hover:underline">
-            {{ settings?.acf?.footer_home_link }}
+            {{ settings?.fields.footerHomeLink }}
           </router-link></li>
           <li><router-link to="/unterricht" class="hover:underline">
-            {{ settings?.acf?.footer_unterricht_link }}
+            {{ settings?.fields.footerUnterrichtLink }}
           </router-link></li>
           <li><router-link to="/medien" class="hover:underline">
-            {{ settings?.acf?.footer_medien_link }}
+            {{ settings?.fields.footerMedienLink }}
           </router-link></li>
           <li><router-link to="/kontakt" class="hover:underline">
-            {{ settings?.acf?.footer_kontakt_link }}
+            {{ settings?.fields.footerKontaktLink }}
           </router-link></li>
         </ul>
       </div>
@@ -69,10 +69,10 @@
       <!-- Logo + Claim -->
       <div class="space-y-3">
         <h3 class="footer-logo">
-          {{ settings?.acf?.footer_logo }}
+          {{ settings?.fields.footerLogo }}
         </h3>
         <p class="footer-sentence">
-          {{ settings?.acf?.footer_claim }}
+          {{ settings?.fields.footerClaim }}
         </p>
       </div>
     </div>
@@ -80,24 +80,24 @@
     <!-- Copyright -->
     <div class="footer-bottom">
       © {{ new Date().getFullYear() }}
-      {{ settings?.acf?.footer_copyright }}
+      {{ settings?.fields.footerCopyright }}
     </div>
   </footer>
 </template>
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import { loadPage } from '../api/wp'
-import type { WpPage } from '../api/wp'
+import { loadFooterPage } from '../api/wp'
+import type { FooterPageFields, PageModel } from '../api/wp'
 
-// Edit: Use the shared page type so footer content is no longer untyped.
-const settings = ref<WpPage | null>(null)
+// Edit: Use a dedicated footer page model instead of raw ACF access.
+const settings = ref<PageModel<FooterPageFields> | null>(null)
 const loading = ref(true)
 const error = ref<string | null>(null)
 
 onMounted(async () => {
   try {
-    settings.value = await loadPage('footer')
+    settings.value = await loadFooterPage()
   } catch (e: any) {
     error.value = e?.message ?? 'Fehler beim Laden der Events'
   } finally {

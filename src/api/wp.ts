@@ -1,6 +1,6 @@
 const BASE_URL = import.meta.env.VITE_WP_API_BASE
 
-export type WpPage = {
+type WpPage = {
   slug: string
   title: {
     rendered: string
@@ -41,6 +41,116 @@ export type ReviewItem = {
   stars: number
 }
 
+export type PageModel<TFields> = {
+  slug: string
+  title: string
+  fields: TFields
+}
+
+export type HomePageFields = {
+  homeTitle: string
+  homeSecondTitle: string
+  homeSubtitle: string
+  moreButton: string
+  aktuellesTitle: string
+  reviewTitle: string
+}
+
+export type AboutPageFields = {
+  introText: string
+  subText: string
+  teachersTitle: string
+}
+
+export type KontaktPageFields = {
+  introText: string
+  instruments: string[]
+  formularName: string
+  formularEmail: string
+  formularInstrument: string
+  formularAuswahl: string
+  buttonSenden: string
+  emailText: string
+  email: string
+  telefonText: string
+  contactPhone: string
+  contactEmail: string
+}
+
+export type HeaderPageFields = {
+  headerLogo: string
+  headerSubtitle: string
+  headerHomeText: string
+  headerUnterrichtText: string
+  headerMedienText: string
+  headerKontaktText: string
+  headerKonditionenText: string
+  headerAboutText: string
+}
+
+export type FooterPageFields = {
+  footerContactTitle: string
+  footerKontaktEmailText: string
+  footerEmail: string
+  footerKontaktTelefonText: string
+  footerPhone: string
+  footerKontaktOrtText: string
+  footerLocation: string
+  footerNavTitle: string
+  footerHomeLink: string
+  footerUnterrichtLink: string
+  footerMedienLink: string
+  footerKontaktLink: string
+  footerLogo: string
+  footerClaim: string
+  footerCopyright: string
+}
+
+export type MusicSchoolPageFields = {
+  unterrichtTitle: string
+  unterrichtSubtitle: string
+  moreButton: string
+  standortText: string
+  adresseText: string
+  embedUrl: string
+  mapLink: string
+  routeButton: string
+}
+
+export type MediaPageFields = {
+  medienTitle: string
+  medienSubtitle: string
+}
+
+export type KonditionenPageFields = {
+  introText: string
+  conditionsText: string
+  contactText: string
+  contactEmail: string
+  contactPhone: string
+}
+
+export type ShopPageFields = {
+  title: string
+  introText: string
+  buttonText: string
+}
+
+export type Teacher = {
+  id: number
+  name: string
+  bio: string
+  website?: string
+  image: string
+}
+
+export type Product = {
+  title: string
+  price: string
+  description: string
+  image: string
+}
+
 // Edit: Centralize public WP requests so every call validates base URL, status code and JSON parsing.
 async function fetchWpJson<T>(path: string): Promise<T> {
   if (!BASE_URL) {
@@ -60,6 +170,36 @@ async function fetchWpJson<T>(path: string): Promise<T> {
   }
 }
 
+// Edit: Normalize shared page data into a small app-facing model instead of leaking raw WP structures.
+function mapPage<TFields>(page: WpPage, fields: TFields): PageModel<TFields> {
+  return {
+    slug: page.slug,
+    title: page.title.rendered,
+    fields
+  }
+}
+
+// Edit: Map teacher entries into an app model with safe public fallbacks.
+function mapTeacher(item: TeacherItem): Teacher {
+  return {
+    id: item.id,
+    name: item.title.rendered,
+    bio: item.acf?.bio ?? '',
+    website: item.acf?.website,
+    image: getTeacherImage(item)
+  }
+}
+
+// Edit: Map product entries into a stable app model so views stop depending on WP field names.
+function mapProduct(p: any): Product {
+  return {
+    title: p.title?.rendered ?? 'Produkt',
+    price: p.acf?.price ?? 'Preis auf Anfrage',
+    description: p.acf?.description ?? 'Beschreibung folgt.',
+    image: p._embedded?.['wp:featuredmedia']?.[0]?.source_url ?? ''
+  }
+}
+
 // main function which loads website
 export async function loadPage(slug: string): Promise<WpPage> {
   // Edit: Encode the slug and fail loudly when a required public page is missing.
@@ -74,13 +214,133 @@ export async function loadPage(slug: string): Promise<WpPage> {
   return data[0]
 }
 
+// Edit: Provide specialized loaders so pages can consume typed fields instead of raw ACF objects.
+export async function loadHomePage(): Promise<PageModel<HomePageFields>> {
+  const page = await loadPage('home')
+  return mapPage(page, {
+    homeTitle: page.acf?.home_title ?? '',
+    homeSecondTitle: page.acf?.home_second_title ?? '',
+    homeSubtitle: page.acf?.home_subtitle ?? '',
+    moreButton: page.acf?.more_button ?? 'Mehr erfahren',
+    aktuellesTitle: page.acf?.aktuelles_titel ?? 'Aktuelles',
+    reviewTitle: page.acf?.review_title ?? 'Bewertungen'
+  })
+}
+
+export async function loadAboutPage(): Promise<PageModel<AboutPageFields>> {
+  const page = await loadPage('about')
+  return mapPage(page, {
+    introText: page.acf?.intro_text ?? '',
+    subText: page.acf?.sub_text ?? '',
+    teachersTitle: page.acf?.teachers_title ?? 'Lehrpersonen'
+  })
+}
+
+export async function loadKontaktPage(): Promise<PageModel<KontaktPageFields>> {
+  const page = await loadPage('kontakt')
+  return mapPage(page, {
+    introText: page.acf?.intro_text ?? '',
+    instruments: typeof page.acf?.instruments === 'string'
+      ? page.acf.instruments.split('\n').map((item: string) => item.trim()).filter(Boolean)
+      : [],
+    formularName: page.acf?.formular_name ?? 'Name',
+    formularEmail: page.acf?.formular_email ?? 'E-Mail',
+    formularInstrument: page.acf?.formular_instrument ?? 'Instrument',
+    formularAuswahl: page.acf?.formular_auswahl ?? 'Bitte wählen',
+    buttonSenden: page.acf?.button_senden ?? 'Senden',
+    emailText: page.acf?.email_text ?? '',
+    email: page.acf?.email ?? '',
+    telefonText: page.acf?.telefon_text ?? '',
+    contactPhone: page.acf?.contact_phone ?? '',
+    contactEmail: page.acf?.contact_email ?? ''
+  })
+}
+
+export async function loadHeaderPage(): Promise<PageModel<HeaderPageFields>> {
+  const page = await loadPage('header')
+  return mapPage(page, {
+    headerLogo: page.acf?.header_logo ?? '',
+    headerSubtitle: page.acf?.header_subtitle ?? '',
+    headerHomeText: page.acf?.header_home_text ?? 'Home',
+    headerUnterrichtText: page.acf?.header_unterricht_text ?? 'Unterricht',
+    headerMedienText: page.acf?.header_medien_text ?? 'Medien',
+    headerKontaktText: page.acf?.header_kontakt_text ?? 'Kontakt',
+    headerKonditionenText: page.acf?.header_konditionen_text ?? 'Konditionen',
+    headerAboutText: page.acf?.header_about_text ?? 'About'
+  })
+}
+
+export async function loadFooterPage(): Promise<PageModel<FooterPageFields>> {
+  const page = await loadPage('footer')
+  return mapPage(page, {
+    footerContactTitle: page.acf?.footer_contact_title ?? 'Kontakt',
+    footerKontaktEmailText: page.acf?.footer_kontakt_email_text ?? 'E-Mail:',
+    footerEmail: page.acf?.footer_email ?? '',
+    footerKontaktTelefonText: page.acf?.footer_kontakt_telefon_text ?? 'Telefon:',
+    footerPhone: page.acf?.footer_phone ?? '',
+    footerKontaktOrtText: page.acf?.footer_kontakt_ort_text ?? 'Ort:',
+    footerLocation: page.acf?.footer_location ?? '',
+    footerNavTitle: page.acf?.footer_nav_title ?? 'Navigation',
+    footerHomeLink: page.acf?.footer_home_link ?? 'Home',
+    footerUnterrichtLink: page.acf?.footer_unterricht_link ?? 'Unterricht',
+    footerMedienLink: page.acf?.footer_medien_link ?? 'Medien',
+    footerKontaktLink: page.acf?.footer_kontakt_link ?? 'Kontakt',
+    footerLogo: page.acf?.footer_logo ?? '',
+    footerClaim: page.acf?.footer_claim ?? '',
+    footerCopyright: page.acf?.footer_copyright ?? ''
+  })
+}
+
+export async function loadMusicSchoolPage(): Promise<PageModel<MusicSchoolPageFields>> {
+  const page = await loadPage('unterricht')
+  return mapPage(page, {
+    unterrichtTitle: page.acf?.unterricht_title ?? '',
+    unterrichtSubtitle: page.acf?.unterricht_subtitle ?? '',
+    moreButton: page.acf?.more_button ?? 'Mehr erfahren',
+    standortText: page.acf?.standort_text ?? '',
+    adresseText: page.acf?.adresse_text ?? '',
+    embedUrl: page.acf?.embed_url ?? '',
+    mapLink: page.acf?.map_link ?? '',
+    routeButton: page.acf?.route_button ?? 'Route anzeigen'
+  })
+}
+
+export async function loadMediaPage(): Promise<PageModel<MediaPageFields>> {
+  const page = await loadPage('medien')
+  return mapPage(page, {
+    medienTitle: page.acf?.medien_title ?? '',
+    medienSubtitle: page.acf?.medien_subtitle ?? ''
+  })
+}
+
+export async function loadKonditionenPage(): Promise<PageModel<KonditionenPageFields>> {
+  const page = await loadPage('konditionen')
+  return mapPage(page, {
+    introText: page.acf?.intro_text ?? '',
+    conditionsText: page.acf?.conditions_text ?? '',
+    contactText: page.acf?.contact_text ?? '',
+    contactEmail: page.acf?.contact_email ?? '',
+    contactPhone: page.acf?.contact_phone ?? ''
+  })
+}
+
+export async function loadShopPage(slug: string, defaultButtonText: string): Promise<PageModel<ShopPageFields>> {
+  const page = await loadPage(slug)
+  return mapPage(page, {
+    title: page.acf?.title ?? page.title.rendered,
+    introText: page.acf?.intro_text ?? '',
+    buttonText: page.acf?.button_text ?? defaultButtonText
+  })
+}
+
 /**
  * function for teachers
  */
 // function for loading teachers
-export async function loadTeachers() {
+export async function loadTeachers(): Promise<Teacher[]> {
   // Edit: Route teacher requests through the shared fetch helper for consistent public error handling.
-  return await fetchWpJson<TeacherItem[]>(`/teacher?_embed&per_page=100`)
+  const data = await fetchWpJson<TeacherItem[]>(`/teacher?_embed&per_page=100`)
+  return data.map(mapTeacher)
 }
 
 // get teacher images
@@ -210,7 +470,7 @@ async function getCategoryIdBySlug(slug: string) {
 
 
 // main function for loading the products via ID
-export async function loadProductsByCategory(slug: string) {
+export async function loadProductsByCategory(slug: string): Promise<Product[]> {
   const categoryId = await getCategoryIdBySlug(slug)
 
   if (!categoryId) {
@@ -227,12 +487,7 @@ export async function loadProductsByCategory(slug: string) {
     return []
   }
 
-  return data.map((p: any) => ({
-    title: p.title.rendered,
-    price: p.acf.price,
-    description: p.acf.description,
-    image: p._embedded?.['wp:featuredmedia']?.[0]?.source_url
-  }))
+  return data.map(mapProduct)
 }
 
 // function for loading reviews

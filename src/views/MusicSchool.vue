@@ -2,11 +2,13 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import { loadInstruments, loadPage } from '../api/wp'
+import { loadInstruments, loadMusicSchoolPage } from '../api/wp'
+import type { MusicSchoolPageFields, PageModel } from '../api/wp'
 import type { Instrument } from '../types/instrument'
 
 const instruments = ref<Instrument[]>([])
-const page = ref<any>(null)
+// Edit: Use a dedicated music-school page model instead of raw ACF access.
+const page = ref<PageModel<MusicSchoolPageFields> | null>(null)
 const loading = ref(true)
 const error = ref<string | null>(null)
 
@@ -23,7 +25,7 @@ const gradientMap: Record<string, string> = {
 
 onMounted(async () => {
   try {
-    page.value = await loadPage('unterricht')
+    page.value = await loadMusicSchoolPage()
     instruments.value = await loadInstruments()
   } catch (e: any) {
     error.value = e?.message ?? 'Fehler beim Laden der Instrumente'
@@ -46,12 +48,12 @@ onMounted(async () => {
 
       <!-- Überschrift -->
       <h1 class="musikschule-title">
-         {{ page?.acf?.unterricht_title}}
+         {{ page?.fields.unterrichtTitle }}
         </h1>
 
       <!-- Beschreibung -->
       <p class="musikschule-desc">
-        {{ page?.acf?.unterricht_subtitle }}
+        {{ page?.fields.unterrichtSubtitle }}
       </p>
 
       <!-- Instrumentenliste mit Links -->
@@ -65,7 +67,7 @@ onMounted(async () => {
         >
           <h2 class="instrument-name">{{ instrument.name }}</h2>
           <p class="instrument-link">
-            {{ page?.acf?.more_button }}
+            {{ page?.fields.moreButton }}
           </p>
         </router-link>
       </div>
@@ -73,14 +75,14 @@ onMounted(async () => {
 
    <section class="standort-section">
     <h2 class="standort-title">
-      {{ page?.acf?.standort_text }}
+      {{ page?.fields.standortText }}
     </h2>
     <!-- Edit: Render address copy as text until WP HTML is explicitly sanitized. -->
-    <p class="standort-text">{{ page?.acf?.adresse_text }}</p>
+    <p class="standort-text">{{ page?.fields.adresseText }}</p>
     <div class="standort-map">
       <iframe
-        v-if="page?.acf?.embed_url"
-        :src="page.acf.embed_url"
+        v-if="page?.fields.embedUrl"
+        :src="page.fields.embedUrl"
         class="w-full h-full"
         style="border:0;"
         allowfullscreen
@@ -89,14 +91,14 @@ onMounted(async () => {
       ></iframe>
     </div>
     <a
-      :href="page?.acf?.map_link"
+      :href="page?.fields.mapLink"
       target="_blank"
       class="standort-link"
     >
     <button type="submit"
             class="standort-button"
           >
-      {{ page?.acf?.route_button }}
+      {{ page?.fields.routeButton }}
     </button>
     </a>
   </section>

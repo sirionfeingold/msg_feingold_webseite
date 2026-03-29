@@ -17,29 +17,29 @@
       </button>
       <nav class="flex flex-col gap-4 text-lg font-medium dark:text-gray-100">
         <router-link to="/" @click="toggle">
-          {{ nav?.header_home_text }}
+          {{ nav?.headerHomeText }}
         </router-link>
 
         <router-link to="/unterricht" @click="toggle">
-          {{ nav?.header_unterricht_text }}
+          {{ nav?.headerUnterrichtText }}
         </router-link>
 
         <ShopDropDown />
 
         <router-link to="/medien" @click="toggle">
-          {{ nav?.header_medien_text }}
+          {{ nav?.headerMedienText }}
         </router-link>
 
         <router-link to="/kontakt" @click="toggle">
-          {{ nav?.header_kontakt_text }}
+          {{ nav?.headerKontaktText }}
         </router-link>
 
         <router-link to="/konditionen" @click="toggle">
-          {{ nav?.header_konditionen_text }}
+          {{ nav?.headerKonditionenText }}
         </router-link>
 
         <router-link to="/about" @click="toggle">
-          {{ nav?.header_about_text }}
+          {{ nav?.headerAboutText }}
         </router-link>
       </nav>
     </aside>
@@ -50,10 +50,12 @@
 import { watch } from 'vue'
 import { useRoute } from 'vue-router'
 import ShopDropDown from './ShopDropDown.vue'
+import type { HeaderPageFields } from '../api/wp'
 
 defineProps<{
   isOpen: boolean
-  nav?: any
+  // Edit: Type sidebar navigation from the shared header page fields.
+  nav?: HeaderPageFields
 }>()
 
 const emit = defineEmits(['toggle'])
