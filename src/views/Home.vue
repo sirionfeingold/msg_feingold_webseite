@@ -6,12 +6,14 @@ import { ref, onMounted } from 'vue'
 import Aktuelles from '../components/Aktuelles.vue'
 import Bewertungen from '../components/Bewertungen.vue'
 import { loadPage } from '../api/wp'
+import type { WpPage } from '../api/wp'
 
-const page = ref<any>(null)
+// Edit: Use the shared page type so the home view is not backed by `any`.
+const page = ref<WpPage | null>(null)
 const aktuellesTitle = ref<string>('') // wird an Aktuelles gegeben
 const loading = ref(true)
 const error = ref<string | null>(null)
-const reviewsTitle = ref<string>('')
+const reviewsTitle = ref<string>('Bewertungen')
 
 onMounted(async () => {
   try {
@@ -43,12 +45,12 @@ onMounted(async () => {
     <!-- HERO -->
     <div class="home-hero-inner">
       <h1 class="home-title">
-        {{ page.acf.home_title }}<br />
-        <span class="text-white drop-shadow-lg">{{ page.acf.home_second_title }}</span>
+        {{ page.acf?.home_title ?? '' }}<br />
+        <span class="text-white drop-shadow-lg">{{ page.acf?.home_second_title ?? '' }}</span>
       </h1>
 
       <p class="home-subtitle">
-        {{ page.acf.home_subtitle}}
+        {{ page.acf?.home_subtitle ?? '' }}
       </p>
 
       <div class="mt-8">
@@ -57,7 +59,7 @@ onMounted(async () => {
             type="button"
             class="btn-primary"
           >
-            {{ page.acf.more_button }}
+            {{ page.acf?.more_button ?? 'Mehr erfahren' }}
           </button>
         </router-link>
       </div>

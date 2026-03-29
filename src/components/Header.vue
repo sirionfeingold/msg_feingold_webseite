@@ -51,12 +51,14 @@
 
 <script lang="ts" setup>
 import { ref, onMounted } from 'vue'
-import { loadPage } from '../api/wp';
-import ShopDropDown from './ShopDropDown.vue';
-import Sidebar from './Sidebar.vue';
+import { loadPage } from '../api/wp'
+import type { WpPage } from '../api/wp'
+import ShopDropDown from './ShopDropDown.vue'
+import Sidebar from './Sidebar.vue'
 
 const sidebarOpen = ref(false)
-const page = ref<any>(null)
+// Edit: Use the shared page type so header navigation data is typed.
+const page = ref<WpPage | null>(null)
 const loading = ref(true)
 const error = ref<string | null>(null)
 

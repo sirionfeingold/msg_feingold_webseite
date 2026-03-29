@@ -3,8 +3,10 @@
 <script setup lang="ts">
   import { ref, onMounted } from 'vue'
   import { loadPage, loadTeachers, getTeacherImage } from '../api/wp'
-  const page = ref<any>(null)
-  const teachers = ref<any[]>([])
+  import type { TeacherItem, WpPage } from '../api/wp'
+  // Edit: Use concrete WP-facing types so this view no longer depends on `any`.
+  const page = ref<WpPage | null>(null)
+  const teachers = ref<TeacherItem[]>([])
   const loading = ref(true)
   const error = ref<string | null>(null)
 
@@ -42,18 +44,18 @@
 
       <!-- Textblock -->
       <p class="about-text-main">
-        {{ page.acf.intro_text }}
+        {{ page.acf?.intro_text ?? '' }}
       </p>
 
       <!-- Zusatztext -->
       <p class="about-text-sub">
-        {{ page.acf.sub_text }}
+        {{ page.acf?.sub_text ?? '' }}
       </p>
 
       <!-- Lehrpersonen -->
       <section class="about-teachers" v-if="teachers.length">
         <h2 class="about-teachers-title">
-          {{ page.acf.teachers_title }}
+          {{ page.acf?.teachers_title ?? 'Lehrpersonen' }}
         </h2>
 
         <div class="flex flex-col sm:flex-row justify-center items-center gap-10 text-left max-w-4xl mx-auto">
@@ -74,12 +76,13 @@
             </h3>
 
             <p class="teacher-bio">
-              {{ t.acf.bio }}
+              {{ t.acf?.bio ?? '' }}
             </p>
             <a
-              v-if="t.acf.website"
+              v-if="t.acf?.website"
               :href="t.acf.website"
               target="_blank"
+              rel="noopener noreferrer"
               class="teacher-link"
             >
               🔗 {{ t.acf.website }}

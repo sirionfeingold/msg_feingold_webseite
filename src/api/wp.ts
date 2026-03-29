@@ -1,6 +1,6 @@
 const BASE_URL = import.meta.env.VITE_WP_API_BASE
 
-type WpPage = {
+export type WpPage = {
   slug: string
   title: {
     rendered: string
@@ -8,10 +8,37 @@ type WpPage = {
   acf: Record<string, any>
 }
 
-type ShopMenuItem = {
+export type ShopMenuItem = {
   title: string
   path: string
   intro: string | undefined
+}
+
+export type TeacherItem = {
+  id: number
+  title: {
+    rendered: string
+  }
+  acf: {
+    bio?: string
+    website?: string
+  }
+  _embedded?: {
+    'wp:featuredmedia'?: Array<{
+      source_url: string
+      media_details?: {
+        sizes?: {
+          medium?: { source_url: string }
+        }
+      }
+    }>
+  }
+}
+
+export type ReviewItem = {
+  name: string
+  text: string
+  stars: number
 }
 
 // Edit: Centralize public WP requests so every call validates base URL, status code and JSON parsing.
@@ -53,11 +80,11 @@ export async function loadPage(slug: string): Promise<WpPage> {
 // function for loading teachers
 export async function loadTeachers() {
   // Edit: Route teacher requests through the shared fetch helper for consistent public error handling.
-  return await fetchWpJson<any[]>(`/teacher?_embed&per_page=100`)
+  return await fetchWpJson<TeacherItem[]>(`/teacher?_embed&per_page=100`)
 }
 
 // get teacher images
-export function getTeacherImage(t: any): string {
+export function getTeacherImage(t: TeacherItem): string {
   return (
     t._embedded?.['wp:featuredmedia']?.[0]?.media_details?.sizes?.medium?.source_url ||
     t._embedded?.['wp:featuredmedia']?.[0]?.source_url || ''
@@ -215,10 +242,10 @@ export async function loadReviews() {
 
   return data
     .filter((t: any) => t.acf?.visible !== false)
-    .map((t: any) => ({
+    // Edit: Clamp public CMS star values into the supported UI range.
+    .map((t: any): ReviewItem => ({
       name: t.title.rendered,
       text: t.acf.text,
-      stars: t.acf.stars
+      stars: Math.max(0, Math.min(5, Number(t.acf.stars) || 0))
     }))
 }
-

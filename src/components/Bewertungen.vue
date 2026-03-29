@@ -4,10 +4,14 @@
 
       <!-- Überschrift -->
       <h2 class="bewertungen-title">
-        {{ title }}
+        {{ title ?? 'Bewertungen' }}
       </h2>
 
-      <div class="space-y-12">
+      <p v-if="loading">Lädt…</p>
+      <p v-else-if="error">Fehler: {{ error }}</p>
+      <p v-else-if="!bewertung.length">Noch keine Bewertungen vorhanden.</p>
+
+      <div v-else class="space-y-12">
         <div
           v-for="t in bewertung"
           :key="t.name"
@@ -38,15 +42,24 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import { loadReviews } from '../api/wp'
+import type { ReviewItem } from '../api/wp'
 
-const bewertung = ref<any[]>([])
+// Edit: Use the shared review type and expose explicit runtime states for this public feed.
+const bewertung = ref<ReviewItem[]>([])
+const loading = ref(true)
+const error = ref<string | null>(null)
 
 defineProps<{
   title?: string
 }>()
 
 onMounted(async () => {
-  bewertung.value = await loadReviews()
+  try {
+    bewertung.value = await loadReviews()
+  } catch (err) {
+    error.value = err instanceof Error ? err.message : 'Fehler beim Laden der Bewertungen'
+  } finally {
+    loading.value = false
+  }
 })
 </script>
-

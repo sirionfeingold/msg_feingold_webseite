@@ -67,15 +67,16 @@
           {{ page.acf?.contact_text }}
         </p>
         <p>
+          <!-- Edit: Bind the contact links correctly so they work in the browser. -->
           <a
-            href="`mailto:${page.acf?.contact_email}`"
+            :href="`mailto:${page?.acf?.contact_email ?? ''}`"
             class="konditionen-link"
           >
             {{ page.acf?.contact_email }}
           </a>
           <br />
           <a
-            href="`tel:${page.acf?.contact_phone}`"
+            :href="`tel:${page?.acf?.contact_phone ?? ''}`"
             class="konditionen-link"
           >
             {{ page.acf?.contact_phone }}

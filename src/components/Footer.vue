@@ -88,8 +88,10 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import { loadPage } from '../api/wp'
+import type { WpPage } from '../api/wp'
 
-const settings = ref<any>(null)
+// Edit: Use the shared page type so footer content is no longer untyped.
+const settings = ref<WpPage | null>(null)
 const loading = ref(true)
 const error = ref<string | null>(null)
 
@@ -103,4 +105,3 @@ onMounted(async () => {
   }
 })
 </script>
-

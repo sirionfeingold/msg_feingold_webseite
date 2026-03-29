@@ -3,8 +3,10 @@
 <script setup lang="ts">
   import { ref, onMounted, computed } from 'vue'
   import { loadPage } from '../api/wp'
+  import type { WpPage } from '../api/wp'
 
-  const page = ref<any>(null)
+  // Edit: Use the shared page type so contact data is no longer untyped.
+  const page = ref<WpPage | null>(null)
   const loading = ref(true)
   const error = ref<string | null>(null)
 
@@ -20,7 +22,8 @@
 
   const instruments = computed(() =>
     page.value?.acf?.instruments
-      ? page.value.acf.instruments.split('\n').filter(Boolean)
+      // Edit: Trim public CMS entries so empty lines don't become blank options.
+      ? page.value.acf.instruments.split('\n').map((item: string) => item.trim()).filter(Boolean)
       : []
   )
 
@@ -131,7 +134,7 @@
         <p>
           {{ page?.acf?.telefon_text }}
           <a
-            :href="`tel:${page.acf.contact_phone}`"
+            :href="`tel:${page?.acf?.contact_phone ?? ''}`"
             class="kontakt-link"
           >
             {{ page?.acf?.contact_phone }}
@@ -141,5 +144,4 @@
     </div>
   </div>
 </template>
-
 
