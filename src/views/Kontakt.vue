@@ -1,7 +1,7 @@
 <!-- Kontakt.vue – Probestunde & Kontaktformular -->
 
 <script setup lang="ts">
-  import { ref, onMounted, computed } from 'vue'
+  import { ref, onMounted, computed, reactive } from 'vue'
   import { loadKontaktPage } from '../api/wp'
   import type { KontaktPageFields, PageModel } from '../api/wp'
 
@@ -9,12 +9,30 @@
   const page = ref<PageModel<KontaktPageFields> | null>(null)
   const loading = ref(true)
   const error = ref<string | null>(null)
+  // Edit: Keep the contact form data in Vue state so `mailto:` can be built predictably.
+  const form = reactive({
+    name: '',
+    email: '',
+    instrument: '',
+    message: ''
+  })
+  // Edit: Surface validation feedback in the UI instead of relying on browser-specific mailto form behavior.
+  const formError = ref<string | null>(null)
+  // Edit: Show a brief post-submit hint so users know the local mail client should open now.
+  const formNotice = ref<string | null>(null)
+  // Edit: Keep the mailto body at a practical size so encoded URLs stay within common client limits.
+  const MAX_MESSAGE_LENGTH = 1500
+
+  // Edit: Reuse one simple email check for both sender input and recipient configuration.
+  function isValidEmail(value: string): boolean {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim())
+  }
 
   onMounted(async () => {
     try {
       page.value = await loadKontaktPage()
-    } catch (e: any) {
-      error.value = e?.message ?? 'Fehler'
+    } catch (e: unknown) {
+      error.value = e instanceof Error ? e.message : 'Fehler'
     } finally {
       loading.value = false
     }
@@ -24,12 +42,90 @@
     page.value?.fields.instruments ?? []
   )
 
-  // mailto function
-  const mailtoLink = computed(() =>
-  page.value?.fields.contactEmail
-    ? `mailto:${page.value.fields.contactEmail}`
-    : ''
-)
+  // Edit: Keep the outgoing recipient configurable from the CMS while defaulting to the direct contact address.
+  const recipientEmail = computed(() =>
+    page.value?.fields.contactEmail || page.value?.fields.email || ''
+  )
+
+  // Edit: Build a human-readable subject from the current form state before URL-encoding it.
+  const mailSubject = computed(() => {
+    const instrument = form.instrument || 'Allgemeine Anfrage'
+    return `Kontaktanfrage: ${instrument}`
+  })
+
+  // Edit: Build the mail body explicitly so line breaks and optional fields stay consistent across clients.
+  const mailBody = computed(() => {
+    const trimmedMessage = form.message.trim()
+    // Edit: Truncate long messages before encoding them into the `mailto:` body.
+    const safeMessage = trimmedMessage.slice(0, MAX_MESSAGE_LENGTH)
+    const lines = [
+      `Name: ${form.name.trim()}`,
+      `E-Mail: ${form.email.trim()}`,
+      `Instrument: ${form.instrument || '-'}`,
+      '',
+      'Nachricht:',
+      safeMessage
+    ]
+
+    return lines.join('\n')
+  })
+
+  // Edit: Generate the final `mailto:` target from encoded subject/body parts instead of using form POST.
+  const mailtoLink = computed(() => {
+    if (!recipientEmail.value) return ''
+
+    const params = new URLSearchParams({
+      subject: mailSubject.value,
+      body: mailBody.value
+    })
+
+    return `mailto:${recipientEmail.value}?${params.toString()}`
+  })
+
+  // Edit: Validate the minimum required fields before trying to open the local mail client.
+  function submitMailtoForm() {
+    formError.value = null
+    formNotice.value = null
+
+    if (!recipientEmail.value) {
+      formError.value = 'Es ist momentan keine Kontaktadresse hinterlegt.'
+      return
+    }
+
+    if (!isValidEmail(recipientEmail.value)) {
+      formError.value = 'Die hinterlegte Kontaktadresse ist ungültig.'
+      return
+    }
+
+    if (!form.name.trim()) {
+      formError.value = 'Bitte gib deinen Namen ein.'
+      return
+    }
+
+    if (!form.email.trim()) {
+      formError.value = 'Bitte gib deine E-Mail-Adresse ein.'
+      return
+    }
+
+    if (!isValidEmail(form.email)) {
+      formError.value = 'Bitte gib eine gültige E-Mail-Adresse ein.'
+      return
+    }
+
+    if (!form.instrument) {
+      formError.value = 'Bitte wähle ein Instrument aus.'
+      return
+    }
+
+    if (!form.message.trim()) {
+      formError.value = 'Bitte schreibe eine Nachricht.'
+      return
+    }
+
+    // Edit: Confirm the next expected step in the UI before handing off to the local mail client.
+    formNotice.value = 'Der Mail-Client sollte sich jetzt öffnen.'
+    window.location.href = mailtoLink.value
+  }
 
 </script>
   
@@ -53,44 +149,61 @@
         {{ page.fields.introText }}
       </p>
 
-      <!-- Formular als mailto-Link -->
+      <!-- Formular als sauberes mailto-Formular -->
       <form
-        :action="mailtoLink"
-        method="POST"
-        enctype="text/plain"
+        @submit.prevent="submitMailtoForm"
         class="kontakt-form"
       >
         <!-- Name -->
         <div>
-          <label class="kontakt-label">
+          <!-- Edit: Bind labels to explicit field IDs so the form stays keyboard- and screenreader-friendly. -->
+          <label for="kontakt-name" class="kontakt-label">
             {{ page?.fields.formularName }}
           </label>
-          <input name="Name" type="text" placeholder="Vor- und Nachname"
+          <input
+            id="kontakt-name"
+            v-model="form.name"
+            name="Name"
+            type="text"
+            autocomplete="name"
+            placeholder="Vor- und Nachname"
             class="kontakt-input" />
         </div>
 
         <!-- E-Mail -->
         <div>
-          <label class="kontakt-label">
+          <!-- Edit: Bind the email input to Vue state so the mail body can be generated explicitly. -->
+          <label for="kontakt-email" class="kontakt-label">
             {{ page?.fields.formularEmail }}
           </label>
-          <input name="Email" type="email" placeholder="dein@email.ch"
+          <input
+            id="kontakt-email"
+            v-model="form.email"
+            name="Email"
+            type="email"
+            autocomplete="email"
+            placeholder="dein@email.ch"
             class="kontakt-input" />
         </div>
 
         <!-- Instrument -->
         <div>
-          <label class="kontakt-label">
+          <!-- Edit: Drive the instrument select fully from Vue state instead of mixing in a static `selected` attribute. -->
+          <label for="kontakt-instrument" class="kontakt-label">
             {{ page?.fields.formularInstrument }}
           </label>
-          <select name="Instrument"
+          <select
+            id="kontakt-instrument"
+            v-model="form.instrument"
+            name="Instrument"
             class="kontakt-select">
-            <option disabled selected>
+            <option disabled value="">
               {{ page?.fields.formularAuswahl }}
             </option>
             <option
             v-for="(instrument, i) in instruments"
             :key="i"
+            :value="instrument"
             >
             {{ instrument }}
           </option>
@@ -99,12 +212,27 @@
 
         <!-- Nachricht -->
         <div>
-          <label class="kontakt-label">
-            {{ page?.fields.formularAuswahl }}
+          <!-- Edit: Use a dedicated message label so the textarea is clearly announced and mapped. -->
+          <label for="kontakt-message" class="kontakt-label">
+            Nachricht
           </label>
-          <textarea name="Nachricht" rows="4" placeholder="Fragen, Wünsche, Terminvorschläge..."
+          <textarea
+            id="kontakt-message"
+            v-model="form.message"
+            name="Nachricht"
+            rows="4"
+            placeholder="Fragen, Wünsche, Terminvorschläge..."
             class="kontakt-textarea"></textarea>
         </div>
+
+        <!-- Edit: Show validation problems inline before opening the local mail client. -->
+        <p v-if="formError" class="text-center text-red-600">
+          {{ formError }}
+        </p>
+        <!-- Edit: Surface a short handoff notice after submit so the mailto transition feels intentional. -->
+        <p v-if="formNotice" class="text-center text-green-700">
+          {{ formNotice }}
+        </p>
 
         <!-- Button -->
         <div class="text-center">
@@ -121,6 +249,7 @@
       <div class="kontakt-direct">
         <p>
           {{ page?.fields.emailText }}
+          <!-- Edit: Keep the direct contact link independent from the form-generated mailto URL. -->
           <a
             :href="`mailto:${page?.fields.email}`"
             class="kontakt-link"
