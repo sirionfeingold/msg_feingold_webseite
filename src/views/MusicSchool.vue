@@ -80,6 +80,7 @@ onMounted(async () => {
     <!-- Edit: Render address copy as text until WP HTML is explicitly sanitized. -->
     <p class="standort-text">{{ page?.fields.adresseText }}</p>
     <div class="standort-map">
+      <!-- Edit: Mount the map iframe only after the CMS URL passed API-side validation. -->
       <iframe
         v-if="page?.fields.embedUrl"
         :src="page.fields.embedUrl"
@@ -91,15 +92,16 @@ onMounted(async () => {
       ></iframe>
     </div>
     <a
-      :href="page?.fields.mapLink"
+      v-if="page?.fields.mapLink"
+      :href="page.fields.mapLink"
       target="_blank"
+      rel="noopener noreferrer"
       class="standort-link"
     >
-    <button type="submit"
-            class="standort-button"
-          >
-      {{ page?.fields.routeButton }}
-    </button>
+      <!-- Edit: Use a styled span instead of nesting a button inside a link. -->
+      <span class="standort-button">
+        {{ page?.fields.routeButton }}
+      </span>
     </a>
   </section>
   </div>

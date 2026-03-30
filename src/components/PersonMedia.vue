@@ -6,7 +6,8 @@
     </h2>
 
     <!-- Video -->
-    <div class="aspect-video max-w-4xl mx-auto rounded-xl overflow-hidden shadow-xl">
+    <!-- Edit: Render the YouTube iframe only when the CMS video ID passed validation. -->
+    <div v-if="videoId" class="aspect-video max-w-4xl mx-auto rounded-xl overflow-hidden shadow-xl">
       <iframe
         :src="`https://www.youtube.com/embed/${videoId}`"
         :title="`${name} Video`"
@@ -18,11 +19,13 @@
     </div>
 
     <!-- Spotify -->
-    <div class="max-w-xl mx-auto">
+    <!-- Edit: Avoid mounting arbitrary embed frames when the CMS URL was rejected. -->
+    <div v-if="spotifyLink" class="max-w-xl mx-auto">
+      <!-- Edit: Use the boolean `allowfullscreen` form so Vue's iframe typing stays valid. -->
       <iframe
         :src="spotifyLink"
         width="100%" height="152" frameborder="0"
-        allowfullscreen=""
+        allowfullscreen
         allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
         loading="lazy"
         class="rounded-xl shadow-md"
@@ -31,23 +34,28 @@
 
     <!-- Social Media -->
     <div class="flex justify-center gap-8">
-      <a v-if="instagram" :href="instagram" target="_blank" class="hover:scale-110 transition">
+      <!-- Edit: Every external tab now explicitly severs `window.opener`. -->
+      <a v-if="instagram" :href="instagram" target="_blank" rel="noopener noreferrer" class="hover:scale-110 transition">
         <img src="/icons/instagram.svg" alt="Instagram" class="w-8 h-8" />
       </a>
-      <a v-if="facebook" :href="facebook" target="_blank" class="hover:scale-110 transition">
+      <!-- Edit: Keep external social links consistent with the same opener protection. -->
+      <a v-if="facebook" :href="facebook" target="_blank" rel="noopener noreferrer" class="hover:scale-110 transition">
         <img src="/icons/facebook.svg" alt="Facebook" class="w-8 h-8" />
       </a>
-      <a v-if="youtube" :href="youtube" target="_blank" class="hover:scale-110 transition">
+      <!-- Edit: Apply the same protection to the YouTube profile link. -->
+      <a v-if="youtube" :href="youtube" target="_blank" rel="noopener noreferrer" class="hover:scale-110 transition">
         <img src="/icons/youtube.svg" alt="YouTube" class="w-8 h-8" />
       </a>
-      <a v-if="website" :href="website" target="_blank" class="hover:scale-110 transition">
+      <!-- Edit: Apply the same protection to the general website link. -->
+      <a v-if="website" :href="website" target="_blank" rel="noopener noreferrer" class="hover:scale-110 transition">
         <img src="/icons/globe.svg" alt="Website" class="w-8 h-8" />
-    </a>
+      </a>
     </div>
   </section>
 </template>
 
-<script setup>
+<script setup lang="ts">
+// Edit: Keep the media component props typed because sanitized values can be empty strings or undefined.
 defineProps({
   name: String,
   title: String,

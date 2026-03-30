@@ -1,4 +1,24 @@
-const BASE_URL = import.meta.env.VITE_WP_API_BASE
+const RAW_BASE_URL = import.meta.env.VITE_WP_API_BASE
+
+// Edit: Validate the configured WP base URL once so broken env values fail early and predictably.
+const BASE_URL = (() => {
+  const value = safeText(RAW_BASE_URL).trim()
+
+  if (!value) {
+    return ''
+  }
+
+  try {
+    const url = new URL(value)
+    if (url.protocol !== 'https:') {
+      return ''
+    }
+
+    return url.toString().replace(/\/+$/, '')
+  } catch {
+    return ''
+  }
+})()
 
 type WpPage = {
   slug: string
@@ -177,6 +197,101 @@ type WpReviewItem = {
   }
 }
 
+// Edit: Accept only a small allowlist of public URL protocols before exposing CMS links to the UI.
+function normalizeAllowedUrl(
+  value: unknown,
+  options?: {
+    allowedProtocols?: string[]
+    allowedHosts?: string[]
+  }
+): string | undefined {
+  if (typeof value !== 'string' || !value.trim()) return undefined
+
+  try {
+    const url = new URL(value)
+    const allowedProtocols = options?.allowedProtocols ?? ['https:']
+
+    if (!allowedProtocols.includes(url.protocol)) {
+      return undefined
+    }
+
+    if (options?.allowedHosts?.length && !options.allowedHosts.includes(url.hostname)) {
+      return undefined
+    }
+
+    return url.toString()
+  } catch {
+    return undefined
+  }
+}
+
+// Edit: Restrict media embeds to the providers the page is intentionally designed to support.
+function normalizeEmbedUrl(value: unknown): string | undefined {
+  return normalizeAllowedUrl(value, {
+    allowedProtocols: ['https:'],
+    allowedHosts: [
+      'www.google.com',
+      'maps.google.com',
+      'open.spotify.com',
+      'www.spotify.com'
+    ]
+  })
+}
+
+// Edit: Validate public website/social links from WP before they become clickable anchors.
+function normalizeExternalLink(value: unknown): string | undefined {
+  return normalizeAllowedUrl(value, {
+    allowedProtocols: ['https:']
+  })
+}
+
+// Edit: Keep image sources on safe absolute HTTPS URLs before they are mounted into `img` tags.
+function normalizeImageUrl(value: unknown): string {
+  return normalizeAllowedUrl(value, {
+    allowedProtocols: ['https:']
+  }) ?? ''
+}
+
+// Edit: Accept either a raw 11-character YouTube ID or a standard YouTube URL from the CMS.
+function normalizeYoutubeVideoId(value: unknown): string {
+  const raw = safeText(value).trim()
+  if (!raw) return ''
+
+  if (/^[A-Za-z0-9_-]{11}$/.test(raw)) {
+    return raw
+  }
+
+  try {
+    const url = new URL(raw)
+    const hostname = url.hostname.replace(/^www\./, '')
+
+    if (hostname === 'youtu.be') {
+      const id = url.pathname.replace(/^\/+/, '').split('/')[0] ?? ''
+      return /^[A-Za-z0-9_-]{11}$/.test(id) ? id : ''
+    }
+
+    if (hostname === 'youtube.com' || hostname === 'm.youtube.com') {
+      const watchId = url.searchParams.get('v') ?? ''
+      if (/^[A-Za-z0-9_-]{11}$/.test(watchId)) {
+        return watchId
+      }
+
+      const pathSegments = url.pathname.split('/').filter(Boolean)
+      const embedId = pathSegments[pathSegments.length - 1] ?? ''
+      return /^[A-Za-z0-9_-]{11}$/.test(embedId) ? embedId : ''
+    }
+  } catch {
+    return ''
+  }
+
+  return ''
+}
+
+// Edit: Keep public CMS text fields string-only so malformed payloads degrade gracefully.
+function safeText(value: unknown, fallback = ''): string {
+  return typeof value === 'string' ? value : fallback
+}
+
 // Edit: Centralize public WP requests so every call validates base URL, status code and JSON parsing.
 async function fetchWpJson<T>(path: string): Promise<T> {
   if (!BASE_URL) {
@@ -200,7 +315,8 @@ async function fetchWpJson<T>(path: string): Promise<T> {
 function mapPage<TFields>(page: WpPage, fields: TFields): PageModel<TFields> {
   return {
     slug: page.slug,
-    title: page.title.rendered,
+    // Edit: Normalize the shared page title too so all rendered WP text follows the same rule.
+    title: safeText(page.title?.rendered),
     fields
   }
 }
@@ -209,9 +325,10 @@ function mapPage<TFields>(page: WpPage, fields: TFields): PageModel<TFields> {
 function mapTeacher(item: TeacherItem): Teacher {
   return {
     id: item.id,
-    name: item.title.rendered,
-    bio: item.acf?.bio ?? '',
-    website: item.acf?.website,
+    // Edit: Guard teacher data against malformed CMS payloads before rendering it.
+    name: safeText(item.title?.rendered, 'Lehrperson'),
+    bio: safeText(item.acf?.bio),
+    website: normalizeExternalLink(item.acf?.website),
     image: getTeacherImage(item)
   }
 }
@@ -219,10 +336,11 @@ function mapTeacher(item: TeacherItem): Teacher {
 // Edit: Map product entries into a stable app model so views stop depending on WP field names.
 function mapProduct(p: WpProductItem): Product {
   return {
-    title: p.title?.rendered ?? 'Produkt',
-    price: p.acf?.price ?? 'Preis auf Anfrage',
-    description: p.acf?.description ?? 'Beschreibung folgt.',
-    image: p._embedded?.['wp:featuredmedia']?.[0]?.source_url ?? ''
+    // Edit: Default missing product text so one broken CMS entry does not break the whole shop grid.
+    title: safeText(p.title?.rendered, 'Produkt'),
+    price: safeText(p.acf?.price, 'Preis auf Anfrage'),
+    description: safeText(p.acf?.description, 'Beschreibung folgt.'),
+    image: normalizeImageUrl(p._embedded?.['wp:featuredmedia']?.[0]?.source_url)
   }
 }
 
@@ -244,118 +362,127 @@ export async function loadPage(slug: string): Promise<WpPage> {
 export async function loadHomePage(): Promise<PageModel<HomePageFields>> {
   const page = await loadPage('home')
   return mapPage(page, {
-    homeTitle: page.acf?.home_title ?? '',
-    homeSecondTitle: page.acf?.home_second_title ?? '',
-    homeSubtitle: page.acf?.home_subtitle ?? '',
-    moreButton: page.acf?.more_button ?? 'Mehr erfahren',
-    aktuellesTitle: page.acf?.aktuelles_titel ?? 'Aktuelles',
-    reviewTitle: page.acf?.review_title ?? 'Bewertungen'
+    // Edit: Coerce WP text fields to strings so typed views do not receive unexpected values.
+    homeTitle: safeText(page.acf?.home_title),
+    homeSecondTitle: safeText(page.acf?.home_second_title),
+    homeSubtitle: safeText(page.acf?.home_subtitle),
+    moreButton: safeText(page.acf?.more_button, 'Mehr erfahren'),
+    aktuellesTitle: safeText(page.acf?.aktuelles_titel, 'Aktuelles'),
+    reviewTitle: safeText(page.acf?.review_title, 'Bewertungen')
   })
 }
 
 export async function loadAboutPage(): Promise<PageModel<AboutPageFields>> {
   const page = await loadPage('about')
   return mapPage(page, {
-    introText: page.acf?.intro_text ?? '',
-    subText: page.acf?.sub_text ?? '',
-    teachersTitle: page.acf?.teachers_title ?? 'Lehrpersonen'
+    // Edit: Keep public about-page content resilient against missing ACF fields.
+    introText: safeText(page.acf?.intro_text),
+    subText: safeText(page.acf?.sub_text),
+    teachersTitle: safeText(page.acf?.teachers_title, 'Lehrpersonen')
   })
 }
 
 export async function loadKontaktPage(): Promise<PageModel<KontaktPageFields>> {
   const page = await loadPage('kontakt')
   return mapPage(page, {
-    introText: page.acf?.intro_text ?? '',
+    // Edit: Normalize the contact page fields centrally so the view can stay simple and safe.
+    introText: safeText(page.acf?.intro_text),
     instruments: typeof page.acf?.instruments === 'string'
       ? page.acf.instruments.split('\n').map((item: string) => item.trim()).filter(Boolean)
       : [],
-    formularName: page.acf?.formular_name ?? 'Name',
-    formularEmail: page.acf?.formular_email ?? 'E-Mail',
-    formularInstrument: page.acf?.formular_instrument ?? 'Instrument',
-    formularAuswahl: page.acf?.formular_auswahl ?? 'Bitte wählen',
-    buttonSenden: page.acf?.button_senden ?? 'Senden',
-    emailText: page.acf?.email_text ?? '',
-    email: page.acf?.email ?? '',
-    telefonText: page.acf?.telefon_text ?? '',
-    contactPhone: page.acf?.contact_phone ?? '',
-    contactEmail: page.acf?.contact_email ?? ''
+    formularName: safeText(page.acf?.formular_name, 'Name'),
+    formularEmail: safeText(page.acf?.formular_email, 'E-Mail'),
+    formularInstrument: safeText(page.acf?.formular_instrument, 'Instrument'),
+    formularAuswahl: safeText(page.acf?.formular_auswahl, 'Bitte wählen'),
+    buttonSenden: safeText(page.acf?.button_senden, 'Senden'),
+    emailText: safeText(page.acf?.email_text),
+    email: safeText(page.acf?.email),
+    telefonText: safeText(page.acf?.telefon_text),
+    contactPhone: safeText(page.acf?.contact_phone),
+    contactEmail: safeText(page.acf?.contact_email)
   })
 }
 
 export async function loadHeaderPage(): Promise<PageModel<HeaderPageFields>> {
   const page = await loadPage('header')
   return mapPage(page, {
-    headerLogo: page.acf?.header_logo ?? '',
-    headerSubtitle: page.acf?.header_subtitle ?? '',
-    headerHomeText: page.acf?.header_home_text ?? 'Home',
-    headerUnterrichtText: page.acf?.header_unterricht_text ?? 'Unterricht',
-    headerMedienText: page.acf?.header_medien_text ?? 'Medien',
-    headerKontaktText: page.acf?.header_kontakt_text ?? 'Kontakt',
-    headerKonditionenText: page.acf?.header_konditionen_text ?? 'Konditionen',
-    headerAboutText: page.acf?.header_about_text ?? 'About'
+    // Edit: Keep header labels string-safe because they are rendered on every route.
+    headerLogo: safeText(page.acf?.header_logo),
+    headerSubtitle: safeText(page.acf?.header_subtitle),
+    headerHomeText: safeText(page.acf?.header_home_text, 'Home'),
+    headerUnterrichtText: safeText(page.acf?.header_unterricht_text, 'Unterricht'),
+    headerMedienText: safeText(page.acf?.header_medien_text, 'Medien'),
+    headerKontaktText: safeText(page.acf?.header_kontakt_text, 'Kontakt'),
+    headerKonditionenText: safeText(page.acf?.header_konditionen_text, 'Konditionen'),
+    headerAboutText: safeText(page.acf?.header_about_text, 'About')
   })
 }
 
 export async function loadFooterPage(): Promise<PageModel<FooterPageFields>> {
   const page = await loadPage('footer')
   return mapPage(page, {
-    footerContactTitle: page.acf?.footer_contact_title ?? 'Kontakt',
-    footerKontaktEmailText: page.acf?.footer_kontakt_email_text ?? 'E-Mail:',
-    footerEmail: page.acf?.footer_email ?? '',
-    footerKontaktTelefonText: page.acf?.footer_kontakt_telefon_text ?? 'Telefon:',
-    footerPhone: page.acf?.footer_phone ?? '',
-    footerKontaktOrtText: page.acf?.footer_kontakt_ort_text ?? 'Ort:',
-    footerLocation: page.acf?.footer_location ?? '',
-    footerNavTitle: page.acf?.footer_nav_title ?? 'Navigation',
-    footerHomeLink: page.acf?.footer_home_link ?? 'Home',
-    footerUnterrichtLink: page.acf?.footer_unterricht_link ?? 'Unterricht',
-    footerMedienLink: page.acf?.footer_medien_link ?? 'Medien',
-    footerKontaktLink: page.acf?.footer_kontakt_link ?? 'Kontakt',
-    footerLogo: page.acf?.footer_logo ?? '',
-    footerClaim: page.acf?.footer_claim ?? '',
-    footerCopyright: page.acf?.footer_copyright ?? ''
+    // Edit: Normalize footer copy so broken CMS data does not take down the global footer.
+    footerContactTitle: safeText(page.acf?.footer_contact_title, 'Kontakt'),
+    footerKontaktEmailText: safeText(page.acf?.footer_kontakt_email_text, 'E-Mail:'),
+    footerEmail: safeText(page.acf?.footer_email),
+    footerKontaktTelefonText: safeText(page.acf?.footer_kontakt_telefon_text, 'Telefon:'),
+    footerPhone: safeText(page.acf?.footer_phone),
+    footerKontaktOrtText: safeText(page.acf?.footer_kontakt_ort_text, 'Ort:'),
+    footerLocation: safeText(page.acf?.footer_location),
+    footerNavTitle: safeText(page.acf?.footer_nav_title, 'Navigation'),
+    footerHomeLink: safeText(page.acf?.footer_home_link, 'Home'),
+    footerUnterrichtLink: safeText(page.acf?.footer_unterricht_link, 'Unterricht'),
+    footerMedienLink: safeText(page.acf?.footer_medien_link, 'Medien'),
+    footerKontaktLink: safeText(page.acf?.footer_kontakt_link, 'Kontakt'),
+    footerLogo: safeText(page.acf?.footer_logo),
+    footerClaim: safeText(page.acf?.footer_claim),
+    footerCopyright: safeText(page.acf?.footer_copyright)
   })
 }
 
 export async function loadMusicSchoolPage(): Promise<PageModel<MusicSchoolPageFields>> {
   const page = await loadPage('unterricht')
   return mapPage(page, {
-    unterrichtTitle: page.acf?.unterricht_title ?? '',
-    unterrichtSubtitle: page.acf?.unterricht_subtitle ?? '',
-    moreButton: page.acf?.more_button ?? 'Mehr erfahren',
-    standortText: page.acf?.standort_text ?? '',
-    adresseText: page.acf?.adresse_text ?? '',
-    embedUrl: page.acf?.embed_url ?? '',
-    mapLink: page.acf?.map_link ?? '',
-    routeButton: page.acf?.route_button ?? 'Route anzeigen'
+    // Edit: Sanitize map/embed URLs here so the view only receives approved destinations.
+    unterrichtTitle: safeText(page.acf?.unterricht_title),
+    unterrichtSubtitle: safeText(page.acf?.unterricht_subtitle),
+    moreButton: safeText(page.acf?.more_button, 'Mehr erfahren'),
+    standortText: safeText(page.acf?.standort_text),
+    adresseText: safeText(page.acf?.adresse_text),
+    embedUrl: normalizeEmbedUrl(page.acf?.embed_url) ?? '',
+    mapLink: normalizeExternalLink(page.acf?.map_link) ?? '',
+    routeButton: safeText(page.acf?.route_button, 'Route anzeigen')
   })
 }
 
 export async function loadMediaPage(): Promise<PageModel<MediaPageFields>> {
   const page = await loadPage('medien')
   return mapPage(page, {
-    medienTitle: page.acf?.medien_title ?? '',
-    medienSubtitle: page.acf?.medien_subtitle ?? ''
+    // Edit: Keep the media-page chrome resilient to malformed CMS values.
+    medienTitle: safeText(page.acf?.medien_title),
+    medienSubtitle: safeText(page.acf?.medien_subtitle)
   })
 }
 
 export async function loadKonditionenPage(): Promise<PageModel<KonditionenPageFields>> {
   const page = await loadPage('konditionen')
   return mapPage(page, {
-    introText: page.acf?.intro_text ?? '',
-    conditionsText: page.acf?.conditions_text ?? '',
-    contactText: page.acf?.contact_text ?? '',
-    contactEmail: page.acf?.contact_email ?? '',
-    contactPhone: page.acf?.contact_phone ?? ''
+    // Edit: Normalize conditions-page text before the template splits or links it.
+    introText: safeText(page.acf?.intro_text),
+    conditionsText: safeText(page.acf?.conditions_text),
+    contactText: safeText(page.acf?.contact_text),
+    contactEmail: safeText(page.acf?.contact_email),
+    contactPhone: safeText(page.acf?.contact_phone)
   })
 }
 
 export async function loadShopPage(slug: string, defaultButtonText: string): Promise<PageModel<ShopPageFields>> {
   const page = await loadPage(slug)
   return mapPage(page, {
-    title: page.acf?.title ?? page.title.rendered,
-    introText: page.acf?.intro_text ?? '',
-    buttonText: page.acf?.button_text ?? defaultButtonText
+    // Edit: Shop pages also get normalized strings so bad CMS content stays local to one field.
+    title: safeText(page.acf?.title, safeText(page.title?.rendered, 'Shop')),
+    introText: safeText(page.acf?.intro_text),
+    buttonText: safeText(page.acf?.button_text, defaultButtonText)
   })
 }
 
@@ -372,8 +499,9 @@ export async function loadTeachers(): Promise<Teacher[]> {
 // get teacher images
 export function getTeacherImage(t: TeacherItem): string {
   return (
-    t._embedded?.['wp:featuredmedia']?.[0]?.media_details?.sizes?.medium?.source_url ||
-    t._embedded?.['wp:featuredmedia']?.[0]?.source_url || ''
+    // Edit: Normalize teacher image URLs before they reach the `img` tag.
+    normalizeImageUrl(t._embedded?.['wp:featuredmedia']?.[0]?.media_details?.sizes?.medium?.source_url) ||
+    normalizeImageUrl(t._embedded?.['wp:featuredmedia']?.[0]?.source_url)
   )
 }
 
@@ -384,10 +512,11 @@ export async function loadAktuelles(): Promise<AktuellesEvent[]> {
   const data = await fetchWpJson<WpAktuellesItem[]>(`/aktuelles?per_page=10`)
 
   return data.map(item => ({
-    title: item.title.rendered,
-    date: item.acf.date,
-    description: item.acf.description,
-    link: item.acf.link
+    // Edit: Treat event fields as untrusted CMS input and sanitize link targets.
+    title: safeText(item.title?.rendered, 'Aktuelles'),
+    date: safeText(item.acf?.date),
+    description: safeText(item.acf?.description),
+    link: normalizeExternalLink(item.acf?.link)
   }))
 }
 
@@ -401,9 +530,9 @@ import type { Instrument, WpInstrumentItem } from '../types/instrument'
 function getFeaturedImage(item: WpInstrumentItem): string {
   const media = item._embedded?.['wp:featuredmedia']?.[0]
   return (
-    media?.media_details?.sizes?.large?.source_url ||
-    media?.source_url ||
-    ''
+    // Edit: Normalize instrument image URLs before they are rendered in cards or detail views.
+    normalizeImageUrl(media?.media_details?.sizes?.large?.source_url) ||
+    normalizeImageUrl(media?.source_url)
   )
 }
 
@@ -413,11 +542,12 @@ export async function loadInstruments(): Promise<Instrument[]> {
   )
 
   return data.map(item => ({
-    slug: item.slug,
-    name: item.title.rendered,
-    description: item.acf.description,
+    // Edit: Keep instrument cards renderable even when one CMS entry is incomplete.
+    slug: safeText(item.slug),
+    name: safeText(item.title?.rendered, 'Instrument'),
+    description: safeText(item.acf?.description),
     image: getFeaturedImage(item)
-  }))
+  })).filter(item => item.slug)
 }
 
 export async function loadInstrument(slug: string): Promise<Instrument | null> {
@@ -429,9 +559,10 @@ export async function loadInstrument(slug: string): Promise<Instrument | null> {
   const item = data[0]
 
   return {
-    slug: item.slug,
-    name: item.title.rendered,
-    description: item.acf.description,
+    // Edit: Normalize the single instrument payload before it reaches the detail page.
+    slug: safeText(item.slug),
+    name: safeText(item.title?.rendered, 'Instrument'),
+    description: safeText(item.acf?.description),
     image: getFeaturedImage(item)
   }
 }
@@ -443,16 +574,17 @@ export async function loadPersons(): Promise<Person[]> {
   const data = await fetchWpJson<WpPersonItem[]>(`/person?per_page=50`)
 
   return data.map(item => ({
-    slug: item.slug,
-    name: item.title.rendered,
-    title: item.acf.title,
-    videoId: item.acf.video_id,
-    spotifyLink: item.acf.spotify_embed,
-    facebook: item.acf.facebook_link,
-    instagram: item.acf.instagram_link,
-    youtube: item.acf.youtube_link,
-    website: item.acf.website_link
-  }))
+    // Edit: Validate person media links centrally so the media component can render only approved URLs.
+    slug: safeText(item.slug),
+    name: safeText(item.title?.rendered, 'Person'),
+    title: safeText(item.acf?.title),
+    videoId: normalizeYoutubeVideoId(item.acf?.video_id),
+    spotifyLink: normalizeEmbedUrl(item.acf?.spotify_embed) ?? '',
+    facebook: normalizeExternalLink(item.acf?.facebook_link),
+    instagram: normalizeExternalLink(item.acf?.instagram_link),
+    youtube: normalizeExternalLink(item.acf?.youtube_link),
+    website: normalizeExternalLink(item.acf?.website_link)
+  })).filter(item => item.slug)
 }
 
 // function for loading shop menu
@@ -465,11 +597,12 @@ export async function loadShopMenu(): Promise<ShopMenuItem[]> {
       const page = await loadPage(slug)
       return {
         title:
-          (page.acf?.dropdown_text as string | undefined) ??
-          (page.acf?.title as string | undefined) ??
-          page.title.rendered,
+          // Edit: Keep dropdown labels string-safe even when one CMS page is malformed.
+          safeText(page.acf?.dropdown_text) ||
+          safeText(page.acf?.title) ||
+          safeText(page.title?.rendered, 'Shop'),
         path: `/shop/${page.slug}`,
-        intro: page.acf?.intro_text as string | undefined
+        intro: safeText(page.acf?.intro_text) || undefined
       }
     } catch (error) {
       console.error(`Shop-Menueeintrag konnte nicht geladen werden: ${slug}`, error)
@@ -525,8 +658,8 @@ export async function loadReviews(): Promise<ReviewItem[]> {
     .filter((t) => t.acf?.visible !== false)
     // Edit: Clamp public CMS star values into the supported UI range.
     .map((t): ReviewItem => ({
-      name: t.title.rendered,
-      text: t.acf?.text ?? '',
+      name: safeText(t.title?.rendered, 'Bewertung'),
+      text: safeText(t.acf?.text),
       stars: Math.max(0, Math.min(5, Number(t.acf?.stars) || 0))
     }))
 }

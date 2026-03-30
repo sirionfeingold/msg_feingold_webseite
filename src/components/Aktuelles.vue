@@ -8,8 +8,15 @@
         {{ title }}
       </h2>
 
+      <!-- Edit: Surface feed loading so an empty state is not mistaken for missing content. -->
+      <p v-if="loading" class="event-desc">Lädt…</p>
+      <!-- Edit: Surface feed failures explicitly because this block depends on runtime CMS data. -->
+      <p v-else-if="error" class="event-desc">Fehler: {{ error }}</p>
+      <!-- Edit: Keep the empty state distinct from loading and error conditions. -->
+      <p v-else-if="!events.length" class="event-desc">Zurzeit gibt es keine Einträge.</p>
+
       <!-- Event-Vorschau -->
-      <div class="aktuelles-grid">
+      <div v-else class="aktuelles-grid">
         <div
           v-for="item in events"
           :key="item.title"
@@ -71,6 +78,7 @@
 import { ref, onMounted } from 'vue'
 import { loadAktuelles } from '../api/wp'
 import type { AktuellesEvent } from '../types/aktuelles'
+// Edit: Track public feed state explicitly so the template can distinguish loading, errors and empty data.
 const events = ref<AktuellesEvent[]>([])
 const selectedEvent = ref<AktuellesEvent | null>(null)
 const loading = ref(true)
