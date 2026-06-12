@@ -24,12 +24,12 @@
   
 <template>
   <!-- Loading -->
-   <div v-if="loading" class="about-wrapper">
-    <div class="about-inner">Lädt…</div>
+   <div v-if="loading" class="page-state">
+    <div>Lädt…</div>
   </div>
   <!-- Error -->
-   <div v-else-if="error" class="about-wrapper">
-    <div class="about-inner">Fehler: {{ error }}</div>
+   <div v-else-if="error" class="page-state">
+    <div>Fehler: {{ error }}</div>
   </div>
 
   <div v-else-if="page" class="about-wrapper">
@@ -63,7 +63,7 @@
           Lehrpersonen folgen in Kürze.
         </p>
 
-        <div v-else class="flex flex-col sm:flex-row justify-center items-center gap-10 text-left max-w-4xl mx-auto">
+        <div v-else class="teacher-grid">
           <!-- Esther -->
           <div 
           v-for="t in teachers"
@@ -76,7 +76,7 @@
               :alt="t.name"
               class="teacher-img"
             />
-            <div v-else class="teacher-img flex items-center justify-center bg-gray-200 text-gray-500">
+            <div v-else class="teacher-img teacher-img-fallback">
               <!-- Edit: Provide a visible fallback when no teacher image is available. -->
               Kein Bild
             </div>

@@ -1,0 +1,251 @@
+@reference "tailwindcss";
+
+@media (prefers-color-scheme: dark) {
+  button:focus-visible,
+  a:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible {
+    outline-color: rgba(125, 181, 255, 0.82);
+  }
+
+  ::selection {
+    color: #f8fbff;
+    background: #2563eb;
+  }
+
+  .header-error {
+    color: #fecaca;
+    background: #551b2c;
+  }
+
+  .header-inner {
+    border-color: rgba(125, 181, 255, 0.24);
+    background: rgba(7, 27, 64, 0.84);
+    box-shadow: 0 14px 42px rgba(1, 8, 24, 0.4);
+  }
+
+  .header-logo {
+    color: #7db7ff;
+  }
+
+  .header-subtitle,
+  .header-nav-link,
+  .shop-menu-button {
+    color: #c4d5f2;
+  }
+
+  .header-nav-link:hover,
+  .shop-menu-button:hover,
+  .header-nav-link.router-link-active {
+    color: #fff;
+    background: rgba(37, 99, 235, 0.24);
+  }
+
+  .header-burger,
+  .sidebar-close {
+    border-color: rgba(125, 181, 255, 0.22);
+    color: #7db7ff;
+    background: rgba(16, 49, 103, 0.72);
+  }
+
+  .shop-menu-dropdown,
+  .sidebar-panel {
+    border-color: rgba(125, 181, 255, 0.24);
+    background:
+      radial-gradient(circle at 100% 0, rgba(96, 165, 250, 0.14), transparent 18rem),
+      rgba(7, 27, 64, 0.96);
+  }
+
+  .shop-menu-link,
+  .sidebar-link,
+  .shop-menu-state {
+    color: #dce8fb;
+  }
+
+  .shop-menu-link:hover,
+  .shop-menu-link.router-link-active,
+  .sidebar-link:hover,
+  .sidebar-link.router-link-active {
+    color: #fff;
+    background: rgba(37, 99, 235, 0.24);
+  }
+
+  .home-hero,
+  .about-wrapper,
+  .musikschule-wrapper,
+  .medien-wrapper,
+  .instrument-wrapper,
+  .konditionen-wrapper,
+  .kontakt-wrapper,
+  .shop-wrapper,
+  .shop-cds,
+  .shop-art,
+  .bewertungen-section {
+    background:
+      radial-gradient(circle at 12% 10%, rgba(96, 165, 250, 0.18), transparent 30rem),
+      radial-gradient(circle at 88% 22%, rgba(167, 139, 250, 0.12), transparent 32rem),
+      linear-gradient(145deg, #0d2a5d, #091e47 48%, #06142f);
+  }
+
+  .aktuelles-section {
+    background:
+      radial-gradient(circle at 85% 8%, rgba(96, 165, 250, 0.2), transparent 28rem),
+      linear-gradient(145deg, #123873, #0b2b62 48%, #071a3d);
+  }
+
+  .home-hero-stage::before {
+    border-color: rgba(147, 197, 253, 0.18);
+    background: linear-gradient(145deg, rgba(59, 130, 246, 0.1), rgba(8, 25, 58, 0.12));
+  }
+
+  .home-title-wrap,
+  .about-teachers,
+  .teacher-card,
+  .bewertung-card,
+  .event-card,
+  .event-card-featured,
+  .standort-section,
+  .person-video,
+  .person-spotify,
+  .instrument-image,
+  .instrument-description,
+  .konditionen-list,
+  .kontakt-form,
+  .kontakt-direct,
+  .shop-card {
+    border-color: var(--glass-border);
+    background: var(--glass);
+  }
+
+  .person-social,
+  .konditionen-contact,
+  .instrument-state {
+    border-color: var(--glass-border);
+    background: rgba(12, 42, 91, 0.7);
+  }
+
+  .home-title-wrap,
+  .about-teachers,
+  .standort-section,
+  .konditionen-list,
+  .kontakt-form,
+  .kontakt-direct {
+    background:
+      linear-gradient(145deg, rgba(30, 74, 145, 0.22), rgba(6, 20, 47, 0.12)),
+      var(--glass);
+  }
+
+  .standort-info {
+    background: rgba(16, 49, 103, 0.66);
+  }
+
+  .konditionen-list li,
+  .kontakt-direct-card {
+    border-color: rgba(125, 181, 255, 0.18);
+    background: rgba(17, 52, 109, 0.58);
+  }
+
+  .kontakt-direct-card:hover {
+    background: rgba(24, 70, 143, 0.68);
+  }
+
+  .kontakt-input,
+  .kontakt-select,
+  .kontakt-textarea,
+  .medien-select {
+    border-color: rgba(125, 181, 255, 0.26);
+    color: var(--ink);
+    background: rgba(7, 27, 64, 0.78);
+    box-shadow: inset 0 1px 0 rgba(147, 197, 253, 0.08);
+  }
+
+  .medien-select {
+    color-scheme: dark;
+  }
+
+  .kontakt-input::placeholder,
+  .kontakt-textarea::placeholder {
+    color: #8fa6ce;
+  }
+
+  .kontakt-input:focus,
+  .kontakt-select:focus,
+  .kontakt-textarea:focus,
+  .medien-select:focus {
+    border-color: rgba(96, 165, 250, 0.7);
+    background: rgba(12, 45, 98, 0.92);
+    box-shadow: 0 0 0 4px rgba(96, 165, 250, 0.14);
+  }
+
+  .event-desc,
+  .modal-desc,
+  .bewertung-text,
+  .teacher-bio,
+  .shop-description {
+    color: #c8d6ef;
+  }
+
+  .modal-box {
+    border-color: rgba(125, 181, 255, 0.28);
+    background:
+      radial-gradient(circle at 100% 0, rgba(96, 165, 250, 0.14), transparent 20rem),
+      rgba(7, 27, 64, 0.97);
+  }
+
+  .modal-close {
+    border-color: rgba(244, 114, 182, 0.25);
+    color: #f9a8d4;
+    background: rgba(16, 49, 103, 0.9);
+  }
+
+  .teacher-img {
+    border-color: rgba(147, 197, 253, 0.3);
+    box-shadow:
+      0 14px 35px rgba(1, 8, 24, 0.38),
+      0 0 0 2px rgba(244, 114, 182, 0.24);
+  }
+
+  .teacher-img-fallback,
+  .shop-image {
+    color: var(--ink-soft);
+    background: rgba(16, 49, 103, 0.62);
+  }
+
+  .kontakt-form-error {
+    color: #fecaca;
+    background: rgba(127, 29, 29, 0.42);
+  }
+
+  .kontakt-form-notice {
+    color: #bbf7d0;
+    background: rgba(20, 83, 45, 0.42);
+  }
+
+  .footer-wrapper {
+    background:
+      radial-gradient(circle at 14% 30%, rgba(96, 165, 250, 0.16), transparent 26rem),
+      radial-gradient(circle at 84% 25%, rgba(167, 139, 250, 0.12), transparent 28rem),
+      linear-gradient(135deg, #0d2a5d, #091e47 52%, #06142f);
+  }
+
+  .footer-inner {
+    border-color: var(--glass-border);
+    background: rgba(8, 28, 66, 0.68);
+  }
+
+  .footer-title,
+  .footer-logo {
+    color: #7db7ff;
+  }
+
+  .footer-list a,
+  .footer-link {
+    color: #e1ebfb;
+  }
+
+  .footer-state {
+    color: var(--ink-soft);
+    background: #091e47;
+  }
+}

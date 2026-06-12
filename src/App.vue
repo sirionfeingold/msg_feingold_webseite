@@ -1,14 +1,9 @@
 <template>
-  <div class="flex flex-col min-h-screen">
-    <!-- HEADER -->
+  <div class="app-shell">
     <Header />
-
-    <!-- MAIN CONTENT -->
-    <main class="flex-grow">
+    <main class="app-main">
       <router-view />
     </main>
-
-    <!-- FOOTER -->
     <Footer />
   </div>
 </template>
@@ -17,6 +12,4 @@
 <script lang="ts" setup>
 import Footer from './components/Footer.vue'
 import Header from './components/Header.vue'
-
-
 </script>

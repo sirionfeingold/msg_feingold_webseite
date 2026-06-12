@@ -38,8 +38,8 @@ watch(() => route.params.name, fetchInstrument)
 <template>
   <div class="instrument-wrapper">
     <div class="instrument-container">
-      <div v-if="loading">Lädt…</div>
-      <div v-else-if="error">Fehler: {{ error }}</div>
+      <div v-if="loading" class="instrument-state">Lädt…</div>
+      <div v-else-if="error" class="instrument-state">Fehler: {{ error }}</div>
 
       <template v-else>
         <!-- Titel -->
@@ -54,7 +54,7 @@ watch(() => route.params.name, fetchInstrument)
         :alt="instrument.name"
         class="instrument-image"
       />
-      <div v-else class="w-full max-w-xl min-h-64 rounded-3xl bg-gray-200 text-gray-500 flex items-center justify-center">
+      <div v-else class="instrument-image instrument-image-fallback">
         <!-- Edit: Show a defined fallback when an instrument has no image in the public CMS. -->
         Kein Bild verfügbar
       </div>

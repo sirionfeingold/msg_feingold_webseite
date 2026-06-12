@@ -37,10 +37,10 @@ onMounted(async () => {
 
 <template>
 
-  <div v-if="loading">Lädt…</div>
+  <div v-if="loading" class="page-state"><div>Lädt…</div></div>
 
-  <div v-else-if="error">
-    Fehler: {{ error }}
+  <div v-else-if="error" class="page-state">
+    <div>Fehler: {{ error }}</div>
   </div>
 
   <div v-else-if="page" class="musikschule-wrapper">
@@ -60,7 +60,7 @@ onMounted(async () => {
       <div class="instrument-grid">
         <router-link
           v-for="(instrument, index) in instruments"
-          :key="index"
+          :key="instrument.slug || index"
           :to="`/instrument/${instrument.slug}`"
           class="instrument-card"
           :class="gradientMap[instrument.slug] ?? 'bg-gray-200'"
@@ -73,36 +73,38 @@ onMounted(async () => {
       </div>
     </div>
 
-   <section class="standort-section">
-    <h2 class="standort-title">
-      {{ page?.fields.standortText }}
-    </h2>
-    <!-- Edit: Render address copy as text until WP HTML is explicitly sanitized. -->
-    <p class="standort-text">{{ page?.fields.adresseText }}</p>
-    <div class="standort-map">
-      <!-- Edit: Mount the map iframe only after the CMS URL passed API-side validation. -->
-      <iframe
-        v-if="page?.fields.embedUrl"
-        :src="page.fields.embedUrl"
-        class="w-full h-full"
-        style="border:0;"
-        allowfullscreen
-        loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade"
-      ></iframe>
-    </div>
-    <a
-      v-if="page?.fields.mapLink"
-      :href="page.fields.mapLink"
-      target="_blank"
-      rel="noopener noreferrer"
-      class="standort-link"
+    <section
+      class="standort-section"
+      :class="{ 'standort-section-with-map': page?.fields.embedUrl }"
     >
-      <!-- Edit: Use a styled span instead of nesting a button inside a link. -->
-      <span class="standort-button">
-        {{ page?.fields.routeButton }}
-      </span>
-    </a>
-  </section>
+      <div class="standort-info">
+        <h2 class="standort-title">
+          {{ page?.fields.standortText }}
+        </h2>
+        <p class="standort-text">{{ page?.fields.adresseText }}</p>
+        <a
+          v-if="page?.fields.mapLink"
+          :href="page.fields.mapLink"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="standort-link"
+        >
+          <span class="standort-button">
+            {{ page?.fields.routeButton }}
+          </span>
+        </a>
+      </div>
+
+      <div v-if="page?.fields.embedUrl" class="standort-map">
+        <iframe
+          :src="page.fields.embedUrl"
+          class="w-full h-full"
+          style="border:0;"
+          allowfullscreen
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+        ></iframe>
+      </div>
+    </section>
   </div>
 </template>

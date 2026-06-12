@@ -1,0 +1,206 @@
+@reference "tailwindcss";
+
+.shop-wrapper {
+  min-height: 100vh;
+  padding: clamp(5rem, 10vw, 9rem) 1.25rem;
+  background:
+    radial-gradient(circle at 12% 12%, rgba(37, 99, 235, 0.18), transparent 27rem),
+    radial-gradient(circle at 88% 22%, rgba(219, 39, 119, 0.18), transparent 29rem),
+    linear-gradient(145deg, #fff, #eff6ff 48%, #dbeafe);
+}
+
+.shop-cds {
+  background:
+    radial-gradient(circle at 12% 12%, rgba(219, 39, 119, 0.2), transparent 27rem),
+    radial-gradient(circle at 88% 22%, rgba(245, 158, 11, 0.18), transparent 29rem),
+    linear-gradient(145deg, #fff, #fdf2f8 48%, #fce7f3);
+}
+
+.shop-art {
+  background:
+    radial-gradient(circle at 12% 12%, rgba(245, 158, 11, 0.2), transparent 27rem),
+    radial-gradient(circle at 88% 22%, rgba(249, 115, 22, 0.18), transparent 29rem),
+    linear-gradient(145deg, #fff, #fffbeb 48%, #ffedd5);
+}
+
+.shop-inner {
+  width: min(var(--page-width), 100%);
+  margin: 0 auto;
+  text-align: center;
+}
+
+.shop-title {
+  margin: 0;
+  color: transparent;
+  background: linear-gradient(100deg, var(--color-blue), var(--color-pink), var(--color-orange));
+  background-clip: text;
+  -webkit-background-clip: text;
+  font-size: clamp(2.5rem, 6vw, 5.4rem);
+  font-weight: 900;
+  line-height: 1.02;
+  letter-spacing: -0.055em;
+  overflow-wrap: anywhere;
+}
+
+.shop-cds .shop-title {
+  background-image: linear-gradient(100deg, var(--color-pink), var(--color-red), var(--color-blue));
+}
+
+.shop-art .shop-title {
+  background-image: linear-gradient(100deg, var(--color-orange), var(--color-pink), var(--color-violet));
+}
+
+.shop-intro {
+  max-width: 720px;
+  margin: 2rem auto 0;
+  color: var(--ink-soft);
+  font-size: 1.08rem;
+  line-height: 1.75;
+}
+
+.shop-empty {
+  margin-top: 3rem;
+  color: var(--ink-soft);
+}
+
+.shop-grid {
+  margin-top: clamp(3rem, 8vw, 6rem);
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: stretch;
+  gap: 1.25rem;
+}
+
+.shop-card {
+  height: 100%;
+  min-width: 0;
+  padding: 0.75rem 0.75rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--glass-border);
+  border-radius: 2rem;
+  background: var(--glass);
+  box-shadow: var(--glass-shadow);
+  text-align: left;
+  backdrop-filter: blur(24px) saturate(160%);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  transform-origin: center;
+  transition: transform 260ms ease, box-shadow 260ms ease;
+}
+
+.shop-card:hover {
+  z-index: 1;
+  transform: scale(1.025);
+  box-shadow: var(--glass-shadow-hover);
+}
+
+.shop-image {
+  width: 100%;
+  height: 15rem;
+  display: grid;
+  place-items: center;
+  border-radius: 1.45rem;
+  background: rgba(255, 255, 255, 0.4);
+  object-fit: cover;
+}
+
+.shop-image-fallback {
+  color: var(--ink-soft);
+  font-size: 0.85rem;
+}
+
+.shop-card-title {
+  margin: 1.25rem 0 0;
+  padding: 0 0.6rem;
+  color: var(--color-blue);
+  font-size: 1.35rem;
+  font-weight: 820;
+  line-height: 1.15;
+  letter-spacing: -0.035em;
+}
+
+.shop-cds .shop-card-title {
+  color: var(--color-pink);
+}
+
+.shop-art .shop-card-title {
+  color: var(--color-orange);
+}
+
+.shop-description {
+  margin: 0.75rem 0 0;
+  padding: 0 0.6rem;
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+  line-height: 1.65;
+}
+
+.shop-price {
+  margin: 1rem 0 0;
+  padding: 0 0.6rem;
+  color: var(--ink);
+  font-weight: 780;
+}
+
+.shop-button {
+  width: fit-content;
+  margin: auto 0.6rem 0;
+  padding: 0.75rem 1.1rem;
+  border-radius: 999px;
+  color: white;
+  background: linear-gradient(120deg, var(--color-blue), var(--color-violet));
+  box-shadow: 0 12px 28px rgba(37, 99, 235, 0.22);
+  font-size: 0.86rem;
+  font-weight: 750;
+  text-decoration: none;
+  transition: transform 220ms ease, box-shadow 220ms ease;
+}
+
+.shop-cds .shop-button {
+  background: linear-gradient(120deg, var(--color-pink), var(--color-red));
+}
+
+.shop-art .shop-button {
+  background: linear-gradient(120deg, var(--color-orange), var(--color-pink));
+}
+
+.shop-button:hover {
+  transform: scale(1.025);
+  box-shadow: 0 17px 34px rgba(37, 99, 235, 0.3);
+}
+
+@media (max-width: 900px) {
+  .shop-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+}
+
+@media (max-width: 580px) {
+  .shop-wrapper {
+    padding-inline: 0.75rem;
+  }
+
+  .shop-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .shop-image {
+    height: 17rem;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .shop-wrapper,
+  .shop-cds,
+  .shop-art {
+    background:
+      radial-gradient(circle at 12% 12%, rgba(219, 39, 119, 0.22), transparent 27rem),
+      radial-gradient(circle at 88% 22%, rgba(37, 99, 235, 0.28), transparent 29rem),
+      linear-gradient(145deg, #3b0764, #172554 48%, #111827);
+  }
+
+  .shop-image {
+    background: rgba(23, 37, 84, 0.48);
+  }
+}

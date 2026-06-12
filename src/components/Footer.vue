@@ -1,18 +1,18 @@
 <template>
 
-   <div v-if="loading" class="about-wrapper">
-    <div class="about-inner">Lädt…</div>
+   <div v-if="loading" class="footer-state">
+    <div>Lädt…</div>
   </div>
 
-   <div v-else-if="error" class="about-wrapper">
-    <div class="about-inner">Fehler: {{ error }}</div>
+   <div v-else-if="error" class="footer-state">
+    <div>Fehler: {{ error }}</div>
   </div>
 
   <footer v-else-if="settings" class="footer-wrapper">
     <div class="footer-inner">
 
       <!-- Kontakt -->
-      <div class="space-y-3">
+      <div class="footer-column">
         <h4 class="footer-title">
           {{ settings?.fields.footerContactTitle }}
         </h4>
@@ -46,7 +46,7 @@
       </div>
 
       <!-- Navigation -->
-      <div class="space-y-3">
+      <div class="footer-column">
         <h4 class="footer-title">
           {{ settings?.fields.footerNavTitle }}
         </h4>
@@ -67,7 +67,7 @@
       </div>
 
       <!-- Logo + Claim -->
-      <div class="space-y-3">
+      <div class="footer-column footer-brand">
         <h3 class="footer-logo">
           {{ settings?.fields.footerLogo }}
         </h3>

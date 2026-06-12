@@ -1,49 +1,121 @@
-/* =========================================================
-   Instrument Styles – MSG Feingold
-   ---------------------------------------------------------
-   Styling für die Detailseite einzelner Instrumente
-   ========================================================= */
-
 @reference "tailwindcss";
 
-/* === Haupt-Wrapper === */
 .instrument-wrapper {
-  @apply min-h-screen px-4 sm:px-6 py-20 
-         bg-gradient-to-b from-white via-orange-50 to-yellow-100 
-         dark:from-violet-900 dark:via-indigo-950 dark:to-purple-900 
-         text-gray-800;
+  min-height: 100vh;
+  padding: clamp(5rem, 10vw, 9rem) 1.25rem;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 10% 15%, rgba(249, 115, 22, 0.22), transparent 28rem),
+    radial-gradient(circle at 90% 20%, rgba(219, 39, 119, 0.2), transparent 28rem),
+    linear-gradient(145deg, #fff, #fff7ed 48%, #fef3c7);
 }
 
-/* === Innerer Container === */
 .instrument-container {
-  @apply max-w-4xl mx-auto flex flex-col items-center 
-         space-y-10 text-center;
+  width: min(900px, 100%);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
 }
 
-/* === Titel === */
 .instrument-title {
-  @apply leading-tight text-4xl sm:text-5xl font-extrabold tracking-tight 
-         bg-gradient-to-r from-orange-500 via-rose-500 to-pink-600 
-         text-transparent bg-clip-text drop-shadow-lg;
+  max-width: 850px;
+  margin: 0 0 2.5rem;
+  color: transparent;
+  background: linear-gradient(100deg, var(--color-orange), var(--color-red), var(--color-pink));
+  background-clip: text;
+  -webkit-background-clip: text;
+  font-size: clamp(2.5rem, 6vw, 5.2rem);
+  font-weight: 900;
+  line-height: 1.02;
+  letter-spacing: -0.055em;
+  overflow-wrap: anywhere;
 }
 
-/* === Bild === */
 .instrument-image {
-  @apply w-full max-w-xl max-h-[500px] object-contain rounded-3xl 
-         shadow-xl transition-transform duration-300 hover:scale-[1.02];
+  width: min(720px, 100%);
+  max-height: 560px;
+  padding: 0.75rem;
+  border: 1px solid var(--glass-border);
+  border-radius: 2.5rem;
+  background: var(--glass);
+  box-shadow: var(--glass-shadow);
+  object-fit: contain;
+  backdrop-filter: blur(24px) saturate(160%);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  transform-origin: center;
+  transition: transform 260ms ease, box-shadow 260ms ease;
 }
 
-/* === Beschreibung === */
+.instrument-image:hover {
+  transform: scale(1.025);
+  box-shadow: var(--glass-shadow-hover);
+}
+
+.instrument-image-fallback {
+  min-height: 20rem;
+  display: grid;
+  place-items: center;
+  color: var(--ink-soft);
+}
+
 .instrument-description {
-  @apply text-lg sm:text-xl leading-relaxed text-gray-700 
-         dark:text-blue-300 max-w-3xl;
+  max-width: 760px;
+  margin: 2rem 0 0;
+  padding: clamp(1.4rem, 4vw, 2.4rem);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  color: var(--ink-soft);
+  background: var(--glass);
+  box-shadow: var(--glass-shadow);
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  line-height: 1.8;
+  backdrop-filter: blur(24px) saturate(160%);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
 }
 
-/* === Call to Action Button === */
 .instrument-button {
-  @apply mt-6 inline-block bg-orange-500 hover:bg-orange-600 
-         dark:bg-blue-500 dark:hover:bg-blue-600 text-white 
-         font-medium text-lg px-6 py-3 rounded-full shadow-md 
-         hover:shadow-lg hover:scale-105 transition-all 
-         duration-300 ease-in-out;
+  margin-top: 2rem;
+  padding: 0.9rem 1.5rem;
+  border-radius: 999px;
+  color: white;
+  background: linear-gradient(120deg, var(--color-orange), var(--color-pink));
+  box-shadow: 0 14px 34px rgba(249, 115, 22, 0.25);
+  font-weight: 750;
+  text-decoration: none;
+  transition: transform 220ms ease, box-shadow 220ms ease;
+}
+
+.instrument-button:hover {
+  transform: scale(1.025);
+  box-shadow: 0 20px 42px rgba(249, 115, 22, 0.34);
+}
+
+.instrument-state {
+  padding: 1.2rem 1.5rem;
+  border: 1px solid var(--glass-border);
+  border-radius: 1.25rem;
+  color: var(--ink-soft);
+  background: var(--glass);
+  box-shadow: var(--glass-shadow);
+}
+
+@media (max-width: 600px) {
+  .instrument-wrapper {
+    padding-inline: 0.75rem;
+  }
+
+  .instrument-image {
+    border-radius: 1.75rem;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .instrument-wrapper {
+    background:
+      radial-gradient(circle at 10% 15%, rgba(249, 115, 22, 0.2), transparent 28rem),
+      radial-gradient(circle at 90% 20%, rgba(219, 39, 119, 0.22), transparent 28rem),
+      linear-gradient(145deg, #3b0764, #172554 48%, #111827);
+  }
 }

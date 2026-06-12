@@ -32,10 +32,10 @@
 
 <template>
 
-  <div v-if="loading">Lädt…</div>
+  <div v-if="loading" class="page-state"><div>Lädt…</div></div>
 
-  <div v-else-if="error">
-    Fehler: {{ error }}
+  <div v-else-if="error" class="page-state">
+    <div>Fehler: {{ error }}</div>
   </div>
 
   <div v-else-if="page" class="konditionen-wrapper">

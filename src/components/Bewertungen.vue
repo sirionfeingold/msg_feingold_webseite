@@ -7,11 +7,11 @@
         {{ title ?? 'Bewertungen' }}
       </h2>
 
-      <p v-if="loading">Lädt…</p>
-      <p v-else-if="error">Fehler: {{ error }}</p>
-      <p v-else-if="!bewertung.length">Noch keine Bewertungen vorhanden.</p>
+      <p v-if="loading" class="bewertungen-state">Lädt…</p>
+      <p v-else-if="error" class="bewertungen-state">Fehler: {{ error }}</p>
+      <p v-else-if="!bewertung.length" class="bewertungen-state">Noch keine Bewertungen vorhanden.</p>
 
-      <div v-else class="space-y-12">
+      <div v-else class="bewertungen-list">
         <div
           v-for="t in bewertung"
           :key="t.name"

@@ -1,52 +1,139 @@
-/* =========================================================
-   Home Styles – MSG Feingold
-   ---------------------------------------------------------
-   Enthält alle Tailwind-Styles für die Startseite (Home.vue)
-   ========================================================= */
-
 @reference "tailwindcss";
 
-/* === Grundaufbau === */
 .home-hero {
-  @apply w-full bg-gradient-to-br from-red-300 via-amber-200 to-blue-200 
-         dark:from-violet-900 dark:via-indigo-950 dark:to-purple-900 
-         text-gray-900 py-20;
+  position: relative;
+  color: var(--ink);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08), transparent 20%),
+    linear-gradient(135deg, #ffc7c7, #ffe2aa 43%, #bfd9ff);
+  overflow: hidden;
 }
 
-/* === Hero Container === */
+.home-hero-stage {
+  position: relative;
+  min-height: min(760px, 82vh);
+  display: grid;
+  place-items: center;
+  padding: clamp(5rem, 11vw, 9rem) 1.25rem clamp(4rem, 8vw, 7rem);
+  isolation: isolate;
+}
+
+.home-hero-stage::before {
+  position: absolute;
+  inset: 10% 6%;
+  z-index: -1;
+  content: "";
+  border: 1px solid rgba(255, 255, 255, 0.48);
+  border-radius: 4rem 12rem 5rem 14rem;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.04));
+  transform: rotate(-2deg);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
 .home-hero-inner {
-  @apply text-center px-6 sm:px-10 py-16;
+  width: min(1050px, 100%);
+  position: relative;
+  z-index: 2;
 }
 
-/* === Haupttitel === */
+.home-title-wrap {
+  width: min(860px, 100%);
+  padding: clamp(2rem, 7vw, 5.5rem);
+  border: 1px solid rgba(255, 255, 255, 0.64);
+  border-radius: 3rem 8rem 3rem 7rem;
+  background: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 32px 100px rgba(77, 48, 101, 0.18);
+  backdrop-filter: blur(28px) saturate(155%);
+  -webkit-backdrop-filter: blur(28px) saturate(155%);
+}
+
 .home-title {
-  @apply text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight 
-         leading-snug text-center bg-gradient-to-r from-red-500 via-orange-400 
-         to-fuchsia-600 text-transparent bg-clip-text drop-shadow-md px-4;
+  max-width: 780px;
+  margin: 0;
+  font-size: clamp(2.5rem, 6vw, 5.8rem);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.055em;
+  color: transparent;
+  background: linear-gradient(100deg, #0088ff);
+  background-clip: text;
+  -webkit-background-clip: text;
+  overflow-wrap: anywhere;
+  text-wrap: balance;
 }
 
-/* === Untertitel (Slogan) === */
+.home-title span {
+  display: inline;
+  color: transparent;
+  background: linear-gradient(100deg, var(--color-red), var(--color-orange), var(--color-violet));
+  background-clip: text;
+  -webkit-background-clip: text;
+}
+
 .home-subtitle {
-  @apply mt-4 text-lg sm:text-xl text-orange-800 dark:text-orange-500;
+  max-width: 660px;
+  margin: 2rem 0 0;
+  color: #7c3f12;
+  font-size: clamp(1rem, 2vw, 1.35rem);
+  font-weight: 570;
+  line-height: 1.7;
 }
 
-/* === Button (CTA) === */
 .btn-primary {
-  @apply bg-blue-500 hover:bg-blue-600 text-white text-lg font-semibold 
-         px-8 py-3 rounded-full shadow-md hover:shadow-lg hover:scale-105 
-         transition-all duration-300 ease-in-out;
+  width: fit-content;
+  margin-top: 2rem;
+  padding: 0.9rem 1.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.38);
+  border-radius: 999px;
+  color: white;
+  background: linear-gradient(120deg, var(--color-blue), var(--color-violet));
+  box-shadow: 0 14px 35px rgba(37, 99, 235, 0.28);
+  font-size: 1rem;
+  font-weight: 750;
+  text-decoration: none;
+  transition: transform 220ms ease, box-shadow 220ms ease;
 }
 
-/* === Animations-Transitions === */
-.fade-slide-enter-active,
-.fade-slide-leave-active {
-  transition: all 0.4s ease;
+.btn-primary:hover {
+  transform: scale(1.025);
+  box-shadow: 0 20px 45px rgba(37, 99, 235, 0.36);
 }
 
-.fade-slide-enter-from,
-.fade-slide-leave-to {
-  opacity: 0;
-  transform: translateY(10px);
+@media (max-width: 680px) {
+  .home-hero-stage {
+    min-height: 660px;
+    padding-top: 4.5rem;
+  }
+
+  .home-hero-stage::before {
+    inset: 8% -20%;
+  }
+
+  .home-title-wrap {
+    padding: 2.3rem 1.5rem;
+    border-radius: 2rem 5rem 2rem 4rem;
+  }
+
+  .home-title {
+    font-size: clamp(2.35rem, 11vw, 3.8rem);
+    line-height: 1.03;
+  }
 }
 
+@media (prefers-color-scheme: dark) {
+  .home-hero {
+    background: linear-gradient(135deg, #3b0764, #172554 50%, #111827);
+  }
 
+  .home-title-wrap {
+    background: rgba(23, 37, 84, 0.42);
+  }
+
+  .home-subtitle {
+    color: #fdba74;
+  }
+}

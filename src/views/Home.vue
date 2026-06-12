@@ -32,44 +32,36 @@ onMounted(async () => {
 <template>
 
   <!-- Loading -->
-   <div v-if="loading" class="about-wrapper">
-    <div class="about-inner">Lädt…</div>
+   <div v-if="loading" class="page-state">
+    <div>Lädt…</div>
   </div>
 
   <!-- Error -->
-   <div v-else-if="error" class="about-wrapper">
-    <div class="about-inner">Fehler: {{ error }}</div>
+   <div v-else-if="error" class="page-state">
+    <div>Fehler: {{ error }}</div>
   </div>
 
   <div v-else-if="page" class="home-hero">
-    <!-- HERO -->
-    <div class="home-hero-inner">
-      <h1 class="home-title">
-        {{ page.fields.homeTitle }}<br />
-        <span class="text-white drop-shadow-lg">{{ page.fields.homeSecondTitle }}</span>
-      </h1>
+    <section class="home-hero-stage">
+      <div class="home-hero-inner">
+        <div class="home-title-wrap">
+          <h1 class="home-title">
+            {{ page.fields.homeTitle }}<br />
+            <span>{{ page.fields.homeSecondTitle }}</span>
+          </h1>
 
-      <p class="home-subtitle">
-        {{ page.fields.homeSubtitle }}
-      </p>
+          <p class="home-subtitle">
+            {{ page.fields.homeSubtitle }}
+          </p>
 
-      <div class="mt-8">
-        <router-link to="/about">
-          <button
-            type="button"
-            class="btn-primary"
-          >
+          <router-link to="/about" class="btn-primary">
             {{ page.fields.moreButton }}
-          </button>
-        </router-link>
+          </router-link>
+        </div>
       </div>
-    </div>
+    </section>
 
-    <!-- Aktuelles -->
     <Aktuelles :title="aktuellesTitle"/>
     <Bewertungen :title="reviewsTitle"/>
   </div>
 </template>
-
-
-<style src="../style/home.css"></style>

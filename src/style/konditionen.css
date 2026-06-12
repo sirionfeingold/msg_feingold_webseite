@@ -1,54 +1,136 @@
-/* =========================================================
-   Konditionen Styles – MSG Feingold
-   ---------------------------------------------------------
-   Übersicht der Unterrichts- und Vertragsbedingungen
-   ========================================================= */
-
 @reference "tailwindcss";
 
-/* === Seite & Grundlayout === */
 .konditionen-wrapper {
-  @apply min-h-screen px-6 py-20 
-         bg-gradient-to-b from-white via-orange-50 to-rose-100 
-         dark:from-violet-900 dark:via-indigo-950 dark:to-purple-900 
-         text-gray-800;
+  min-height: 100vh;
+  padding: clamp(5rem, 10vw, 9rem) 1.25rem;
+  background:
+    radial-gradient(circle at 12% 12%, rgba(249, 115, 22, 0.2), transparent 27rem),
+    radial-gradient(circle at 88% 28%, rgba(219, 39, 119, 0.18), transparent 29rem),
+    linear-gradient(145deg, #fff, #fff7ed 48%, #ffe4e6);
 }
 
 .konditionen-inner {
-  @apply max-w-3xl mx-auto space-y-12;
+  width: min(850px, 100%);
+  margin: 0 auto;
 }
 
-/* === Titel === */
 .konditionen-title {
-  @apply text-4xl sm:text-5xl font-extrabold tracking-tight text-center 
-         bg-gradient-to-r from-orange-500 via-pink-500 to-purple-600 
-         text-transparent bg-clip-text drop-shadow;
+  margin: 0;
+  color: transparent;
+  background: linear-gradient(100deg, var(--color-orange), var(--color-pink), var(--color-violet));
+  background-clip: text;
+  -webkit-background-clip: text;
+  font-size: clamp(2.5rem, 6vw, 5.4rem);
+  font-weight: 900;
+  line-height: 1.02;
+  letter-spacing: -0.055em;
+  text-align: center;
+  overflow-wrap: anywhere;
 }
 
-/* === Einführungstext === */
 .konditionen-intro {
-  @apply text-lg text-center text-gray-700 dark:text-blue-400;
+  max-width: 680px;
+  margin: 2rem auto 0;
+  color: var(--ink-soft);
+  font-size: 1.08rem;
+  line-height: 1.75;
+  text-align: center;
 }
 
-/* === Liste der Konditionen === */
 .konditionen-list-wrapper {
-  @apply space-y-8;
+  margin-top: 3rem;
 }
 
 .konditionen-list {
-  @apply list-decimal list-inside text-gray-800 dark:text-blue-200 
-         space-y-4 text-base leading-relaxed 
-         bg-white/60 dark:bg-blue-900 rounded-xl p-6 
-         shadow-md backdrop-blur-md;
+  margin: 0;
+  padding: clamp(1.5rem, 5vw, 3.5rem);
+  display: grid;
+  gap: 0.9rem;
+  counter-reset: conditions;
+  border: 1px solid var(--glass-border);
+  border-radius: 2.5rem;
+  background: var(--glass);
+  box-shadow: var(--glass-shadow);
+  list-style: none;
+  backdrop-filter: blur(26px) saturate(160%);
+  -webkit-backdrop-filter: blur(26px) saturate(160%);
 }
 
-/* === Kontaktbereich === */
+.konditionen-list li {
+  position: relative;
+  padding: 1.1rem 1rem 1.1rem 4rem;
+  border: 1px solid rgba(255, 255, 255, 0.54);
+  border-radius: 1.35rem;
+  color: var(--ink-soft);
+  background: rgba(202, 236, 247, 0.38);
+  line-height: 1.7;
+  counter-increment: conditions;
+}
+
+.konditionen-list li::before {
+  width: 2.2rem;
+  height: 2.2rem;
+  position: absolute;
+  top: 0.9rem;
+  left: 0.9rem;
+  display: grid;
+  place-items: center;
+  content: counter(conditions);
+  border-radius: 0.8rem;
+  color: rgb(255, 255, 255);
+  background: linear-gradient(145deg, var(--color-orange), var(--color-pink));
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
 .konditionen-contact {
-  @apply text-sm text-gray-600 dark:text-blue-300 mt-8 text-center space-y-2;
+  margin-top: 1.5rem;
+  padding: 1.4rem;
+  border: 1px solid var(--glass-border);
+  border-radius: 1.5rem;
+  color: var(--ink-soft);
+  background: rgba(255, 255, 255, 0.36);
+  text-align: center;
+  line-height: 1.7;
+}
+
+.konditionen-contact p {
+  margin: 0.25rem 0;
 }
 
 .konditionen-link {
-  @apply text-orange-600 hover:text-orange-700 
-         dark:text-blue-300 dark:hover:text-blue-400 
-         underline font-medium;
+  color: var(--color-blue);
+  font-weight: 720;
+  text-decoration: none;
+}
+
+.konditionen-link:hover {
+  color: var(--color-orange);
+}
+
+@media (max-width: 600px) {
+  .konditionen-wrapper {
+    padding-inline: 0.75rem;
+  }
+
+  .konditionen-list {
+    border-radius: 2rem;
+  }
+
+  .konditionen-list li {
+    padding-left: 3.6rem;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .konditionen-wrapper {
+    background:
+      radial-gradient(circle at 12% 12%, rgba(249, 115, 22, 0.2), transparent 27rem),
+      radial-gradient(circle at 88% 28%, rgba(219, 39, 119, 0.25), transparent 29rem),
+      linear-gradient(145deg, #3b0764, #172554 48%, #111827);
+  }
+
+  .konditionen-list li {
+    background: rgba(23, 37, 84, 0.48);
+  }
 }

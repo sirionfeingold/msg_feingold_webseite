@@ -1,6 +1,5 @@
 <template>
-    <div v-if="error" class="px-4 py-2 text-sm text-red-600 text-center">
-      <!-- Edit: Surface header loading failures so a broken public CMS page does not fail silently. -->
+    <div v-if="error" class="header-error">
       {{ error }}
     </div>
     <!-- SIDEBAR -->
@@ -13,20 +12,27 @@
     <header class="header-wrapper">
       <div class="header-inner">
 
-        <!-- Logo und Titel -->
-        <div class="header-brand">
+        <router-link to="/" class="header-brand">
           <h1 class="header-logo">
             {{ page?.fields.headerLogo }}
           </h1>
           <h2 class="header-subtitle">
             {{ page?.fields.headerSubtitle }}
           </h2>
-        </div>
+        </router-link>
 
-        <!-- Burger-Button für Sidebar -->
-        <button class="header-burger" @click="sidebarOpen = true">☰</button>
+        <button
+          class="header-burger"
+          type="button"
+          aria-label="Menü"
+          :aria-expanded="sidebarOpen"
+          @click="sidebarOpen = true"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
 
-        <!-- Desktop-Navigation (optional anzeigen) -->
         <nav class="header-nav">
 
           <router-link to="/" class="header-nav-link">

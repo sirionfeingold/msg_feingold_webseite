@@ -130,10 +130,10 @@
 </script>
   
 <template>
-  <div v-if="loading">Lädt…</div>
+  <div v-if="loading" class="page-state"><div>Lädt…</div></div>
 
-  <div v-else-if="error">
-    Fehler: {{ error }}
+  <div v-else-if="error" class="page-state">
+    <div>Fehler: {{ error }}</div>
   </div>
 
   <div v-else-if="page" class="kontakt-wrapper">
@@ -149,123 +149,134 @@
         {{ page.fields.introText }}
       </p>
 
-      <!-- Formular als sauberes mailto-Formular -->
-      <form
-        @submit.prevent="submitMailtoForm"
-        class="kontakt-form"
-      >
-        <!-- Name -->
-        <div>
-          <!-- Edit: Bind labels to explicit field IDs so the form stays keyboard- and screenreader-friendly. -->
-          <label for="kontakt-name" class="kontakt-label">
-            {{ page?.fields.formularName }}
-          </label>
-          <input
-            id="kontakt-name"
-            v-model="form.name"
-            name="Name"
-            type="text"
-            autocomplete="name"
-            placeholder="Vor- und Nachname"
-            class="kontakt-input" />
-        </div>
+      <div class="kontakt-content">
+        <!-- Formular als sauberes mailto-Formular -->
+        <form
+          @submit.prevent="submitMailtoForm"
+          class="kontakt-form"
+        >
+          <div class="kontakt-form-row">
+            <div class="kontakt-field">
+              <label for="kontakt-name" class="kontakt-label">
+                {{ page?.fields.formularName }}
+              </label>
+              <input
+                id="kontakt-name"
+                v-model="form.name"
+                name="Name"
+                type="text"
+                autocomplete="name"
+                placeholder="Vor- und Nachname"
+                class="kontakt-input"
+                required
+              />
+            </div>
 
-        <!-- E-Mail -->
-        <div>
-          <!-- Edit: Bind the email input to Vue state so the mail body can be generated explicitly. -->
-          <label for="kontakt-email" class="kontakt-label">
-            {{ page?.fields.formularEmail }}
-          </label>
-          <input
-            id="kontakt-email"
-            v-model="form.email"
-            name="Email"
-            type="email"
-            autocomplete="email"
-            placeholder="dein@email.ch"
-            class="kontakt-input" />
-        </div>
+            <div class="kontakt-field">
+              <label for="kontakt-email" class="kontakt-label">
+                {{ page?.fields.formularEmail }}
+              </label>
+              <input
+                id="kontakt-email"
+                v-model="form.email"
+                name="Email"
+                type="email"
+                autocomplete="email"
+                placeholder="dein@email.ch"
+                class="kontakt-input"
+                required
+              />
+            </div>
+          </div>
 
-        <!-- Instrument -->
-        <div>
-          <!-- Edit: Drive the instrument select fully from Vue state instead of mixing in a static `selected` attribute. -->
-          <label for="kontakt-instrument" class="kontakt-label">
-            {{ page?.fields.formularInstrument }}
-          </label>
-          <select
-            id="kontakt-instrument"
-            v-model="form.instrument"
-            name="Instrument"
-            class="kontakt-select">
-            <option disabled value="">
-              {{ page?.fields.formularAuswahl }}
-            </option>
-            <option
-            v-for="(instrument, i) in instruments"
-            :key="i"
-            :value="instrument"
+          <div class="kontakt-field">
+            <label for="kontakt-instrument" class="kontakt-label">
+              {{ page?.fields.formularInstrument }}
+            </label>
+            <select
+              id="kontakt-instrument"
+              v-model="form.instrument"
+              name="Instrument"
+              class="kontakt-select"
+              required
             >
-            {{ instrument }}
-          </option>
-          </select>
-        </div>
+              <option disabled value="">
+                {{ page?.fields.formularAuswahl }}
+              </option>
+              <option
+                v-for="(instrument, i) in instruments"
+                :key="i"
+                :value="instrument"
+              >
+                {{ instrument }}
+              </option>
+            </select>
+          </div>
 
-        <!-- Nachricht -->
-        <div>
-          <!-- Edit: Use a dedicated message label so the textarea is clearly announced and mapped. -->
-          <label for="kontakt-message" class="kontakt-label">
-            Nachricht
-          </label>
-          <textarea
-            id="kontakt-message"
-            v-model="form.message"
-            name="Nachricht"
-            rows="4"
-            placeholder="Fragen, Wünsche, Terminvorschläge..."
-            class="kontakt-textarea"></textarea>
-        </div>
+          <div class="kontakt-field">
+            <label for="kontakt-message" class="kontakt-label">
+              Nachricht
+            </label>
+            <textarea
+              id="kontakt-message"
+              v-model="form.message"
+              name="Nachricht"
+              rows="5"
+              maxlength="1500"
+              placeholder="Fragen, Wünsche, Terminvorschläge..."
+              class="kontakt-textarea"
+              required
+            ></textarea>
+          </div>
 
-        <!-- Edit: Show validation problems inline before opening the local mail client. -->
-        <p v-if="formError" class="text-center text-red-600">
-          {{ formError }}
-        </p>
-        <!-- Edit: Surface a short handoff notice after submit so the mailto transition feels intentional. -->
-        <p v-if="formNotice" class="text-center text-green-700">
-          {{ formNotice }}
-        </p>
+          <p v-if="formError" class="kontakt-form-error" role="alert">
+            {{ formError }}
+          </p>
+          <p v-if="formNotice" class="kontakt-form-notice" role="status">
+            {{ formNotice }}
+          </p>
 
-        <!-- Button -->
-        <div class="text-center">
           <button
             type="submit"
             class="kontakt-button"
           >
             {{ page?.fields.buttonSenden }}
           </button>
-        </div>
-      </form>
+        </form>
 
-      <!-- Direktkontakt -->
-      <div class="kontakt-direct">
-        <p>
-          {{ page?.fields.emailText }}
-          <!-- Edit: Keep the direct contact link independent from the form-generated mailto URL. -->
+        <!-- Direktkontakt -->
+        <div class="kontakt-direct">
           <a
             :href="`mailto:${page?.fields.email}`"
-            class="kontakt-link"
+            class="kontakt-direct-card"
           >
-            {{ page?.fields.email }}
+            <span class="kontakt-direct-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M3 6.5h18v11H3z"></path>
+                <path d="m4 7.5 8 6 8-6"></path>
+              </svg>
+            </span>
+            <span class="kontakt-direct-copy">
+              <span class="kontakt-direct-label">{{ page?.fields.emailText }}</span>
+              <span class="kontakt-link">{{ page?.fields.email }}</span>
+            </span>
           </a>
-        </p>
-        <p>
-          {{ page?.fields.telefonText }}
+
           <a
             :href="`tel:${page?.fields.contactPhone ?? ''}`"
-            class="kontakt-link"
+            class="kontakt-direct-card"
           >
-            {{ page?.fields.contactPhone }}
+            <span class="kontakt-direct-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M7.2 3.5 10 7.8 8.3 10c1.2 2.5 3.2 4.5 5.7 5.7l2.2-1.7 4.3 2.8c.2.2.3.5.2.8-.5 1.8-2.1 3.1-4 3.2C9.5 20.1 3.9 14.5 3.2 7.3c.1-1.9 1.4-3.5 3.2-4 .3-.1.6 0 .8.2Z"></path>
+              </svg>
+            </span>
+            <span class="kontakt-direct-copy">
+              <span class="kontakt-direct-label">{{ page?.fields.telefonText }}</span>
+              <span class="kontakt-link">{{ page?.fields.contactPhone }}</span>
+            </span>
           </a>
-        </p>
+        </div>
       </div>
     </div>
   </div>
