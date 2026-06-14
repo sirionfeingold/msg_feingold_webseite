@@ -10,11 +10,20 @@ const BASE_URL = (() => {
 
   try {
     const url = new URL(value)
-    if (url.protocol !== 'https:') {
+    const pathname = url.pathname.replace(/\/+$/, '')
+
+    if (
+      url.protocol !== 'https:' ||
+      url.username ||
+      url.password ||
+      url.search ||
+      url.hash ||
+      pathname !== '/wp-json/wp/v2'
+    ) {
       return ''
     }
 
-    return url.toString().replace(/\/+$/, '')
+    return `${url.origin}${pathname}`
   } catch {
     return ''
   }
@@ -215,6 +224,10 @@ function normalizeAllowedUrl(
       return undefined
     }
 
+    if (url.username || url.password) {
+      return undefined
+    }
+
     if (options?.allowedHosts?.length && !options.allowedHosts.includes(url.hostname)) {
       return undefined
     }
@@ -264,6 +277,10 @@ function normalizeYoutubeVideoId(value: unknown): string {
   try {
     const url = new URL(raw)
     const hostname = url.hostname.replace(/^www\./, '')
+
+    if (url.username || url.password) {
+      return ''
+    }
 
     if (hostname === 'youtu.be') {
       const id = url.pathname.replace(/^\/+/, '').split('/')[0] ?? ''
@@ -348,7 +365,7 @@ function mapProduct(p: WpProductItem): Product {
 export async function loadPage(slug: string): Promise<WpPage> {
   // Edit: Encode the slug and fail loudly when a required public page is missing.
   const data = await fetchWpJson<WpPage[]>(
-    `/pages?slug=${encodeURIComponent(slug)}`
+    `/pages?slug=${encodeURIComponent(slug)}&_fields=slug,title,acf`
   )
 
   if (!Array.isArray(data) || !data.length) {
@@ -492,7 +509,9 @@ export async function loadShopPage(slug: string, defaultButtonText: string): Pro
 // function for loading teachers
 export async function loadTeachers(): Promise<Teacher[]> {
   // Edit: Route teacher requests through the shared fetch helper for consistent public error handling.
-  const data = await fetchWpJson<TeacherItem[]>(`/teacher?_embed&per_page=100`)
+  const data = await fetchWpJson<TeacherItem[]>(
+    `/teacher?_embed=wp:featuredmedia&per_page=100&_fields=id,title,acf,_links,_embedded`
+  )
   return data.map(mapTeacher)
 }
 
@@ -509,7 +528,9 @@ export function getTeacherImage(t: TeacherItem): string {
 import type { AktuellesEvent, WpAktuellesItem } from '../types/aktuelles'
 
 export async function loadAktuelles(): Promise<AktuellesEvent[]> {
-  const data = await fetchWpJson<WpAktuellesItem[]>(`/aktuelles?per_page=10`)
+  const data = await fetchWpJson<WpAktuellesItem[]>(
+    `/aktuelles?per_page=10&_fields=title,acf`
+  )
 
   return data.map(item => ({
     // Edit: Treat event fields as untrusted CMS input and sanitize link targets.
@@ -538,7 +559,7 @@ function getFeaturedImage(item: WpInstrumentItem): string {
 
 export async function loadInstruments(): Promise<Instrument[]> {
   const data = await fetchWpJson<WpInstrumentItem[]>(
-    `/instrument?per_page=100&_embed`
+    `/instrument?per_page=100&_embed=wp:featuredmedia&_fields=slug,title,acf,_links,_embedded`
   )
 
   return data.map(item => ({
@@ -552,7 +573,7 @@ export async function loadInstruments(): Promise<Instrument[]> {
 
 export async function loadInstrument(slug: string): Promise<Instrument | null> {
   const data = await fetchWpJson<WpInstrumentItem[]>(
-    `/instrument?slug=${encodeURIComponent(slug)}&_embed`
+    `/instrument?slug=${encodeURIComponent(slug)}&_embed=wp:featuredmedia&_fields=slug,title,acf,_links,_embedded`
   )
   if (!data.length) return null
 
@@ -571,7 +592,9 @@ export async function loadInstrument(slug: string): Promise<Instrument | null> {
 import type { Person, WpPersonItem } from '../types/person'
 
 export async function loadPersons(): Promise<Person[]> {
-  const data = await fetchWpJson<WpPersonItem[]>(`/person?per_page=50`)
+  const data = await fetchWpJson<WpPersonItem[]>(
+    `/person?per_page=50&_fields=slug,title,acf`
+  )
 
   return data.map(item => ({
     // Edit: Validate person media links centrally so the media component can render only approved URLs.
@@ -621,7 +644,7 @@ export async function loadShopMenu(): Promise<ShopMenuItem[]> {
 async function getCategoryIdBySlug(slug: string) {
   // Edit: Encode the category slug and validate the public taxonomy response before using it.
   const data = await fetchWpJson<Array<{ id: number }>>(
-    `/product_category?slug=${encodeURIComponent(slug)}`
+    `/product_category?slug=${encodeURIComponent(slug)}&_fields=id`
   )
 
   return data?.[0]?.id
@@ -638,7 +661,7 @@ export async function loadProductsByCategory(slug: string): Promise<Product[]> {
   }
 
   const data = await fetchWpJson<WpProductItem[]>(
-    `/product?product_category=${categoryId}&_embed`
+    `/product?product_category=${categoryId}&_embed=wp:featuredmedia&_fields=title,acf,_links,_embedded`
   )
 
   if (!Array.isArray(data)) {
@@ -652,7 +675,9 @@ export async function loadProductsByCategory(slug: string): Promise<Product[]> {
 // function for loading reviews
 export async function loadReviews(): Promise<ReviewItem[]> {
   // Edit: Reviews are public runtime data too, so they need the same status and JSON checks.
-  const data = await fetchWpJson<WpReviewItem[]>(`/review?per_page=20`)
+  const data = await fetchWpJson<WpReviewItem[]>(
+    `/review?per_page=20&_fields=title,acf`
+  )
 
   return data
     .filter((t) => t.acf?.visible !== false)
