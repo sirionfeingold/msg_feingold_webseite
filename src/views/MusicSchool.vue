@@ -18,6 +18,7 @@ const gradientMap: Record<string, string> = {
   gitarre: 'bg-gradient-to-br from-yellow-400 to-yellow-600',
   blockfloete: 'bg-gradient-to-br from-lime-400 to-emerald-500',
   klarinette: 'bg-gradient-to-br from-cyan-400 to-sky-500',
+  musiktheorie: 'bg-gradient-to-br from-blue-500 to-teal-500',
   saxophon: 'bg-gradient-to-br from-violet-500 to-indigo-600',
   violine: 'bg-gradient-to-br from-rose-500 to-pink-600',
   violoncello: 'bg-gradient-to-br from-red-400 to-orange-600'
